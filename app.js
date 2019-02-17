@@ -15,6 +15,14 @@ const MongoStore = require('connect-mongo')(session);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
+mongoose.connect('mongodb://localhost:27017/travelBID', { useNewUrlParser: true })
+  .then(() => {
+    console.log('connected');
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 // mongodb connect
 // const dbName = 'YOUR-DATABASE-NAME';
 // (async () => {
@@ -31,7 +39,7 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 // app title
-// app.locals.title = "";
+app.locals.title = 'travelBID';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
