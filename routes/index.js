@@ -4,7 +4,17 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'JdeJ', copyright: '© 2019 JdeJ' });
+  res.render('index');
+});
+
+// GET LOGIN PAGE
+router.get('/login', (req, res, next) => {
+  res.render('auth/login');
+});
+
+// GET SIGNUP PAGE
+router.get('/signup', (req, res, next) => {
+  res.render('auth/signup');
 });
 
 module.exports = router;
