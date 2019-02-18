@@ -53,18 +53,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(session({
-//   store: new MongoStore({
-//     mongooseConnection: mongoose.connection,
-//     ttl: 24 * 60 * 60, // 1 day
-//   }),
-//   secret: 'jdej',
-//   resave: true,
-//   saveUninitialized: true,
-//   cookie: {
-//     maxAge: 24 * 60 * 60 * 1000,
-//   },
-// }));
+
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60, // 1 day
+  }),
+  secret: 'travelBID',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000,
+  },
+}));
+
 // app.use(flash());
 // app.use((req, res, next) => {
 //   // app.locals.currentUser = req.session.currentUser;
