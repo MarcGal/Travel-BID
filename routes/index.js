@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const middlewares = require('../middlewares');
 
 const saltRounds = 10;
 
