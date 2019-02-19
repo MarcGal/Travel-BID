@@ -15,6 +15,14 @@ const MongoStore = require('connect-mongo')(session);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
+mongoose.connect('mongodb://localhost:27017/travelBID', { useNewUrlParser: true })
+  .then(() => {
+    console.log('connected');
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 // mongodb connect
 // const dbName = 'YOUR-DATABASE-NAME';
 // (async () => {
@@ -31,7 +39,7 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 // app title
-// app.locals.title = "";
+app.locals.title = 'travelBID';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -45,18 +53,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(session({
-//   store: new MongoStore({
-//     mongooseConnection: mongoose.connection,
-//     ttl: 24 * 60 * 60, // 1 day
-//   }),
-//   secret: 'jdej',
-//   resave: true,
-//   saveUninitialized: true,
-//   cookie: {
-//     maxAge: 24 * 60 * 60 * 1000,
-//   },
-// }));
+
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60, // 1 day
+  }),
+  secret: 'travelBID',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000,
+  },
+}));
+
 // app.use(flash());
 // app.use((req, res, next) => {
 //   // app.locals.currentUser = req.session.currentUser;
