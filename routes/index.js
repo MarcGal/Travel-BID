@@ -50,7 +50,8 @@ router.get('/signup', (req, res, next) => {
 
 // POST SIGNUP FORM
 router.post('/signup', (req, res, next) => {
-  const { username, password } = req.body;
+  const { 
+    username, password, userDescription, accomodationAddress, accomodationDescription } = req.body;
 
   if (username === '' || password === '') {
     return res.render('auth/signup', { errorMessage: 'no empty fields' });
@@ -62,7 +63,7 @@ router.post('/signup', (req, res, next) => {
       } else {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
-        User.create({ username, password: hashedPassword })
+        User.create({ username, password: hashedPassword, userDescription, accomodationAddress, accomodationDescription })
           .then(() => {
             res.redirect('/users');
           }).catch((error) => {
