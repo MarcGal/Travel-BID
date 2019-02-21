@@ -1,0 +1,45 @@
+<h2>Your offers</h2>
+
+<p><%= currentUser.username %></p>
+
+<div>
+  <% offers.forEach((offer) => { %>
+    <div>
+      <ul>
+        <li>
+            <%= offer.location %> <br>
+           From <%= offer.from %> until
+            <%= offer.until %> <br>
+           Offered budget: <%= offer.budget %><br><br>
+          <form action="/#" method="post">
+            <input type="submit" value="Edit">
+          </form>
+           <form action="/#" method="post">
+            <input type="submit" value="delete">
+          </form>
+        </li>
+      </ul>
+    </div>
+  <% }) %>
+</div>
+
+<a href="/users">Home</a>
+ 
+<!--<% offers.forEach((offer) => { %>
+  <div>
+    <ul>
+      <li>
+          <%= offer.location %>
+      </li>
+      <li>
+          <%= offer.from %>
+      </li>
+      <li>
+          <%= offer.until %>
+      </li>
+      <li>
+          <%= offer.budget %>
+      </li>
+    </ul>
+  </div>
+<% }) %>-->
