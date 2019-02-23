@@ -12,19 +12,11 @@ const bidSchema = new Schema({
   offerID: {
     type: String,
   },
-  userName: {
-    type: String,
+  bidValue: {
+    type: Number,
     ref: 'User',
   },
-  userDescription: {
-    type: String,
-    ref: 'User',
-  },
-  accomodationAddress: {
-    type: String,
-    ref: 'User',
-  },
-  accomodationDescription: {
+  bidDescription: {
     type: String,
     ref: 'User',
   },

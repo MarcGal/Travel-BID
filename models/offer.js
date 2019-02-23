@@ -11,18 +11,11 @@ const offerSchema = new Schema({
     type: ObjectId,
     ref: 'User',
   },
-  username: {
-    type: String,
-    ref: 'User',
-  },
-  userDescription: {
-    type: String,
-    ref: 'User',
-  },
   from: { type: String },
   until: { type: String },
   location: { type: String },
-  budget: { type: String },
+  budget: { type: Number },
+  bids: { type: Array },
 }, { timestamps: true });
 
 // If set timestamps, mongoose assigns createdAt and updatedAt
