@@ -53,10 +53,139 @@ List of other features outside of the MVPs scope
 #### Ratings
 - Rate users
 
-## ROUTES: 
+## ROUTES
 
-| Method          | Description             | Test Text     |
+Router
+URL
+Method
+Description
+
+| Description     | Method                  | Test Text     |
 | :---            |    :----:               |          :---:|
-| GET             | /                       | Renders the homepage   |
-| GET             | /auth/signup            |redirects to / if user logged in 
-| POST            | /auth/signup            |redirects to / if user logged in|
+| ‘/’             | GET           | Renders homepage with service info and login & signup buttons |
+| /login          | GET / POST    | Renders login form |
+| /signup         | GET / POST    | Renders signup form |
+| /dashboard      | GET | Renders user start page, showing open offers and bids. |
+| /dashboard/q | GET | Renders list of offers matching query string |
+| /offer/:ID | GET | Renders info for a specific offer and the bids made on it. |
+| /offer/new | GET/POST | Renders create form and posts to DB. |
+| /offer/:ID/update | GET/POST | Renders update form and posts update. |
+| /offer/:ID/bid/new | GET/POST | Renders create form and posts to DB |
+| /bid/:ID | GET | Renders bid infoAccept / reject button || Update button || Only info|
+| /bid/:ID/update | GET/POST | Renders update form and updates DB |
+
+
+
+
+
+## MODELS
+
+#### User Model
+```javascript
+{
+  email: { type: String, required: true, unique: true },
+
+  password: { type: String, required: true },
+
+  userData: { 
+
+    name: { type: String, required: true },
+
+    age: { type: Number, default: '' },
+
+    gender: { type: String, default: '' },
+
+    description: { type: String, default: '' },
+  },
+
+  accomodationAddress: { type: String },
+
+  accomodationDescription: { type: String },
+
+  userImage: { type: String, default: 'link' },
+
+  accomodationImage: { type: String, default: 'link' },
+
+}, { timestamps: true });
+```
+
+
+
+
+
+#### Bid Model
+```javascript
+{
+  userID: {
+
+    type: ObjectId,
+
+    ref: 'User',
+  },
+
+  offerID: {
+
+    type: String,
+    
+    ref: 'Offer',
+
+  },
+
+  bidValue: {
+
+    type: Number,
+
+  },
+
+  bidDescription: {
+
+    type: String,
+
+  },
+
+}, { timestamps: true });
+```
+
+
+
+
+#### Offer Model
+```javascript
+{
+  userID: {
+
+    type: ObjectId,
+    
+    ref: 'User',
+  },
+
+  from: { type: String },
+
+  until: { type: String },
+
+  location: { type: String },
+
+  budget: { type: Number },
+
+  bids: { type: Array },
+
+}, { timestamps: true });
+```
+
+## Links
+
+### Trello
+
+https://trello.com/b/FU3XOPef/travelbid
+
+### Git
+
+https://github.com/MarcGal/Travel-BID
+
+[Deploy Link](http://heroku.com)
+
+### Slides
+
+https://slides.com/margal/travelbid/edit
+
+
