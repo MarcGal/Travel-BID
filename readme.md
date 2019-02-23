@@ -21,33 +21,36 @@ Anna is 35 years old and she works at an NGO as a project manager. She is not a 
 - **MyBids list** - As a user I want to see all bids I have made on the platform 
 - **Offer create** - As a user I want to be able to create new offers whenever I want 
 - **Bid create** - As a user I want to be able to bid on the offers I find interesting 
-- **Update My Bids&Offers** - As a user I must be able to edit and update all my created offers and bids
-- **Delete My Bids&Offers** - As a user I must be able to delete the offers and bids I have created.
-- **Offer detail** - As a user I want to see the details of the offers I have created, including the bids that other users have made on it.
-- **Bid detail** - As a user I want to see the details of my own bids. Also the details of other bids that are competing with mine. 
 - **Accept Bids** - As a user I must have the power to accept bids others have made on my offers.
 - **Reject Bids** - As a user I should be able to reject bids made on my offers.
 - **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
 - **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
 
+-----
+Backlog
+- **Offer detail** - As a user I want to see the details of the offers I have created, including the bids that other users have made on it.
+- **Bid detail** - As a user I want to see the details of my own bids. Also the details of other bids that are competing with mine. 
+- **Update My Bids&Offers** - As a user I must be able to edit and update all my created offers and bids
+- **Delete My Bids&Offers** - As a user I must be able to delete the offers and bids I have created.
+
 ## Backlog
 List of other features outside of the MVPs scope
 
-####User profile:
+#### User profile:
 - see my profile
 - Update profile
 - Upload my profile picture
 - see other users profile?
 
 
-####Geo Location:
+#### Geo Location:
 - See Bids locations
 - View all bids for one offer on the map
 
-####Social Login
+#### Social Login
 - Facebook
 
-####Ratings
+#### Ratings
 - Rate users
 
 ## ROUTES: 
