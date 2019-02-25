@@ -5,20 +5,16 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  userData: { 
-    name: { type: String, default: '', required: true },
-    age: { type: Number, default: '' },
-    gender: { type: String, default: '' },
-    description: { type: String, default: '' },
-  },
+  name: { type: String, default: '', required: true },
+  age: { type: Number, default: '' },
+  gender: { type: String, default: '' },
+  description: { type: String, default: '' },
   accomodationAddress: { type: String },
   accomodationDescription: { type: String },
   userImage: { type: String, default: 'link' },
   accomodationImage: { type: String, default: 'link' },
 }, { timestamps: true });
 
-// If set timestamps, mongoose assigns createdAt and updatedAt
-// fields to your schema, the type assigned is Date.
 
 const User = mongoose.model('User', userSchema);
 
