@@ -19,15 +19,15 @@ router.get('/login', (req, res, next) => {
 
 // POST LOGIN FORM
 router.post('/login', (req, res, next) => {
-  const { username, password } = req.body; 
-  if (username === '' || password === '') {
+  const { email, password } = req.body; 
+  if (email === '' || password === '') {
     return res.render('auth/login', { errorMessage: 'no empty fields' });
   }
 
-  User.findOne({ username })
+  User.findOne({ email })
     .then((user) => {
       if (!user) {
-        res.render('auth/login', { errorMessage: 'The username does not exist.' });
+        res.render('auth/login', { errorMessage: 'The email does not exist.' });
         return;
       }
       if (bcrypt.compareSync(password, user.password)) {
@@ -51,19 +51,22 @@ router.get('/signup', (req, res, next) => {
 // POST SIGNUP FORM
 router.post('/signup', (req, res, next) => {
   const { 
-    username, password, userDescription, accomodationAddress, accomodationDescription } = req.body;
+    email, password,
+    name, age, gender, description,
+    accomodationAddress, accomodationDescription,
+  } = req.body;
 
-  if (username === '' || password === '') {
+  if (email === '' || password === '' || name === '') {
     return res.render('auth/signup', { errorMessage: 'no empty fields' });
   }
-  User.findOne({ username })
+  User.findOne({ email })
     .then((user) => {
       if (user) {
         res.render('auth/signup', { errorMessage: 'user already exists' });
       } else {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
-        User.create({ username, password: hashedPassword, userDescription, accomodationAddress, accomodationDescription })
+        User.create({ email, password: hashedPassword, name, age, gender, description, accomodationAddress, accomodationDescription })
           .then(() => {
             res.redirect('/users');
           }).catch((error) => {
