@@ -5,20 +5,23 @@ const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 const bidSchema = new Schema({
+
   userID: {
     type: ObjectId,
     ref: 'User',
   },
+
   offerID: {
     type: String,
+    ref: 'Offer',
   },
+
   bidValue: {
     type: Number,
-    ref: 'User',
   },
+
   bidDescription: {
     type: String,
-    ref: 'User',
   },
 }, { timestamps: true });
 
