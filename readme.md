@@ -87,16 +87,13 @@ Description
 
   password: { type: String, required: true },
 
-  userData: { 
+  name: { type: String, required: true },
 
-    name: { type: String, required: true },
+  age: { type: Number, default: '' },
 
-    age: { type: Number, default: '' },
+  gender: { type: String, default: '' },
 
-    gender: { type: String, default: '' },
-
-    description: { type: String, default: '' },
-  },
+  description: { type: String, default: '' },
 
   accomodationAddress: { type: String },
 
