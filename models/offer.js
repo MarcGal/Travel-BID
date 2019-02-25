@@ -18,11 +18,6 @@ const offerSchema = new Schema({
   bids: { type: Array },
 }, { timestamps: true });
 
-// If set timestamps, mongoose assigns createdAt and updatedAt
-// fields to your schema, the type assigned is Date.
-
-// const userID = req.session.currentUser._id;
-// const userName = req.session.currentUser.name
 
 const Offer = mongoose.model('Offer', offerSchema);
 
