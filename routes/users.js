@@ -29,13 +29,9 @@ router.get('/create', (req, res, next) => {
 router.post('/create', (req, res, next) => {
   const { from, until, location, budget } = req.body;
   const userID = req.session.currentUser._id;
-  const { username } = req.session.currentUser;
-  const { userDescription } = req.session.currentUser;
 
   Offer.create({
     userID,
-    username,
-    userDescription,
     from,
     until,
     location,
@@ -51,9 +47,7 @@ router.post('/create', (req, res, next) => {
 
 // // GET ONE OFFER DETAIL
 router.get('/offer/:id', (req, res, next) => {
-  console.log('Estamos en offerID');
   const { id } = req.params;
-  console.log(id);
   Offer.findById(id)
     .then((offer) => {
       res.render('users/myoffer', { offer });
@@ -62,11 +56,6 @@ router.get('/offer/:id', (req, res, next) => {
       next(error);
     });
 });
-
-// Ejemplos de referencia a utilizar cuando el usurio quiere
-// realizar operaciones CRUD sobre ofertas y pujas
-// const { name, origin, destination } = req.body;
-// const userID = req.session.currentUser._id;
 
 
 module.exports = router;
