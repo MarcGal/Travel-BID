@@ -2,8 +2,6 @@ const express = require('express');
 const middlewares = require('../middlewares');
 const Offer = require('../models/offer');
 
-// const User = require('../models/user');
-
 const router = express.Router();
 
 router.use(middlewares.protectedRoute);
