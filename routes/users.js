@@ -10,18 +10,23 @@ router.use(middlewares.protectedRoute);
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-  res.render('users/start');
+  const userID = res.locals.currentUser._id;
+  Offer.find({ userID })
+    .then((offers) => {
+      res.render('users/dashboard', { offers });
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 // GET create offer form
 router.get('/create', (req, res, next) => {
-  console.log('estamos en create offer');
   res.render('users/create');
 });
 
 // POST create offer
 router.post('/create', (req, res, next) => {
-  console.log('estamos creadon una offer');
   const { from, until, location, budget } = req.body;
   const userID = req.session.currentUser._id;
   const { username } = req.session.currentUser;
@@ -37,21 +42,21 @@ router.post('/create', (req, res, next) => {
     budget,
   })
     .then((createdOffer) => {
-      res.redirect('/users/myoffers');
+      res.redirect('/users');
     })
     .catch((error) => {
       next(error);
     });
 });
 
-// GET myOffers
-router.get('/myoffers', (req, res, next) => {
-  const userID = res.locals.currentUser._id;
-  console.log(userID);
-  Offer.find({ userID })
-    .then((offers) => {
-      console.log(offers);
-      res.render('users/myoffers', { offers });
+// // GET ONE OFFER DETAIL
+router.get('/offer/:id', (req, res, next) => {
+  console.log('Estamos en offerID');
+  const { id } = req.params;
+  console.log(id);
+  Offer.findById(id)
+    .then((offer) => {
+      res.render('users/myoffer', { offer });
     })
     .catch((error) => {
       next(error);
