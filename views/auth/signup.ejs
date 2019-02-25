@@ -1,10 +1,28 @@
 <form id="form" action="/signup" method="POST">
 
-  <label for="username"></label><br>
-  <input type="text" name="username" placeholder="Your username">
+  <label for="email"></label><br>
+  <input type="text" name="email" placeholder="Your email">
 
   <label for="password"></label><br>
   <input type="password" name="password" placeholder="password">
+
+  <label for="name"></label><br>
+  <input type="text" name="name" placeholder="Your name">
+
+  <label for="age"></label><br>
+  <input type="number" name="age" placeholder="age">
+
+  <label for="gender"></label><br>
+  <input type="text" name="gender" placeholder="gender">
+
+  <label for="description"></label><br>
+  <input type="text" name="description" placeholder="description">
+
+  <label for="accomodationAddress"></label><br>
+  <input type="text" name="accomodationAddress" placeholder="accomodationAddress">
+
+  <label for="accomodationDescription"></label><br>
+  <input type="text" name="accomodationDescription" placeholder="accomodationDescription">
 
   <% if (errorMessage) { %>
     <div class="error-message">

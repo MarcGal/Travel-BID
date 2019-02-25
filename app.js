@@ -68,11 +68,11 @@ app.use(session({
 }));
 
 // app.use(flash());
-// app.use((req, res, next) => {
-//   // app.locals.currentUser = req.session.currentUser;
-//   res.locals.currentUser = req.session.currentUser;
-//   next();
-// });
+app.use((req, res, next) => {
+  // app.locals.currentUser = req.session.currentUser;
+  res.locals.currentUser = req.session.currentUser;
+  next();
+});
 // app.use(notifications);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

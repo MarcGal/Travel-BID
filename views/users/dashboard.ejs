@@ -1,0 +1,33 @@
+<h1>Welcome <%= currentUser.username %> </h1>
+
+<div>
+  <h2>My Offers</h2>
+  <div>
+    <% offers.forEach((offer) => { %>
+      <div>
+        <ul>
+          <li>
+            <a href="users/offer/<%= offer._id%>">
+              <%= offer.location %> <br>
+             Offered budget: <%= offer.budget %><br><br>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <% }) %>
+  </div>
+</div>
+<h4><a href="/users/create">New Offer</a></h4>
+
+<br>
+<br>
+<div>
+  <h2>My Bids</h2>
+</div>
+
+<br>
+<h4>Search for offers</h4>
+<br>
+<a href="/logout">Logout</a>
+
+
