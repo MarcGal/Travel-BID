@@ -60,11 +60,10 @@ router.get('/offer/:id', (req, res, next) => {
 // GET SEARCH INPUT
 
 router.get('/q', (req, res, next) => {
-  const { location } = req.query;
-  console.log(location);
-  Offer.find(location)
+  const { q } = req.query;
+  console.log(q);
+  Offer.find({ location: q })
     .then((offers) => {
-      console.log(offers);
       res.render('protected/search', { offers });
     })
     .catch((error) => {
