@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+// const bootstrap = require('bootstrap');
+
 
 // notifications handle
 // const { notifications } = require('./assets');
