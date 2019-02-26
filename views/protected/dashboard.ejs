@@ -7,7 +7,7 @@
       <div>
         <ul>
           <li>
-            <a href="users/offer/<%= offer._id%>">
+            <a href="dashboard/offer/<%= offer._id%>">
               <%= offer.location %> <br>
              Offered budget: <%= offer.budget %><br><br>
             </a>
@@ -17,7 +17,7 @@
     <% }) %>
   </div>
 </div>
-<h4><a href="/users/create">New Offer</a></h4>
+<h4><a href="/dashboard/create">New Offer</a></h4>
 
 <br>
 <br>
@@ -26,7 +26,12 @@
 </div>
 
 <br>
-<h4>Search for offers</h4>
+<form action="/dashboard/q" method="get">
+  <label for="search"></label>
+  <input type="text" name="q" id="">
+  <input type="submit" value="search">
+</form>
+
 <br>
 <a href="/logout">Logout</a>
 
