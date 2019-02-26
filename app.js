@@ -14,9 +14,13 @@ const envFile = require('dotenv').config();
 // const { notifications } = require('./assets');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const dashboardRouter = require('./routes/dashboard');
 
+<<<<<<< HEAD
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+=======
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
+>>>>>>> 111a5afc6b25930d95cef1da27d060c63e166d5b
   .then(() => {
     console.log('connected');
   })
@@ -76,7 +80,7 @@ app.use((req, res, next) => {
 });
 // app.use(notifications);
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/dashboard', dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
