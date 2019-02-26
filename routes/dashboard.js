@@ -48,7 +48,7 @@ router.get('/offer/:id', (req, res, next) => {
   const { id } = req.params;
   Offer.findById(id)
     .then((offer) => {
-      res.render('protected/myoffer', { offer });
+      res.render('protected/offer', { offer });
     })
     .catch((error) => {
       next(error);
