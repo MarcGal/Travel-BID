@@ -5,13 +5,31 @@
   From: <%= offer.from %> <br>
   Until: <%= offer.until %> <br>
   Offered budget: <%= offer.budget %>
-   <form action="/#" method="post">
-    <input type="submit" value="Edit">
-  </form>
+
+<% if (offer.userID == userID) { %>
+  <div>
+    <form action="/#" method="get">
+      <input type="submit" value="Edit">
+    </form>
+    <form action="/#" method="post">
+      <input type="submit" value="delete">
+    </form>
+  </div>
+<% } %>
+
+</div>
+
+
+
+<% if (offer.userID != userID) { %>
+
+<div>
   <form action="/#" method="post">
-    <input type="submit" value="delete">
+    <input type="submit" value="bid">
   </form>
 </div>
+
+<% } %>
 
 <a href="/dashboard">Home</a>
  
