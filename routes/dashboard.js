@@ -46,9 +46,11 @@ router.post('/create', (req, res, next) => {
 // // GET ONE OFFER DETAIL
 router.get('/offer/:id', (req, res, next) => {
   const { id } = req.params;
+  console.log(req.session.currentUser._id);
+  const userID = req.session.currentUser._id;
   Offer.findById(id)
     .then((offer) => {
-      res.render('protected/myoffer', { offer });
+      res.render('protected/offer', { offer, userID });
     })
     .catch((error) => {
       next(error);
