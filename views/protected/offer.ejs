@@ -8,10 +8,10 @@
 
 <% if (offer.userID == userID) { %>
   <div>
-    <form action="/#" method="get">
-      <input type="submit" value="Edit">
+    <form action="/dashboard/offer/<%= offer._id %>/update" method="get">
+      <input type="submit" value="Update">
     </form>
-    <form action="/#" method="post">
+    <form action="/dashboard/offer/<%= offer._id %>/delete" method="post">
       <input type="submit" value="delete">
     </form>
   </div>
