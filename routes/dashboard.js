@@ -9,8 +9,10 @@ router.use(middlewares.protectedRoute);
 /* GET users listing. */
 router.get('/', (req, res, next) => {
   const userID = res.locals.currentUser._id;
+  console.log(userID);
   Offer.find({ userID })
     .then((offers) => {
+      console.log(offers);
       res.render('protected/dashboard', { offers });
     })
     .catch((error) => {
@@ -46,7 +48,6 @@ router.post('/create', (req, res, next) => {
 // // GET ONE OFFER DETAIL
 router.get('/offer/:id', (req, res, next) => {
   const { id } = req.params;
-  console.log(req.session.currentUser._id);
   const userID = req.session.currentUser._id;
   Offer.findById(id)
     .then((offer) => {
@@ -61,10 +62,61 @@ router.get('/offer/:id', (req, res, next) => {
 
 router.get('/q', (req, res, next) => {
   const { q } = req.query;
-  console.log(q);
   Offer.find({ location: q })
     .then((offers) => {
       res.render('protected/search', { offers });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+// UPDATE OFFER
+router.get('/offer/:id/update', (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  Offer.findById(id)
+    .then((offer) => {
+      res.render('protected/offerupdate', { offer });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+// POST UPDATE OFFER
+router.post('/offer/:id/update', (req, res, next) => {
+  console.log('we are sending the update');
+  const { from, until, location, budget } = req.body;
+  const { id } = req.params;
+  const userID = req.session.currentUser._id;
+  console.log(id);
+  Offer.findOneAndUpdate(id, {
+    userID,
+    from,
+    until,
+    location,
+    budget,
+  })
+    .then((offer) => {
+      console.log(offer);
+      console.log(offer.id);
+      res.redirect(`/dashboard/offer/${offer.id}`);
+      // res.redirect('/dashboard');
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+
+// POST DELETE OFFER
+router.post('/offer/:id/delete', (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  Offer.findOneAndDelete(id)
+    .then(() => {
+      res.redirect('/dashboard');
     })
     .catch((error) => {
       next(error);
