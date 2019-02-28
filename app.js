@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const envFile = require('dotenv').config();
+require('dotenv').config();
 
 // notifications handle
 // const { notifications } = require('./assets');
@@ -18,7 +18,7 @@ const dashboardRouter = require('./routes/dashboard');
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(() => {
-    console.log('connected');
+    console.log(`connected to ${process.env.MONGO_URI}`);
   })
   .catch((error) => {
     console.log(error);
@@ -60,7 +60,7 @@ app.use(session({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60, // 1 day
   }),
-  secret: 'travelBID',
+  secret: process.env.SECRET,
   resave: true,
   saveUninitialized: true,
   cookie: {
@@ -70,7 +70,7 @@ app.use(session({
 
 // app.use(flash());
 app.use((req, res, next) => {
-  // app.locals.currentUser = req.session.currentUser;
+  // assign current user to all middlewares
   res.locals.currentUser = req.session.currentUser;
   next();
 });
