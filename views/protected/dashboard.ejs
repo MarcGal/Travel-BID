@@ -23,6 +23,20 @@
 <br>
 <div>
   <h2>My Bids</h2>
+  <div>
+    <% bids.forEach((bid) => { %>
+      <div>
+        <ul>
+          <li>
+            <a href="#">
+            Value: <%= bid.bidValue %> <br>
+            Description: <%= bid.bidDescription %><br><br>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <% }) %>
+  </div>
 </div>
 
 <br>

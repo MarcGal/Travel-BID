@@ -8,17 +8,15 @@ const router = express.Router();
 router.use(middlewares.protectedRoute);
 
 // GET DASHBOARD
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
   const userID = res.locals.currentUser._id;
-  console.log(userID);
-  Offer.find({ userID })
-    .then((offers) => {
-      console.log(offers);
-      res.render('protected/dashboard', { offers });
-    })
-    .catch((error) => {
-      next(error);
-    });
+  try {
+    const offers = await Offer.find({ userID });
+    const bids = await Bid.find({ userID });
+    res.render('protected/dashboard', { offers, bids, userID });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // GET create offer form
@@ -59,19 +57,6 @@ router.get('/offer/:id', async(req, res, next) => {
     next(error);
   }
 });
-
-// // GET ONE OFFER DETAIL
-// router.get('/offer/:id', (req, res, next) => {
-//   const { id } = req.params;
-//   const userID = req.session.currentUser._id;
-//   Offer.findById(id)
-//     .then((offer) => {
-//       res.render('protected/offer', { offer, userID });
-//     })
-//     .catch((error) => {
-//       next(error);
-//     });
-// });
 
 // GET SEARCH INPUT
 router.get('/q', (req, res, next) => {
