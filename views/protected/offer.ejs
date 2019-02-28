@@ -16,19 +16,32 @@
     </form>
   </div>
 <% } %>
-
 </div>
 
-
+<h2>Bids</h2>
+<div>
+  <div>
+    <% bids.forEach((bid) => { %>
+      <div>
+        <ul>
+          <li>
+            <a href="./offer/<%= offer._id%>">
+             Description <%= bid.bidDescription %> <br>
+             Offered bid <%= bid.bidValue %><br><br>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <% }) %>
+  </div>
+</div>
 
 <% if (offer.userID != userID) { %>
-
 <div>
-  <form action="/#" method="post">
+  <form action="/dashboard/offer/<%= offer._id %>/bidnew" method="get">
     <input type="submit" value="bid">
   </form>
 </div>
-
 <% } %>
 
 <a href="/dashboard">Home</a>

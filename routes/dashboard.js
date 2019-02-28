@@ -1,6 +1,7 @@
 const express = require('express');
 const middlewares = require('../middlewares');
 const Offer = require('../models/offer');
+const Bid = require('../models/bid');
 
 const router = express.Router();
 
@@ -45,21 +46,34 @@ router.post('/create', (req, res, next) => {
     });
 });
 
-// // GET ONE OFFER DETAIL
-router.get('/offer/:id', (req, res, next) => {
+router.get('/offer/:id', async(req, res, next) => {
   const { id } = req.params;
-  const userID = req.session.currentUser._id;
-  Offer.findById(id)
-    .then((offer) => {
-      res.render('protected/offer', { offer, userID });
-    })
-    .catch((error) => {
-      next(error);
-    });
+  const userID = res.locals.currentUser._id;
+  try {
+    const offer = await Offer.findById(id);
+    const bids = await Bid.find({ offerID: offer._id});
+    console.log(bids);
+    console.log(offer._id);
+    res.render('protected/offer', { offer, bids, userID });
+  } catch (error) {
+    next(error);
+  }
 });
 
-// GET SEARCH INPUT
+// // GET ONE OFFER DETAIL
+// router.get('/offer/:id', (req, res, next) => {
+//   const { id } = req.params;
+//   const userID = req.session.currentUser._id;
+//   Offer.findById(id)
+//     .then((offer) => {
+//       res.render('protected/offer', { offer, userID });
+//     })
+//     .catch((error) => {
+//       next(error);
+//     });
+// });
 
+// GET SEARCH INPUT
 router.get('/q', (req, res, next) => {
   const { q } = req.query;
   Offer.find({ location: q })
@@ -115,5 +129,33 @@ router.post('/offer/:id/delete', (req, res, next) => {
     });
 });
 
+// GET NEW BID FORM
+router.get('/offer/:id/bidnew', (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  res.render('protected/bidnew', { id });
+});
+
+// CREATE NEW BID
+router.post('/offer/:id/bidnew', (req, res, next) => {
+  const { bidValue, bidDescription } = req.body;
+  const userID = req.session.currentUser._id;
+  const { id } = req.params;
+  console.log(id);
+
+  Bid.create({
+    userID,
+    offerID: id,
+    bidValue,
+    bidDescription,
+  }, { new: true })
+    .then(() => {
+      console.log('bid creada');
+      res.redirect(`/dashboard/offer/${id}`);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
 module.exports = router;
