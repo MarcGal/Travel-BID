@@ -74,10 +74,8 @@ router.get('/q', (req, res, next) => {
 // UPDATE OFFER
 router.get('/offer/:id/update', (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
   Offer.findById(id)
     .then((offer) => {
-      console.log(offer);
       res.render('protected/offerupdate', { offer });
     })
     .catch((error) => {
@@ -87,11 +85,9 @@ router.get('/offer/:id/update', (req, res, next) => {
 
 // POST UPDATE OFFER
 router.post('/offer/:id/update', (req, res, next) => {
-  console.log('we are sending the update');
   const { from, until, location, budget } = req.body;
   const { id } = req.params;
   const userID = req.session.currentUser._id;
-  console.log(id);
   Offer.findOneAndUpdate(id, {
     userID,
     from,
@@ -100,8 +96,6 @@ router.post('/offer/:id/update', (req, res, next) => {
     budget,
   }, { new: true })
     .then((offer) => {
-      console.log(offer);
-      console.log(offer.id);
       res.redirect(`/dashboard/offer/${offer.id}`);
       // res.redirect('/dashboard');
     })
@@ -114,7 +108,6 @@ router.post('/offer/:id/update', (req, res, next) => {
 // POST DELETE OFFER
 router.post('/offer/:id/delete', (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
   Offer.deleteOne({ _id: id })
     .then(() => {
       res.redirect('/dashboard');
