@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.use(middlewares.protectedRoute);
 
-/* GET users listing. */
+// GET DASHBOARD
 router.get('/', (req, res, next) => {
   const userID = res.locals.currentUser._id;
   console.log(userID);
@@ -77,6 +77,7 @@ router.get('/offer/:id/update', (req, res, next) => {
   console.log(id);
   Offer.findById(id)
     .then((offer) => {
+      console.log(offer);
       res.render('protected/offerupdate', { offer });
     })
     .catch((error) => {
@@ -97,7 +98,7 @@ router.post('/offer/:id/update', (req, res, next) => {
     until,
     location,
     budget,
-  })
+  }, { new: true })
     .then((offer) => {
       console.log(offer);
       console.log(offer.id);
