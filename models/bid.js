@@ -10,16 +10,13 @@ const bidSchema = new Schema({
     type: ObjectId,
     ref: 'User',
   },
-
   offerID: {
-    type: String,
+    type: ObjectId,
     ref: 'Offer',
   },
-
   bidValue: {
     type: Number,
   },
-
   bidDescription: {
     type: String,
   },
