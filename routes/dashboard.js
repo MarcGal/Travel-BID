@@ -97,7 +97,6 @@ router.post('/offer/:id/update', (req, res, next) => {
   }, { new: true })
     .then((offer) => {
       res.redirect(`/dashboard/offer/${offer.id}`);
-      // res.redirect('/dashboard');
     })
     .catch((error) => {
       next(error);
