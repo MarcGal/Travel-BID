@@ -103,7 +103,6 @@ router.post('/offer/:id/update', (req, res, next) => {
     });
 });
 
-
 // POST DELETE OFFER
 router.post('/offer/:id/delete', (req, res, next) => {
   const { id } = req.params;
