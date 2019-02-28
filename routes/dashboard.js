@@ -115,7 +115,7 @@ router.post('/offer/:id/update', (req, res, next) => {
 router.post('/offer/:id/delete', (req, res, next) => {
   const { id } = req.params;
   console.log(id);
-  Offer.findOneAndDelete(id)
+  Offer.deleteOne({ _id: id })
     .then(() => {
       res.redirect('/dashboard');
     })
