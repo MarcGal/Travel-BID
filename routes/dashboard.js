@@ -44,7 +44,7 @@ router.post('/create', (req, res, next) => {
     });
 });
 
-router.get('/offer/:id', async(req, res, next) => {
+router.get('/offer/:id', async (req, res, next) => {
   const { id } = req.params;
   const userID = res.locals.currentUser._id;
   try {
@@ -142,6 +142,18 @@ router.post('/offer/:id/bidnew', (req, res, next) => {
     .catch((error) => {
       next(error);
     });
+});
+
+// GET BID DETAIL
+router.get('/bid/:id', async (req, res, next) => {
+  const { id } = req.params;
+  const userID = res.locals.currentUser._id;
+  try {
+    const bid = await Bid.findById(id);
+    res.render('protected/bid', { bid, userID });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
