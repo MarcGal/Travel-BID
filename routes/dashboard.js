@@ -50,8 +50,6 @@ router.get('/offer/:id', async (req, res, next) => {
   try {
     const offer = await Offer.findById(id);
     const bids = await Bid.find({ offerID: offer._id});
-    console.log(bids);
-    console.log(offer._id);
     res.render('protected/offer', { offer, bids, userID });
   } catch (error) {
     next(error);
@@ -61,8 +59,7 @@ router.get('/offer/:id', async (req, res, next) => {
 // GET SEARCH INPUT
 router.get('/search', (req, res, next) => {
   const { search } = req.query;
-  console.log(search);
-  Offer.find({ location: search })
+  Offer.find({ location: search, Status: 0 })
     .then((offers) => {
       res.render('protected/search', { offers });
     })
@@ -158,15 +155,16 @@ router.get('/bid/:id', async (req, res, next) => {
 });
 
 // POST DELETE BID
-router.post('/bid/:id/delete', (req, res, next) => {
+router.post('/bid/:id/delete', async (req, res, next) => {
   const { id } = req.params;
-  Bid.deleteOne({ _id: id })
-    .then(() => {
-      res.redirect('/dashboard');
-    })
-    .catch((error) => {
-      next(error);
-    });
+  try {
+    const bid = await Bid.findById(id);
+    const offer = bid.offerID;
+    await Bid.findByIdAndDelete(bid.id);
+    res.redirect(`/dashboard/offer/${offer}`);
+  } catch (error) {
+    next(error);
+  }
 });
 // GET BID ACCEPT
 router.get('/bid/:id/accept', async (req, res, next) => {
@@ -198,7 +196,7 @@ router.get('/bid/:id/decline', async (req, res, next) => {
 // UPDATE BID
 router.get('/bid/:id/update', (req, res, next) => {
   const { id } = req.params;
-  Offer.findById(id)
+  Bid.findById(id)
     .then((bid) => {
       res.render('protected/bidupdate', { bid });
     })
@@ -211,7 +209,7 @@ router.get('/bid/:id/update', (req, res, next) => {
 router.post('/bid/:id/update', (req, res, next) => {
   const { bidValue, bidDescription } = req.body;
   const { id } = req.params;
-  Offer.findByIdAndUpdate(id, { bidValue, bidDescription })
+  Bid.findByIdAndUpdate(id, { bidValue, bidDescription })
     .then((bid) => {
       res.redirect(`/dashboard/bid/${bid.id}`);
     })
