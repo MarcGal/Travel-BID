@@ -176,7 +176,19 @@ router.get('/bid/:id/accept', async (req, res, next) => {
     const offer = await Offer.findById(bid.offerID);
     await Bid.findByIdAndUpdate(id, { Status: 1 });
     await Offer.findByIdAndUpdate(offer.id, { Status: 1 });
-    console.log(bid, offer.id);
+    res.redirect(`/dashboard/offer/${offer.id}`);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// GET BID DECLINE
+router.get('/bid/:id/decline', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const bid = await Bid.findById(id);
+    const offer = await Offer.findById(bid.offerID);
+    await Bid.findByIdAndUpdate(id, { Status: 2 });
     res.redirect(`/dashboard/offer/${offer.id}`);
   } catch (error) {
     next(error);
