@@ -3,3 +3,26 @@
 <h4><%= bid.userID.name %></h4>
 <h4><%= bid.bidValue %></h4>
 <h4><%= bid.bidDescription %></h4>
+
+<% if (bid.userID == userID) { %>
+  <div>
+    <form action="/dashboard/bid/<%= bid._id %>/update" method="get">
+      <input type="submit" value="Update">
+    </form>
+    <form action="/dashboard/bid/<%= bid._id %>/delete" method="post">
+      <input type="submit" value="delete">
+    </form>
+  </div>
+<% } %>
+
+<% if (offer.userID == userID) { %>
+  <div>
+    <form action="/dashboard/bid/<%= bid._id %>/accept" method="get">
+      <input type="submit" value="Accept">
+    </form>
+    <form action="/dashboard/bid/<%= bid._id %>/decline" method="post">
+      <input type="submit" value="Decline">
+    </form>
+  </div>
+<% } %>
+</div>
