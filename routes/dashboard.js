@@ -172,8 +172,17 @@ router.post('/bid/:id/delete', (req, res, next) => {
 router.get('/bid/:id/accept', async (req, res, next) => {
   const { id } = req.params;
   try {
-    const bid = await Bid.findOneAndUpdate(id, { Status: 1 }, { new: true });
-    const offer = await Offer.findOneAndUpdate(bid.offerID, { Status: 1 }, { new: true });
+    const bid = await Bid.findById(id);
+    const offer = await Offer.findById(bid.offerID);
+    await Bid.findOneAndUpdate(id, { userID: bid.userID, offerID: bid.offerID, bidValue: bid.bidValue, bidDescription: bid.bidDescription, Status: 1 });
+    await Offer.findOneAndUpdate(offer.id, {
+      userID: offer.userID,
+      from: offer.from,
+      until: offer.until,
+      location: offer.location,
+      budget: offer.budget,
+      Status: 1,
+    });
     console.log(bid, offer);
     res.redirect(`/dashboard/offer/${offer.id}`);
   } catch (error) {
