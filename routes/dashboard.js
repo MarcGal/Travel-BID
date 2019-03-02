@@ -88,7 +88,7 @@ router.post('/offer/:id/update', (req, res, next) => {
   const { from, until, location, budget } = req.body;
   const { id } = req.params;
   const userID = req.session.currentUser._id;
-  Offer.findOneAndUpdate(id, {
+  Offer.findByIdAndUpdate(id, {
     userID,
     from,
     until,
@@ -195,23 +195,28 @@ router.get('/bid/:id/decline', async (req, res, next) => {
   }
 });
 
-// router.post('/offer/:id/update', (req, res, next) => {
-//   const { from, until, location, budget } = req.body;
-//   const { id } = req.params;
-//   const userID = req.session.currentUser._id;
-//   Offer.findOneAndUpdate(id, {
-//     userID,
-//     from,
-//     until,
-//     location,
-//     budget,
-//   }, { new: true })
-//     .then((offer) => {
-//       res.redirect(`/dashboard/offer/${offer.id}`);
-//     })
-//     .catch((error) => {
-//       next(error);
-//     });
-// });
+// UPDATE BID
+router.get('/bid/:id/update', (req, res, next) => {
+  const { id } = req.params;
+  Offer.findById(id)
+    .then((bid) => {
+      res.render('protected/bidupdate', { bid });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
+// POST UPDATE OFFER
+router.post('/bid/:id/update', (req, res, next) => {
+  const { bidValue, bidDescription } = req.body;
+  const { id } = req.params;
+  Offer.findByIdAndUpdate(id, { bidValue, bidDescription })
+    .then((bid) => {
+      res.redirect(`/dashboard/bid/${bid.id}`);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 module.exports = router;

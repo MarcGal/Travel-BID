@@ -1,0 +1,13 @@
+<form id="form" action="/dashboard/bid/<%= bid.id%>/bidupdate" method="POST">
+
+  <label for="bidValue"></label><br>
+  <input type="number" name="bidValue" placeholder="value" value="<%= bid.bidValue%>">
+
+  <label for="bidDescription"> Description:</label>
+  <input type="text" id="bidDescription" name="bidDescription" value="<%= bid.bidDescription%>">
+
+  <button type="submit">Update Bid</button>
+ 
+</form>
+
+<a href="/dashboard/offer/<%= offer._id%>">Cancel</a>
