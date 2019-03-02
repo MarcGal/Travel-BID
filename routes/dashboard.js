@@ -134,7 +134,7 @@ router.post('/offer/:id/bidnew', (req, res, next) => {
     offerID: id,
     bidValue,
     bidDescription,
-  }, { new: true })
+  })
     .then(() => {
       console.log('bid creada');
       res.redirect(`/dashboard/offer/${id}`);
@@ -168,5 +168,36 @@ router.post('/bid/:id/delete', (req, res, next) => {
       next(error);
     });
 });
+// GET BID ACCEPT
+router.get('/bid/:id/accept', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const bid = await Bid.findOneAndUpdate(id, { Status: 1 }, { new: true });
+    const offer = await Offer.findOneAndUpdate(bid.offerID, { Status: 1 }, { new: true });
+    console.log(bid, offer);
+    res.redirect(`/dashboard/offer/${offer.id}`);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// router.post('/offer/:id/update', (req, res, next) => {
+//   const { from, until, location, budget } = req.body;
+//   const { id } = req.params;
+//   const userID = req.session.currentUser._id;
+//   Offer.findOneAndUpdate(id, {
+//     userID,
+//     from,
+//     until,
+//     location,
+//     budget,
+//   }, { new: true })
+//     .then((offer) => {
+//       res.redirect(`/dashboard/offer/${offer.id}`);
+//     })
+//     .catch((error) => {
+//       next(error);
+//     });
+// });
 
 module.exports = router;

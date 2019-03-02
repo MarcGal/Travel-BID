@@ -15,6 +15,10 @@ const offerSchema = new Schema({
   until: { type: String },
   location: { type: String },
   budget: { type: Number },
+  Status: {
+    type: Number,
+    default: 0,
+  },
 }, { timestamps: true });
 
 
