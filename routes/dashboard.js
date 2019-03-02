@@ -157,4 +157,16 @@ router.get('/bid/:id', async (req, res, next) => {
   }
 });
 
+// POST DELETE BID
+router.post('/bid/:id/delete', (req, res, next) => {
+  const { id } = req.params;
+  Bid.deleteOne({ _id: id })
+    .then(() => {
+      res.redirect('/dashboard');
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 module.exports = router;

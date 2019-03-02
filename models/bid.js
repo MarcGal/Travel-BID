@@ -20,6 +20,10 @@ const bidSchema = new Schema({
   bidDescription: {
     type: String,
   },
+  Status: {
+    type: Number,
+    default: 0,
+  },
 }, { timestamps: true });
 
 const Bid = mongoose.model('Bid', bidSchema);
