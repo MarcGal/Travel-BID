@@ -22,23 +22,23 @@ router.post('/login', (req, res, next) => {
   const { email, password } = req.body;
   if (email === '' || password === '') {
     req.flash('error', 'No empty fields');
-    return res.render('auth/login');
+    return res.redirect('/login');
   }
 
   User.findOne({ email })
     .then((user) => {
       if (!user) {
         req.flash('error', 'The email does not exist.');
-        res.render('auth/login');
-        return;
+        res.redirect('/login');
       }
       if (bcrypt.compareSync(password, user.password)) {
         // Save the login in the session!
         req.session.currentUser = user;
+        req.flash('success', `Welcome ${user.name}`);
         res.redirect('/dashboard');
       } else {
         req.flash('error', 'Incorrect password');
-        res.render('auth/login');
+        res.redirect('/login');
       }
     })
     .catch((error) => {
