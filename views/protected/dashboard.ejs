@@ -5,14 +5,12 @@
   <div>
     <% offers.forEach((offer) => { %>
       <div>
-        <ul>
-          <li>
-            <a href="/dashboard/offer/<%= offer._id%>">
+        <div <% if ( offer.Status === 1) { %> class="alert alert-success" <% } else { %> class= "alert alert-light" <% } %> >
+          <a href="/dashboard/offer/<%= offer._id%>">
               <%= offer.location %> <br>
              Offered budget: <%= offer.budget %><br><br>
-            </a>
-          </li>
-        </ul>
+          </a>
+        </div>
       </div>
     <% }) %>
   </div>
@@ -26,14 +24,14 @@
   <div>
     <% bids.forEach((bid) => { %>
       <div>
-        <ul>
-          <li>
+        <div <% if ( bid.Status === 1) { %> class="alert alert-success" <% 
+          } else if ( bid.Status === 2) { %> class= "alert alert-danger" <% 
+          } else { %> class= "alert alert-light" <% } %> >
             <a href="/dashboard/bid/<%= bid._id %>">
             Value: <%= bid.bidValue %> <br>
             Description: <%= bid.bidDescription %><br><br>
             </a>
-          </li>
-        </ul>
+          </div>
       </div>
     <% }) %>
   </div>

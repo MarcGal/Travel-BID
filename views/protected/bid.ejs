@@ -15,6 +15,14 @@
   </div>
 <% } %>
 
+<% if (bid.userID == userID && bid.Status === 1) { %>
+ <h4>Congratulations, your bid was accepted</h4>
+<% } %>
+
+<% if (bid.userID == userID && bid.Status === 2) { %>
+ <h4>Sorry, your bid was rejected</h4>
+<% } %>
+
 <% if (offer.userID == userID && bid.Status === 0) { %>
   <div>
     <form action="/dashboard/bid/<%= bid._id %>/accept" method="get">
