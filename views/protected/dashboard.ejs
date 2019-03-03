@@ -1,7 +1,7 @@
 <h1>Welcome <%= currentUser.name %> </h1>
-
+<br>
 <div>
-  <h2>My Offers</h2>
+  <h3>Open Offers</h3>
   <div>
     <% offers.forEach((offer) => { %>
       <div>
@@ -17,12 +17,12 @@
     <% }) %>
   </div>
 </div>
-<h4><a href="/dashboard/create">New Offer</a></h4>
+<h4><a class="btn btn-primary" href="/dashboard/create">Create Offer</a></h4>
 
 <br>
 <br>
 <div>
-  <h2>My Bids</h2>
+  <h3>Open Bids</h3>
   <div>
     <% bids.forEach((bid) => { %>
       <div>
@@ -40,10 +40,10 @@
 </div>
 
 <br>
-<form action="/dashboard/search" method="get">
-  <label for="search"></label>
-  <input type="text" name="search" id="">
-  <input type="submit" value="search">
+<form class="active-cyan-3 active-cyan-4 mb-4" action="/dashboard/search" method="get">
+    <label for="search"></label>
+    <input class="form-control mr-sm-2"type="text" name="search" id="">
+    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="search">
 </form>
 
 <br>
