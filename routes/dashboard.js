@@ -174,6 +174,10 @@ router.get('/bid/:id/accept', async (req, res, next) => {
     const offer = await Offer.findById(bid.offerID);
     await Bid.findByIdAndUpdate(id, { Status: 1 });
     await Offer.findByIdAndUpdate(offer.id, { Status: 1 });
+    const bids = await Bid.find({ offerID: bid.offerID, Status: 0 });
+    await bids.forEach(async (bidDecline) => {
+      await Bid.findByIdAndUpdate(bidDecline.id, { Status: 2 });
+    });
     res.redirect(`/dashboard/offer/${offer.id}`);
   } catch (error) {
     next(error);

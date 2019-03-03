@@ -6,7 +6,7 @@
   Until: <%= offer.until %> <br>
   Offered budget: <%= offer.budget %>
 
-<% if (offer.userID == userID) { %>
+<% if (offer.userID == userID && offer.Status === 0 ) { %>
   <div class="container">
     <form class="active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
       <input  class="btn btn-primary" type="submit" value="Update">
@@ -24,7 +24,7 @@
     <% bids.forEach((bid) => { %>
       <div>
         <ul>
-          <li>
+          <li <% if ( bid.Status === 1) { %> class="alert alert-success" <% } else if ( bid.Status === 2) { %> class= "alert alert-danger" <% } else { %> class= "alert alert-light" <% } %> >
             <a href="/dashboard/bid/<%= bid._id %>">
              Description <%= bid.bidDescription %> <br>
              Offered bid <%= bid.bidValue %><br><br>

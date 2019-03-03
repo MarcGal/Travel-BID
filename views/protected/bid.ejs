@@ -4,7 +4,7 @@
 <h4><%= bid.bidValue %></h4>
 <h4><%= bid.bidDescription %></h4>
 
-<% if (bid.userID == userID) { %>
+<% if (bid.userID == userID && bid.Status === 0) { %>
   <div>
     <form action="/dashboard/bid/<%= bid._id %>/update" method="get">
       <input type="submit" value="Update">
@@ -15,7 +15,7 @@
   </div>
 <% } %>
 
-<% if (offer.userID == userID) { %>
+<% if (offer.userID == userID && bid.Status === 0) { %>
   <div>
     <form action="/dashboard/bid/<%= bid._id %>/accept" method="get">
       <input type="submit" value="Accept">
