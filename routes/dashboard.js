@@ -205,7 +205,7 @@ router.get('/bid/:id/update', (req, res, next) => {
     });
 });
 
-// POST UPDATE OFFER
+// POST UPDATE BID
 router.post('/bid/:id/update', (req, res, next) => {
   const { bidValue, bidDescription } = req.body;
   const { id } = req.params;
