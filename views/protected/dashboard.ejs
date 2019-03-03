@@ -1,0 +1,52 @@
+<h1>Welcome <%= currentUser.name %> </h1>
+
+<div>
+  <h2>My Offers</h2>
+  <div>
+    <% offers.forEach((offer) => { %>
+      <div>
+        <ul>
+          <li>
+            <a href="/dashboard/offer/<%= offer._id%>">
+              <%= offer.location %> <br>
+             Offered budget: <%= offer.budget %><br><br>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <% }) %>
+  </div>
+</div>
+<h4><a href="/dashboard/create">New Offer</a></h4>
+
+<br>
+<br>
+<div>
+  <h2>My Bids</h2>
+  <div>
+    <% bids.forEach((bid) => { %>
+      <div>
+        <ul>
+          <li>
+            <a href="/dashboard/bid/<%= bid._id %>">
+            Value: <%= bid.bidValue %> <br>
+            Description: <%= bid.bidDescription %><br><br>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<br>
+<form action="/dashboard/search" method="get">
+  <label for="search"></label>
+  <input type="text" name="search" id="">
+  <input type="submit" value="search">
+</form>
+
+<br>
+<a href="/logout">Logout</a>
+
+

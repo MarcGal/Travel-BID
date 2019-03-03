@@ -1,0 +1,17 @@
+<h2>Search results</h2>
+<div>
+  <div>
+    <% offers.forEach((offer) => { %>
+      <div>
+        <ul>
+          <li>
+            <a href="./offer/<%= offer._id%>">
+              <%= offer.location %> <br>
+             Offered budget: <%= offer.budget %><br><br>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <% }) %>
+  </div>
+</div>
