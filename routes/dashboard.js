@@ -115,7 +115,6 @@ router.post('/offer/:id/delete', (req, res, next) => {
 // GET NEW BID FORM
 router.get('/offer/:id/bidnew', (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
   res.render('protected/bidnew', { id });
 });
 
@@ -124,8 +123,6 @@ router.post('/offer/:id/bidnew', (req, res, next) => {
   const { bidValue, bidDescription } = req.body;
   const userID = req.session.currentUser._id;
   const { id } = req.params;
-  console.log(id);
-
   Bid.create({
     userID,
     offerID: id,
@@ -133,7 +130,7 @@ router.post('/offer/:id/bidnew', (req, res, next) => {
     bidDescription,
   })
     .then(() => {
-      console.log('bid creada');
+      req.flash('success', 'bid creada');
       res.redirect(`/dashboard/offer/${id}`);
     })
     .catch((error) => {
@@ -161,6 +158,7 @@ router.post('/bid/:id/delete', async (req, res, next) => {
     const bid = await Bid.findById(id);
     const offer = bid.offerID;
     await Bid.findByIdAndDelete(bid.id);
+    req.flash('success', 'Bid deleted');
     res.redirect(`/dashboard/offer/${offer}`);
   } catch (error) {
     next(error);
@@ -178,6 +176,7 @@ router.get('/bid/:id/accept', async (req, res, next) => {
     await bids.forEach(async (bidDecline) => {
       await Bid.findByIdAndUpdate(bidDecline.id, { Status: 2 });
     });
+    req.flash('success', 'Bid accepted');
     res.redirect(`/dashboard/offer/${offer.id}`);
   } catch (error) {
     next(error);
@@ -191,6 +190,7 @@ router.get('/bid/:id/decline', async (req, res, next) => {
     const bid = await Bid.findById(id);
     const offer = await Offer.findById(bid.offerID);
     await Bid.findByIdAndUpdate(id, { Status: 2 });
+    req.flash('error', 'Bid declined');
     res.redirect(`/dashboard/offer/${offer.id}`);
   } catch (error) {
     next(error);
