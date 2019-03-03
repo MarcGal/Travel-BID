@@ -1,11 +1,13 @@
-<form id="form" action="/login" method="POST">
-  <label for="email"></label><br>
-  <input type="text" name="email" placeholder="Your email">
-
-  <label for="password"></label><br>
-  <input type="password" name="password" placeholder="password">
-
-  <button type="submit">log in</button>
+<form class="container" id="form" action="/login" method="POST">
+  <div class="form-group">
+    <label for="email"></label><br>
+    <input type="text" name="email" placeholder="Your email">
+  </div>
+  <div class="form-group">
+    <label for="password"></label><br>
+    <input type="password" name="password" placeholder="password">
+  </div>
+  <button class="btn btn-primary" type="submit">log in</button>
   <% if (errorMessage) { %>
     <div class="error-message">
       <%= errorMessage %>
@@ -14,6 +16,6 @@
   <p>
     Don't have an account? <a href="/signup">Sign up</a>
   </p>
+
+  <a href="/">Go Back</a>
 </form>
-<br><br>
-<a href="/">Go Back</a>
