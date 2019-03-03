@@ -19,15 +19,17 @@ router.get('/login', (req, res, next) => {
 
 // POST LOGIN FORM
 router.post('/login', (req, res, next) => {
-  const { email, password } = req.body; 
+  const { email, password } = req.body;
   if (email === '' || password === '') {
-    return res.render('auth/login', { errorMessage: 'no empty fields' });
+    req.flash('error', 'No empty fields');
+    return res.render('auth/login');
   }
 
   User.findOne({ email })
     .then((user) => {
       if (!user) {
-        res.render('auth/login', { errorMessage: 'The email does not exist.' });
+        req.flash('error', 'The email does not exist.');
+        res.render('auth/login');
         return;
       }
       if (bcrypt.compareSync(password, user.password)) {
@@ -35,7 +37,8 @@ router.post('/login', (req, res, next) => {
         req.session.currentUser = user;
         res.redirect('/dashboard');
       } else {
-        res.render('auth/login', { errorMessage: 'Incorrect password' });
+        req.flash('error', 'Incorrect password');
+        res.render('auth/login');
       }
     })
     .catch((error) => {
@@ -57,17 +60,20 @@ router.post('/signup', (req, res, next) => {
   } = req.body;
 
   if (email === '' || password === '' || name === '') {
-    return res.render('auth/signup', { errorMessage: 'no empty fields' });
+    req.flash('error', 'no empty fields');
+    return res.render('auth/signup');
   }
   User.findOne({ email })
     .then((user) => {
       if (user) {
-        res.render('auth/signup', { errorMessage: 'user already exists' });
+        req.flash('error', 'user already exists');
+        res.render('auth/signup');
       } else {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
         User.create({ email, password: hashedPassword, name, age, gender, description, accomodationAddress, accomodationDescription })
-          .then(() => {
+          .then((newUser) => {
+            req.flash('success', `Welcome ${newUser.name}`);
             res.redirect('/dashboard');
           }).catch((error) => {
             next(error);

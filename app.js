@@ -12,7 +12,7 @@ require('dotenv').config();
 
 
 // notifications handle
-// const { notifications } = require('./assets');
+const { notifications } = require('./middlewares');
 
 const indexRouter = require('./routes/index');
 const dashboardRouter = require('./routes/dashboard');
@@ -25,18 +25,6 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
     console.log(error);
   });
 
-// mongodb connect
-// const dbName = 'YOUR-DATABASE-NAME';
-// (async () => {
-//   try{
-//     await mongoose.connect(`mongodb://localhost/${dbName}`, { useNewUrlParser: true });
-//     console.log(`Conected to ${dbName}`);
-//   }catch{
-//     err => {
-//       console.error(`Error conecting to ${dbName}. `, err);
-//     }
-//   }
-// })();
 
 const app = express();
 
@@ -69,13 +57,13 @@ app.use(session({
   },
 }));
 
-// app.use(flash());
+app.use(flash());
 app.use((req, res, next) => {
   // assign current user to all middlewares
   res.locals.currentUser = req.session.currentUser;
   next();
 });
-// app.use(notifications);
+app.use(notifications);
 app.use('/', indexRouter);
 app.use('/dashboard', dashboardRouter);
 

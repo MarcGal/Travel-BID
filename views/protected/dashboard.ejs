@@ -5,7 +5,8 @@
   <div>
     <% offers.forEach((offer) => { %>
       <div>
-        <div <% if ( offer.Status === 1) { %> class="alert alert-success" <% } else { %> class= "alert alert-light" <% } %> >
+        <div <% if ( offer.Status === 1) { %> class="alert alert-success" <% 
+          } else { %> class= "alert alert-light" <% } %> >
           <a href="/dashboard/offer/<%= offer._id%>">
               <%= offer.location %> <br>
              Offered budget: <%= offer.budget %><br><br>
