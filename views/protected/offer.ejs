@@ -9,7 +9,7 @@
 <% if (offer.userID == userID) { %>
   <div class="container">
     <form class="active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
-      <input type="submit" value="Update">
+      <input  class="btn btn-primary" type="submit" value="Update">
     </form>
     <form class="active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
       <input class="btn btn-danger" type="submit" value="delete">
