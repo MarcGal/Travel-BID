@@ -1,17 +1,22 @@
-<form id="form" action="/dashboard/create" method="POST">
-  <label for="from">From:</label>
-  <input type="date" id="from" name="from">
+<form class="container" id="form" action="/dashboard/create" method="POST">
+  <div class="form-group">
+    <label for="from">From:</label>
+    <input type="date" id="from" name="from">
+  </div>
+  <div class="form-group">
+    <label for="until"> Until:</label>
+    <input type="date" id="until" name="until">
+  </div>
+  <div class="form-group">
+    <label for="location"> Location:</label>
+    <input type="text" id="location" name="location">
+  </div>
+  <div class="form-group">
+    <label for="budget"></label><br>
+    <input type="text" name="budget" placeholder="budget">
+  </div>
 
-  <label for="until"> Until:</label>
-  <input type="date" id="until" name="until">
-
-  <label for="location"> Location:</label>
-  <input type="text" id="location" name="location">
-
-  <label for="budget"></label><br>
-  <input type="text" name="budget" placeholder="budget">
-
-  <button type="submit">Create Offer</button>
+  <button class="btn btn-primary" type="submit">Create Offer</button>
  
 </form>
 <br><br>

@@ -1,12 +1,13 @@
-<form id="form" action="/dashboard/bid/<%= bid._id%>/update" method="POST">
-
-  <label for="bidValue"></label><br>
-  <input type="number" name="bidValue" placeholder="value" value="<%= bid.bidValue%>">
-
-  <label for="bidDescription"> Description:</label>
-  <input type="text" id="bidDescription" name="bidDescription" value="<%= bid.bidDescription%>">
-
-  <button type="submit">Update Bid</button>
+<form class="container" id="form" action="/dashboard/bid/<%= bid._id%>/update" method="POST">
+  <div class="form-group">
+    <label for="bidValue"></label><br>
+    <input type="number" name="bidValue" placeholder="value" value="<%= bid.bidValue%>">
+  </div>
+  <div class="form-group">
+    <label for="bidDescription"> Description:</label>
+    <input type="text" id="bidDescription" name="bidDescription" value="<%= bid.bidDescription%>">
+  </div>
+  <button class="btn btn-primary" type="submit">Update Bid</button>
  
 </form>
 

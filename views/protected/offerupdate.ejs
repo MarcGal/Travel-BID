@@ -1,17 +1,22 @@
-<form id="form" action="/dashboard/offer/<%= offer._id%>/update" method="POST">
-  <label for="from">From:</label>
-  <input type="date" id="from" name="from" value="<%= offer.from %>">
-
-  <label for="until"> Until:</label>
-  <input type="date" id="until" name="until" value="<%= offer.until%>">
-
-  <label for="location"> Location:</label>
-  <input type="text" id="location" name="location" value="<%= offer.location %>">
-
-  <label for="budget"></label><br>
-  <input type="text" name="budget" placeholder="budget" value="<%= offer.budget %>">
-
-  <button type="submit">Update</button>
+<form class="container" id="form" action="/dashboard/offer/<%= offer._id%>/update" method="POST">
+  <div class="form-group">
+    <label for="from">From:</label>
+    <input type="date" id="from" name="from" value="<%= offer.from %>">
+  </div>
+  <div class="form-group">
+    <label for="until"> Until:</label>
+    <input type="date" id="until" name="until" value="<%= offer.until%>">
+  </div>
+  <div class="form-group">
+    <label for="location"> Location:</label>
+    <input type="text" id="location" name="location" value="<%= offer.location %>">
+  </div>
+  <div class="form-group">
+    <label for="budget"></label><br>
+    <input type="text" name="budget" placeholder="budget" value="<%= offer.budget %>">
+  </div>
+  
+  <button class="btn btn-primary" type="submit">Update</button>
  
 </form>
 <br><br>
