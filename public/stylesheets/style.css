@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -37,4 +37,11 @@ p {
   margin-bottom: 1em;
   margin-left: 0;
   margin-right: 0;
+}
+
+.landing-page{
+  background-image: url('/img/landing-img.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: cover;
 }
