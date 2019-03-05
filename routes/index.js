@@ -66,7 +66,7 @@ router.post('/signup', (req, res, next) => {
   User.findOne({ email })
     .then((user) => {
       if (user) {
-        req.flash('error', 'user already exists');
+        req.flash('error', 'This user already exists');
         res.render('auth/signup');
       } else {
         const salt = bcrypt.genSaltSync(saltRounds);

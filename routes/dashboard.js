@@ -130,7 +130,7 @@ router.post('/offer/:id/bidnew', (req, res, next) => {
     bidDescription,
   })
     .then(() => {
-      req.flash('success', 'bid creada');
+      req.flash('success', 'Your bid was succesfuly created');
       res.redirect(`/dashboard/offer/${id}`);
     })
     .catch((error) => {
@@ -158,7 +158,7 @@ router.post('/bid/:id/delete', async (req, res, next) => {
     const bid = await Bid.findById(id);
     const offer = bid.offerID;
     await Bid.findByIdAndDelete(bid.id);
-    req.flash('success', 'Bid deleted');
+    req.flash('success', 'The bid was succesfully deleted');
     res.redirect(`/dashboard/offer/${offer}`);
   } catch (error) {
     next(error);
@@ -176,7 +176,7 @@ router.get('/bid/:id/accept', async (req, res, next) => {
     await bids.forEach(async (bidDecline) => {
       await Bid.findByIdAndUpdate(bidDecline.id, { Status: 2 });
     });
-    req.flash('success', 'Bid accepted');
+    req.flash('success', 'Great! You have accepted a bid');
     res.redirect(`/dashboard/offer/${offer.id}`);
   } catch (error) {
     next(error);
