@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
+const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 require('dotenv').config();
@@ -43,6 +44,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(sassMiddleware({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  indentedSyntax: false, // true = .sass and false = .scss
+  sourceMap: true, // true for .map; false no .map file
+}));
 
 app.use(session({
   store: new MongoStore({
