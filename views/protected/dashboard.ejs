@@ -1,10 +1,17 @@
-<h1>Welcome <%= currentUser.name %> </h1>
+
+<form class="active-cyan-3 active-cyan-4 mb-4 row justify-content-center" action="/dashboard/search" method="get">
+    <label for="search"></label>
+    <input class="form-control-lg border border-primary" type="text" name="search" id="">
+    <input class="btn btn-lg btn-outline-success my-2 my-sm-0" type="submit" value="Search offers">
+</form>
+
+
 <br>
 <div>
   <h3>Your Offers</h3>
   <div>
     <% offers.forEach((offer) => { %>
-      <div>
+      <div class="border border-primary rounded dashboard-results">
         <div <% if ( offer.Status === 1) { %> class="alert alert-success" <% 
           } else { %> class= "alert alert-light" <% } %> >
           <a href="/dashboard/offer/<%= offer._id%>">
@@ -16,7 +23,7 @@
     <% }) %>
   </div>
 </div>
-<h4><a class="btn btn-primary" href="/dashboard/create">Create Offer</a></h4>
+<h4 class="text-center"><a class="btn btn-primary" href="/dashboard/create">Create Offer</a></h4>
 
 <br>
 <br>
@@ -24,7 +31,7 @@
   <h3>Your Bids</h3>
   <div>
     <% bids.forEach((bid) => { %>
-      <div>
+      <div class=" dashboard-results border border-primary rounded">
         <div <% if ( bid.Status === 1) { %> class="alert alert-success" <% 
           } else if ( bid.Status === 2) { %> class= "alert alert-danger" <% 
           } else { %> class= "alert alert-light" <% } %> >
@@ -39,11 +46,6 @@
 </div>
 
 <br>
-<form class="active-cyan-3 active-cyan-4 mb-4" action="/dashboard/search" method="get">
-    <label for="search"></label>
-    <input class="form-control mr-sm-2"type="text" name="search" id="">
-    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="search">
-</form>
 
 <br>
 <a href="/logout">Logout</a>
