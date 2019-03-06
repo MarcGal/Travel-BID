@@ -13,7 +13,7 @@ const offerSchema = new Schema({
   },
   from: { type: String },
   until: { type: String },
-  location: { type: String },
+  location: { type: String, uppercase: true },
   budget: { type: Number },
   Status: {
     type: Number,

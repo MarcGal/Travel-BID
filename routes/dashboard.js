@@ -28,7 +28,6 @@ router.get('/create', (req, res, next) => {
 router.post('/create', (req, res, next) => {
   const { from, until, location, budget } = req.body;
   const userID = req.session.currentUser._id;
-
   Offer.create({
     userID,
     from,
