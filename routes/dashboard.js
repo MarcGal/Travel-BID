@@ -25,23 +25,26 @@ router.get('/create', (req, res, next) => {
 });
 
 // POST create offer
-router.post('/create', (req, res, next) => {
-  const { from, until, location, budget } = req.body;
-  const userID = req.session.currentUser._id;
-
-  Offer.create({
-    userID,
-    from,
-    until,
-    location,
-    budget,
-  })
-    .then((createdOffer) => {
+router.post('/create', async (req, res, next) => {
+  try {
+    const { from, until, location, budget } = req.body;
+    const userID = req.session.currentUser._id;
+    if (Date.parse(from) < Date.now()) {
+      req.flash('error', 'No dates before today');
+      res.redirect('./create');
+    } else {
+      await Offer.create({
+        userID,
+        from,
+        until,
+        location,
+        budget,
+      });
       res.redirect('/dashboard');
-    })
-    .catch((error) => {
-      next(error);
-    });
+    }
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/offer/:id', async (req, res, next) => {
@@ -119,23 +122,23 @@ router.get('/offer/:id/bidnew', (req, res, next) => {
 });
 
 // CREATE NEW BID
-router.post('/offer/:id/bidnew', (req, res, next) => {
-  const { bidValue, bidDescription } = req.body;
-  const userID = req.session.currentUser._id;
-  const { id } = req.params;
-  Bid.create({
-    userID,
-    offerID: id,
-    bidValue,
-    bidDescription,
-  })
-    .then(() => {
+router.post('/offer/:id/bidnew', async(req, res, next) => {
+  try {
+    const { bidValue, bidDescription } = req.body;
+    const userID = req.session.currentUser._id;
+    const { id } = req.params;
+    const bidExists = await Bid.findOne({ offerID: id, userID });
+    if (bidExists) {
+      req.flash('error', 'Your can not publish twice in a single offer');
+      res.redirect(`/dashboard/offer/${id}`);
+    } else {
+      await Bid.create({userID, offerID: id, bidValue, bidDescription, });
       req.flash('success', 'Your bid was succesfuly created');
       res.redirect(`/dashboard/offer/${id}`);
-    })
-    .catch((error) => {
-      next(error);
-    });
+    }
+  } catch (error) {
+    next(error);
+  }
 });
 
 // GET BID DETAIL

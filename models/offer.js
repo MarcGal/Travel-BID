@@ -11,9 +11,9 @@ const offerSchema = new Schema({
     type: ObjectId,
     ref: 'User',
   },
-  from: { type: String },
-  until: { type: String },
-  location: { type: String },
+  from: { type: Date },
+  until: { type: Date },
+  location: { type: String, uppercase: true },
   budget: { type: Number },
   Status: {
     type: Number,
