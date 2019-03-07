@@ -127,11 +127,12 @@ router.post('/offer/:id/bidnew', async(req, res, next) => {
     const { bidValue, bidDescription } = req.body;
     const userID = req.session.currentUser._id;
     const { id } = req.params;
-    if (Bid.findById(id)) {
-      req.flash('error', 'Your can not public twice in a single offer');
+    const bidExists = await Bid.findOne({ offerID: id, userID });
+    if (bidExists) {
+      req.flash('error', 'Your can not publish twice in a single offer');
       res.redirect(`/dashboard/offer/${id}`);
     } else {
-      await Bid.create({userID, offerID: id, bidValue, bidDescription,})
+      await Bid.create({userID, offerID: id, bidValue, bidDescription, });
       req.flash('success', 'Your bid was succesfuly created');
       res.redirect(`/dashboard/offer/${id}`);
     }
