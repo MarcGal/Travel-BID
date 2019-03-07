@@ -78,7 +78,19 @@ p {
   border-color: #FE7C84;
 }
 
+.bidson-offers {
+  list-style-type: none;
+}
+
+.border-purple {
+  border-color: #4e1f41;
+}
+
 h3 {
+  margin-top: 10%;
+}
+
+h2 {
   margin-top: 10%;
 }
 

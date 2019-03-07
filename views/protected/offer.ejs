@@ -1,17 +1,19 @@
 <h2>Offer info</h2>
 
-<div>
-  <%= offer.location %> <br>
-  From: <%= offer.from %> <br>
-  Until: <%= offer.until %> <br>
-  Offered budget: <%= offer.budget %>
+<div class="card border border-info rounded">
+  <div class="card-body">
+    <%= offer.location %> <br>
+    From: <%= offer.from %> <br>
+    Until: <%= offer.until %> <br>
+    Offered budget: <%= offer.budget %>
+  </div>
 
 <% if (offer.userID == userID && offer.Status === 0 ) { %>
   <div class="container">
-    <form class="active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
+    <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
       <input  class="btn btn-primary" type="submit" value="Update">
     </form>
-    <form class="active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
+    <form class="d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
       <input class="btn btn-danger" type="submit" value="delete">
     </form>
   </div>
@@ -22,9 +24,9 @@
 <div>
   <div>
     <% bids.forEach((bid) => { %>
-      <div>
+      <div class="dashboard-results border border-warning rounded">
         <ul>
-          <li <% if ( bid.Status === 1) { %> class="alert alert-success" <% } else if ( bid.Status === 2) { %> class= "alert alert-danger" <% } else { %> class= "alert alert-light" <% } %> >
+          <li class="bidson-offers" <% if ( bid.Status === 1) { %> class="alert alert-success" <% } else if ( bid.Status === 2) { %> class= "alert alert-danger" <% } else { %> class= "alert alert-light" <% } %> >
             <a href="/dashboard/bid/<%= bid._id %>">
              Description <%= bid.bidDescription %> <br>
              Offered bid <%= bid.bidValue %><br><br>
