@@ -9,9 +9,9 @@
 <br>
 <div>
   <h3>Your Offers</h3>
-  <div>
+  <div class="container">
     <% offers.forEach((offer) => { %>
-      <div class="border border-primary rounded dashboard-results">
+      <div class= "col-12 border border-primary rounded dashboard-results">
         <div <% if ( offer.Status === 1) { %> class="alert alert-success" <% 
           } else { %> class= "alert alert-light" <% } %> >
           <a href="/dashboard/offer/<%= offer._id%>">
@@ -29,9 +29,9 @@
 <br>
 <div>
   <h3>Your Bids</h3>
-  <div>
+  <div class="container">
     <% bids.forEach((bid) => { %>
-      <div class=" dashboard-results border border-primary rounded">
+      <div class="col-12 border dashboard-results border border-primary rounded">
         <div <% if ( bid.Status === 1) { %> class="alert alert-success" <% 
           } else if ( bid.Status === 2) { %> class= "alert alert-danger" <% 
           } else { %> class= "alert alert-light" <% } %> >
