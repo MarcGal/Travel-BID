@@ -6,9 +6,18 @@
   <title>TravelBID</title>
    <!-- <link rel="stylesheet" href="stylesheets/reset.css">-->
   <link rel="stylesheet" href="http://localhost:3000/bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel='stylesheet' href="stylesheets/style.css">
+  <link rel='stylesheet' href="http://localhost:3000/stylesheets/style.css">
 </head>
 <body>
+<nav class="navbar">
+  <a class="navbar-brand" href="/dashboard">
+    <img src="/img/wind-rose.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    Travel-BID
+  </a>
+  <div class="dropdown">
+    <img src="/img/menu.png" width="30" height="30" alt="">
+  </div>
+</nav>
 <div class="container">
 <%- include('../partials/notifications') %>
   <%- body %>

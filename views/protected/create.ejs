@@ -1,24 +1,31 @@
-<form class="container" id="form" action="/dashboard/create" method="POST">
+<div class="container">
+<h3 class="text-center" >Enter offer info</h3>
+<form class="text-center" id="form" action="/dashboard/create" method="POST">
   <div class="form-group">
-    <label for="from">From:</label>
-    <input type="date" id="from" name="from">
+    <h5>Arriving</h5>
+    <label for="from"></label>
+    <input type="date" class="form-control-lg border border-primary" id="from" name="from">
   </div>
   <div class="form-group">
-    <label for="until"> Until:</label>
-    <input type="date" id="until" name="until">
+    <h5>Leaving</h5>
+    <label for="until"></label>
+    <input type="date" class="form-control-lg border border-primary" id="until" name="until">
   </div>
   <div class="form-group">
-    <label for="location"> Location:</label>
-    <input type="text" id="location" name="location">
+    <label for="location"></label>
+    <input type="text" class="form-control-lg border border-primary" id="location" name="Location" placeholder="Location">
   </div>
   <div class="form-group">
+    <h5></h5>
     <label for="budget"></label><br>
-    <input type="text" name="budget" placeholder="budget">
+    <input type="text" class="form-control-lg border border-primary" name="budget" placeholder="Budget">
   </div>
 
   <button class="btn btn-primary" type="submit">Create Offer</button>
   
+  <br>
+  <a href="/dashboard">Cancel</a>
  
 </form>
-<br><br>
-<a href="/">Go Back</a>
+</div>
+
