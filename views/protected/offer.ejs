@@ -40,8 +40,8 @@
 
 <% if (offer.userID != userID) { %>
 <div>
-  <form action="/dashboard/offer/<%= offer._id %>/bidnew" method="get">
-    <input type="submit" value="bid">
+  <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/bidnew" method="get">
+    <input class="btn btn-primary" type="submit" value="bid">
   </form>
 </div>
 <% } %>

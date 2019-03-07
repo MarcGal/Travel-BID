@@ -1,20 +1,24 @@
 <h2>Bid Info</h2>
+<div class="border border-primary rounded">
+  <h4><%= bid.userID.name %></h4>
+  <h4>Bid value: <%= bid.bidValue %></h4>
+  <h4>Bid Description: <%= bid.bidDescription %></h4>
 
-<h4><%= bid.userID.name %></h4>
-<h4><%= bid.bidValue %></h4>
-<h4><%= bid.bidDescription %></h4>
 
 <% if (bid.userID == userID && bid.Status === 0) { %>
   <div>
-    <form action="/dashboard/bid/<%= bid._id %>/update" method="get">
-      <input type="submit" value="Update">
+    <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/update" method="get">
+      <input class="btn btn-primary" type="submit" value="Update">
     </form>
-    <form action="/dashboard/bid/<%= bid._id %>/delete" method="post">
-      <input type="submit" value="delete">
+    <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/delete" method="post">
+      <input  class="btn btn-danger" type="submit" value="delete">
     </form>
   </div>
 <% } %>
+</div>
+<br>
 
+<div>
 <% if (bid.userID == userID && bid.Status === 1) { %>
  <h4>Congratulations, your bid was accepted</h4>
 <% } %>
@@ -25,11 +29,11 @@
 
 <% if (offer.userID == userID && bid.Status === 0) { %>
   <div>
-    <form action="/dashboard/bid/<%= bid._id %>/accept" method="get">
-      <input type="submit" value="Accept">
+    <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/accept" method="get">
+      <input class="btn btn-primary" type="submit" value="Accept">
     </form>
-    <form action="/dashboard/bid/<%= bid._id %>/decline" method="get">
-      <input type="submit" value="Decline">
+    <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/decline" method="get">
+      <input class="btn btn-danger" type="submit" value="Decline">
     </form>
   </div>
 <% } %>
