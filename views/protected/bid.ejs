@@ -1,8 +1,9 @@
 <h2>Bid Info</h2>
 <div class="border border-primary rounded">
-  <h4><%= bid.userID.name %></h4>
-  <h4>Bid value: <%= bid.bidValue %></h4>
-  <h4>Bid Description: <%= bid.bidDescription %></h4>
+  <h3><%= bidOwner.name %></h3>
+  <h5>Bid value: $<%= bid.bidValue %></h5>
+  <h5>Bid Description: <%= bid.bidDescription %></h5>
+  <p> <%= bidOwner.accomodationDescription %> </p>
 
 
 <% if (bid.userID == userID && bid.Status === 0) { %>

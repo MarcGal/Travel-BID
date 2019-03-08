@@ -2,6 +2,7 @@ const express = require('express');
 const middlewares = require('../middlewares');
 const Offer = require('../models/offer');
 const Bid = require('../models/bid');
+const Users = require('../models/user');
 
 const router = express.Router();
 
@@ -53,6 +54,7 @@ router.get('/offer/:id', async (req, res, next) => {
   try {
     const offer = await Offer.findById(id);
     const bids = await Bid.find({ offerID: offer._id});
+    console.log(offer);
     res.render('protected/offer', { offer, bids, userID });
   } catch (error) {
     next(error);
@@ -147,8 +149,10 @@ router.get('/bid/:id', async (req, res, next) => {
   const userID = res.locals.currentUser._id;
   try {
     const bid = await Bid.findById(id);
+    const bidOwner = await Users.findById(bid.userID);
     const offer = await Offer.findById(bid.offerID);
-    res.render('protected/bid', { bid, userID, offer });
+    console.log(bidOwner);
+    res.render('protected/bid', { bid, userID, bidOwner, offer });
   } catch (error) {
     next(error);
   }
