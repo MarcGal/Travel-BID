@@ -30,7 +30,7 @@ router.post('/create', async (req, res, next) => {
     const { from, until, location, budget } = req.body;
     const userID = req.session.currentUser._id;
     if (Date.parse(from) < Date.now()) {
-      req.flash('error', 'No dates before today');
+      req.flash('error', 'You can not make a reservation in the past bro');
       res.redirect('./create');
     } else {
       await Offer.create({
@@ -129,7 +129,7 @@ router.post('/offer/:id/bidnew', async(req, res, next) => {
     const { id } = req.params;
     const bidExists = await Bid.findOne({ offerID: id, userID });
     if (bidExists) {
-      req.flash('error', 'Your can not publish twice in a single offer');
+      req.flash('error', 'Your can not bid twice on the same offer');
       res.redirect(`/dashboard/offer/${id}`);
     } else {
       await Bid.create({userID, offerID: id, bidValue, bidDescription, });
