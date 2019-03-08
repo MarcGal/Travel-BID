@@ -151,7 +151,6 @@ router.get('/bid/:id', async (req, res, next) => {
     const bid = await Bid.findById(id);
     const bidOwner = await Users.findById(bid.userID);
     const offer = await Offer.findById(bid.offerID);
-    console.log(bidOwner);
     res.render('protected/bid', { bid, userID, bidOwner, offer });
   } catch (error) {
     next(error);
