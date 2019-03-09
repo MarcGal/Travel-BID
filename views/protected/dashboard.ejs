@@ -46,21 +46,21 @@
    <h3>Your Bids</h3>
   </div>
   <div class="container">
-      <% offers.forEach((bid) => { %>
+      <% bids.forEach((bid) => { %>
         <div class="card" style="margin-top:1rem; margin-bottom: 1rem" >
            <div class="card-body">
              <h5 class="card-title">Value: <%= bid.bidValue %></h5>
              <p class="card-text">Description: <%= bid.bidDescription %></p>
              <% if (bid.Status === 1) { %> 
                <div class="alert alert-success" role="alert">
-                 Oferta cerrada !!!
+                 Bid Aceptada !!!
                </div><% 
              } else { %> 
                <div class="alert alert-primary" role="alert">
-                 Oferta abierta!!!
+                 Bid abierta!!!
                </div>
                <% } %>
-         <a href="/dashboard/offer/<%= bid._id %>" class="btn btn-dark">Info</a>
+         <a href="/dashboard/bid/<%= bid._id %>" class="btn btn-dark">Info</a>
        </div>
     </div>
     <% }) %>
