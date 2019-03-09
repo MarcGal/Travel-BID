@@ -1,11 +1,22 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const cloudinaryStorage = require('multer-storage-cloudinary');
 const User = require('../models/user');
+const cloudinary = require('cloudinary');
 const middlewares = require('../middlewares');
+
 
 const saltRounds = 10;
 
 const router = express.Router();
+const storage = cloudinaryStorage({
+  cloudinary,
+  folder: 'BidImage',
+  allowedFormats: ['jpg', 'png'],
+  transformation: [{ width: 500, height: 500, crop: 'limit' }],
+});
+const parser = multer({ storage });
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -52,8 +63,10 @@ router.get('/signup', (req, res, next) => {
 });
 
 // POST SIGNUP FORM
-router.post('/signup', (req, res, next) => {
-  const { 
+router.post('/signup', parser.single('image'), (req, res, next) => {
+  const accomodationImage = req.file.url;
+  // image.id = req.file.public_id; si queremos borrarla necesitaremos este id
+  const {
     email, password,
     name, age, gender, description,
     accomodationAddress, accomodationDescription,
@@ -71,7 +84,7 @@ router.post('/signup', (req, res, next) => {
       } else {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
-        User.create({ email, password: hashedPassword, name, age, gender, description, accomodationAddress, accomodationDescription })
+        User.create({ email, password: hashedPassword, name, age, gender, description, accomodationImage, accomodationAddress, accomodationDescription })
           .then((newUser) => {
             req.flash('success', `Welcome ${newUser.name}`);
             res.redirect('/dashboard');
