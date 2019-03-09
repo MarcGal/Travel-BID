@@ -57,6 +57,7 @@ router.get('/offer/:id', async (req, res, next) => {
     console.log(offer);
     res.render('protected/offer', { offer, bids, userID });
   } catch (error) {
+    
     next(error);
   }
 });
