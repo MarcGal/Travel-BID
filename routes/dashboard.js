@@ -134,7 +134,7 @@ router.post('/offer/:id/bidnew', async(req, res, next) => {
       req.flash('error', 'Your can not bid twice on the same offer');
       res.redirect(`/dashboard/offer/${id}`);
     } else {
-      await Bid.create({userID, offerID: id, bidValue, bidDescription, });
+      await Bid.create({ userID, offerID: id, bidValue, bidDescription });
       req.flash('success', 'Your bid was succesfuly created');
       res.redirect(`/dashboard/offer/${id}`);
     }
