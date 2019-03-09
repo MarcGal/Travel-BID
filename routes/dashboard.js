@@ -2,6 +2,7 @@ const express = require('express');
 const middlewares = require('../middlewares');
 const Offer = require('../models/offer');
 const Bid = require('../models/bid');
+const Users = require('../models/user');
 
 const router = express.Router();
 
@@ -30,7 +31,7 @@ router.post('/create', async (req, res, next) => {
     const { from, until, location, budget } = req.body;
     const userID = req.session.currentUser._id;
     if (Date.parse(from) < Date.now()) {
-      req.flash('error', 'No dates before today');
+      req.flash('error', 'You can not make a reservation in the past bro');
       res.redirect('./create');
     } else {
       await Offer.create({
@@ -53,6 +54,7 @@ router.get('/offer/:id', async (req, res, next) => {
   try {
     const offer = await Offer.findById(id);
     const bids = await Bid.find({ offerID: offer._id});
+    console.log(offer);
     res.render('protected/offer', { offer, bids, userID });
   } catch (error) {
     next(error);
@@ -129,7 +131,7 @@ router.post('/offer/:id/bidnew', async(req, res, next) => {
     const { id } = req.params;
     const bidExists = await Bid.findOne({ offerID: id, userID });
     if (bidExists) {
-      req.flash('error', 'Your can not publish twice in a single offer');
+      req.flash('error', 'Your can not bid twice on the same offer');
       res.redirect(`/dashboard/offer/${id}`);
     } else {
       await Bid.create({userID, offerID: id, bidValue, bidDescription, });
@@ -147,8 +149,9 @@ router.get('/bid/:id', async (req, res, next) => {
   const userID = res.locals.currentUser._id;
   try {
     const bid = await Bid.findById(id);
+    const bidOwner = await Users.findById(bid.userID);
     const offer = await Offer.findById(bid.offerID);
-    res.render('protected/bid', { bid, userID, offer });
+    res.render('protected/bid', { bid, userID, bidOwner, offer });
   } catch (error) {
     next(error);
   }

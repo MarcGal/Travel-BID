@@ -114,4 +114,12 @@ button {
   margin-bottom: 0rem;
 }
 
+#button-nav{
+  margin:5;
+}
+#button-search:hover{
+  background-color: #343a40;
+
+}
+
 /*# sourceMappingURL=style.css.map */
