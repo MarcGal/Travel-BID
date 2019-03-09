@@ -9,6 +9,9 @@ const expressLayouts = require('express-ejs-layouts');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const multer = require('multer');
+const cloudinary = require('cloudinary');
+const cloudinaryStorage = require('multer-storage-cloudinary');
 require('dotenv').config();
 
 
@@ -28,6 +31,19 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
 
 
 const app = express();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+const storage = cloudinaryStorage({
+  cloudinary,
+  folder: 'BidImage',
+  allowedFormats: ['jpg', 'png'],
+  transformation: [{ width: 500, height: 500, crop: 'limit' }],
+});
+const parser = multer({ storage });
 
 // app title
 app.locals.title = 'travelBID';
