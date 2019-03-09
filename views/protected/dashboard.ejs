@@ -55,11 +55,15 @@
                <div class="alert alert-success" role="alert">
                  Bid Aceptada !!!
                </div><% 
-             } else { %> 
-               <div class="alert alert-primary" role="alert">
-                 Bid abierta!!!
+             } else if (bid.Status === 2){ %> 
+               <div class="alert alert-danger" role="alert">
+                 Bid Denegada
                </div>
-               <% } %>
+               <% } else { %>
+                <div class="alert alert-primary" role="alert">
+                    Bid abierta!!!
+                  </div>
+                  <% } %>
          <a href="/dashboard/bid/<%= bid._id %>" class="btn btn-dark">Info</a>
        </div>
     </div>
