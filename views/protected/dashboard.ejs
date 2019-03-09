@@ -1,43 +1,75 @@
 <div class="container">
+  <div style="margin-top:1rem;">
       <form class="form-inline my-2 my-lg-0" action="/dashboard/search" method="get">
         <input class="form-control mr-sm-2" type="text" name="search" id="" placeholder="Search Offers">
         <input class="btn btn-outline-dark my-2 my-sm-0" type="submit" value="Search" id="button-search">
-      </form>    
+      </form>  
+    </div>  
 <div class="row ">
   <div class="col-12">
     <h3>Your Offers</h3>
   </div>
   <div class="container">
     <% offers.forEach((offer) => { %>
-      <div class="card" ">
-          <div class="card-body">
-            <h5 class="card-title"><%= offer.location %></h5>
-            <p class="card-text">Offered budget: <%= offer.budget %></p>
-            <a href="/dashboard/offer/<%= offer._id%>" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-
-      <div class= "col-12 border border-primary rounded dashboard-results">
-        <div <% if ( offer.Status === 1) { %> class="alert alert-success" id="box-color" <% 
-          } else { %> class= "alert alert-light" id="box-color" <% } %> >
-          <a href="/dashboard/offer/<%= offer._id%>">
-              <%= offer.location %> <br>
-             Offered budget: <%= offer.budget %>
-          </a>
-        </div>
-      </div>
-    <% }) %>
+      <div class="card" style="margin-top:1rem; margin-bottom: 1rem" >
+         <div class="card-body">
+           <h5 class="card-title"><%= offer.location %></h5>
+           <p class="card-text">Offered budget: <%= offer.budget %></p>
+           <% if (offer.Status === 1) { %> 
+             <div class="alert alert-success" role="alert">
+               Oferta cerrada !!!
+             </div><% 
+           } 
+           else { %> 
+             <div class="alert alert-primary" role="alert">
+               Oferta abierta!!!
+             </div>
+             <% } %>
+       <a href="/dashboard/offer/<%= offer._id%>" class="btn btn-dark">Info</a>
+     </div>
   </div>
-</div>
-<h4 class="text-center"><a class="btn btn-primary" href="/dashboard/create">Create Offer</a></h4>
+<!-- <div class= "col-12 border border-primary rounded dashboard-results">
+      <div <% if ( offer.Status === 1) { %> class="alert alert-success" id="box-color" <% 
+        } else { %> class= "alert alert-light" id="box-color" <% } %> >
+        <a href="/dashboard/offer/<%= offer._id%>">
+            <%= offer.location %> <br> Offered budget: <%= offer.budget %>
+       </a>      
+    </div>
+   </div> -->
+  <% }) %>
+  <!-- </div> -->
 
-<br>
-<br>
-<div>
+<h4 class="text-center"><a class="btn btn-info" href="/dashboard/create">Create Offer</a></h4>
+
+<div class="row">
   <div class="col-12">
    <h3>Your Bids</h3>
   </div>
   <div class="container">
+      <% offers.forEach((bid) => { %>
+        <div class="card" style="margin-top:1rem; margin-bottom: 1rem" >
+           <div class="card-body">
+             <h5 class="card-title">Value: <%= bid.bidValue %></h5>
+             <p class="card-text">Description: <%= bid.bidDescription %></p>
+             <% if (bid.Status === 1) { %> 
+               <div class="alert alert-success" role="alert">
+                 Oferta cerrada !!!
+               </div><% 
+             } else { %> 
+               <div class="alert alert-primary" role="alert">
+                 Oferta abierta!!!
+               </div>
+               <% } %>
+         <a href="/dashboard/offer/<%= bid._id %>" class="btn btn-dark">Info</a>
+       </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+
+
+
+  <!-- <div class="container">
     <% bids.forEach((bid) => { %>
       <div class="col-12 border dashboard-results border border-primary rounded">
         <div <% if ( bid.Status === 1) { %> class="alert alert-success" id="box-color" <% 
@@ -50,9 +82,7 @@
           </div>
       </div>
     <% }) %>
-  </div>
-</div>
+  </div> -->
 
-<a href="/logout">Logout</a>
-</div>
+<!-- <a href="/logout">Logout</a> -->
 
