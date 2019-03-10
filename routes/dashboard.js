@@ -57,8 +57,7 @@ router.get('/offer/:id', async (req, res, next) => {
   try {
     const offer = await Offer.findById(id);
     const bids = await Bid.find({ offerID: offer._id});
-    const bidOwner = await Users.findById(userID);
-    res.render('protected/offer', { offer, bids, userID, bidOwner });
+    res.render('protected/offer', { offer, bids, userID });
   } catch (error) {
     res.render('error');
     next(error);
@@ -132,13 +131,14 @@ router.post('/offer/:id/bidnew', async(req, res, next) => {
   try {
     const { bidValue, bidDescription } = req.body;
     const userID = req.session.currentUser._id;
+    const bidOwner = await Users.findById(userID);
     const { id } = req.params;
     const bidExists = await Bid.findOne({ offerID: id, userID });
     if (bidExists) {
       req.flash('error', 'Your can not bid twice on the same offer');
       res.redirect(`/dashboard/offer/${id}`);
     } else {
-      await Bid.create({ userID, offerID: id, bidValue, bidDescription });
+      await Bid.create({ userID, offerID: id, bidValue, bidDescription, accomodationImage: bidOwner.accomodationImage  });
       req.flash('success', 'Your bid was succesfuly created');
       res.redirect(`/dashboard/offer/${id}`);
     }

@@ -24,6 +24,9 @@ const bidSchema = new Schema({
     type: Number,
     default: 0,
   },
+  accomodationImage: {
+    type: String,
+  },
 }, { timestamps: true });
 
 const Bid = mongoose.model('Bid', bidSchema);
