@@ -136,7 +136,7 @@ router.post('/offer/:id/bidnew', async (req, res, next) => {
   try {
     const { bidValue, bidDescription } = req.body;
     const userID = req.session.currentUser._id;
-    const user = await Users.findById(userID);
+    const bidOwner = await Users.findById(userID);
     const { id } = req.params;
     const bidExists = await Bid.findOne({ offerID: id, userID });
     if (bidExists) {
@@ -145,7 +145,7 @@ router.post('/offer/:id/bidnew', async (req, res, next) => {
     } else if (user.accomodationAddress === '' || user.accomodationDescription === '') {
       req.flash('error', 'You must complete your profile before making a bid');
     } else {
-      await Bid.create({ userID, offerID: id, bidValue, bidDescription });
+      await Bid.create({ userID, offerID: id, bidValue, bidDescription, accomodationImage: bidOwner.accomodationImage  });
       req.flash('success', 'Your bid was succesfuly created');
       res.redirect(`/dashboard/offer/${id}`);
     }
@@ -239,44 +239,5 @@ router.post('/bid/:id/update', (req, res, next) => {
       next(error);
     });
 });
+
 module.exports = router;
-
-
-// GET UPDATE PROFILE
-router.get('/update', (req, res, next) => {
-  const id = req.session.currentUser._id;
-  Users.findById(id)
-    .then((user) => {
-      res.render('protected/update', { user });
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
-
-
-// POST UPDATE PROFILE
-router.post('/update', (req, res, next) => {
-  const userID = req.session.currentUser._id;
-  const { 
-    email, password,
-    name, age, gender, description,
-    accomodationAddress, accomodationDescription,
-  } = req.body;
-  const salt = bcrypt.genSaltSync(saltRounds);
-  const hashedPassword = bcrypt.hashSync(password, salt);
-
-  // if (email === '' || password === '' || name === '') {
-  //   req.flash('error', 'no empty fields');
-  //   return res.render('auth/signup');
-  // }
-  Users.findByIdAndUpdate(userID, { email, password: hashedPassword, name, age, gender, description,
-    accomodationAddress, accomodationDescription })
-    .then((user) => {
-      req.flash('success', 'Your profile was succesfully updated!');
-      res.redirect('/dashboard');
-    })
-    .catch((error) => {
-      next(error);
-    });
-});

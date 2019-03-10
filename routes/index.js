@@ -71,7 +71,6 @@ router.post('/signup', parser.single('image'), (req, res, next) => {
     name, age, gender, description,
     accomodationAddress, accomodationDescription,
   } = req.body;
-
   if (email === '' || password === '' || name === '') {
     req.flash('error', 'no empty fields');
     return res.render('auth/signup');

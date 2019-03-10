@@ -12,7 +12,7 @@ const userSchema = new Schema({
   accomodationAddress: { type: String },
   accomodationDescription: { type: String },
   userImage: { type: String, default: 'link' },
-  accomodationImage: { type: String, default: 'link' },
+  accomodationImage: { type: String },
 }, { timestamps: true });
 
 
