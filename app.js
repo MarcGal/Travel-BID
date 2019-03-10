@@ -9,9 +9,8 @@ const expressLayouts = require('express-ejs-layouts');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-//const multer = require('multer');
 const cloudinary = require('cloudinary');
-//const cloudinaryStorage = require('multer-storage-cloudinary');
+
 require('dotenv').config();
 
 
@@ -20,6 +19,7 @@ const { notifications } = require('./middlewares');
 
 const indexRouter = require('./routes/index');
 const dashboardRouter = require('./routes/dashboard');
+const userRouter = require('./routes/user');
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(() => {
@@ -82,6 +82,7 @@ app.use((req, res, next) => {
 app.use(notifications);
 app.use('/', indexRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
