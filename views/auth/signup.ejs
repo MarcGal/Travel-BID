@@ -1,4 +1,5 @@
-<form class="container text-center" id="form" action="/signup" method="POST">
+<h1 class="container text-center">Create an account</h1>
+<form class="container text-center" id="form" enctype="multipart/form-data" action="/signup" method="POST" style="margin-top:2rem;">
   <div class="form-group">
     <label for="email"></label><br>
     <input type="text"  class="form-control-lg border border-primary" name="email" placeholder="Your email">
@@ -20,6 +21,10 @@
     <input type="text" class="form-control-lg border border-primary" name="gender" placeholder="gender">
   </div>
   <div class="form-group">
+      <label >Room Photography</label><br>
+      <input type='file' name='image' />
+  </div>
+  <div class="form-group">
     <label for="description"></label><br>
     <input type="text" class="form-control-lg border border-primary" name="description" placeholder="description">
   </div>
@@ -34,5 +39,5 @@
 
   <button class="btn btn-primary" type="submit">Create account</button>
   <br>
-  <a href="/">Go Back</a>
+  <a href="/" class="btn btn-danger">Go Back</a>
 </form>

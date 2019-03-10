@@ -9,6 +9,9 @@ const expressLayouts = require('express-ejs-layouts');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+//const multer = require('multer');
+const cloudinary = require('cloudinary');
+//const cloudinaryStorage = require('multer-storage-cloudinary');
 require('dotenv').config();
 
 
@@ -28,6 +31,12 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
 
 
 const app = express();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 // app title
 app.locals.title = 'travelBID';
@@ -76,6 +85,7 @@ app.use('/dashboard', dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
+  res.render('error');
   next(createError(404));
 });
 
@@ -87,7 +97,6 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
 });
 
 module.exports = app;

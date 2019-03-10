@@ -4,33 +4,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>TravelBID</title>
+  <link rel="shortcut icon" href="http://icons.iconarchive.com/icons/icons8/windows-8/24/Transport-Airplane-Mode-On-icon.png" type="image/x-icon">
    <!-- <link rel="stylesheet" href="stylesheets/reset.css">-->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel='stylesheet' href="http://localhost:3000/stylesheets/style.css">
+  <link rel="stylesheet" href="https://serene-caverns-38260.herokuapp.com/stylesheets/style.css">
 </head>
 <body>
- <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <div class="container-fluid" style="padding-right:0 ; padding-left:0">
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
    <button class="navbar-toggler" type="button" id="button-nav" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
    </button>
-   <a class="navbar-brand" href="http://localhost:3000/dashboard/">TravelBID</a>
+   <a class="navbar-brand" href="https://serene-caverns-38260.herokuapp.com/dashboard/">TravelBID</a>
  
    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
        <li class="nav-item active">
-         <a class="nav-link" href="http://localhost:3000/dashboard/">Home <span class="sr-only">(current)</span></a>
+         <a class="nav-link" href="https://serene-caverns-38260.herokuapp.com/dashboard">Home <span class="sr-only">(current)</span></a>
        </li>
        <li class="nav-item">
          <a class="nav-link" href="/dashboard/update">Profile</a>
        </li>
        <li class="nav-item">
-         <a class="nav-link" href="/logout" tabindex="-1">logout</a>
+         <a class="nav-link" href="https://serene-caverns-38260.herokuapp.com/logout" tabindex="-1">logout</a>
        </li>
      </ul>
-     <form class="form-inline my-2 my-lg-0" action="/dashboard/search" method="get">
-       <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" aria-label="Search">
-       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-     </form>
    </div>
  </nav>
 <!-- <nav class="container navbar navbar-default">
@@ -46,7 +45,7 @@
 </nav> -->
 
 
-<div class="container">
+
 <%- include('../partials/notifications') %>
   <%- body %>
 

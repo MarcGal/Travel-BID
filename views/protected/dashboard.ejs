@@ -1,38 +1,79 @@
-
-<!-- <form class="active-cyan-3 active-cyan-4 mb-4 row justify-content-center" action="/dashboard/search" method="get">
-    <input class="form-control-lg border border-primary" type="text" name="search" id="">
-    <input class="btn btn-lg btn-outline-success my-2 my-sm-0" type="submit" value="Search offers">
-</form> -->
-
-
-<br>
-<div>
+<div class="container">
+  <div style="margin-top:1rem;">
+      <form class="form-inline my-2 my-lg-0" action="/dashboard/search" method="get">
+        <input class="form-control mr-sm-2" type="text" name="search" id="" placeholder="Search Offers">
+        <input class="btn btn-outline-dark my-2 my-sm-0" type="submit" value="Search" id="button-search">
+      </form>  
+    </div>  
+<div class="row ">
   <div class="col-12">
     <h3>Your Offers</h3>
   </div>
   <div class="container">
     <% offers.forEach((offer) => { %>
-      <div class= "col-12 border border-primary rounded dashboard-results">
-        <div <% if ( offer.Status === 1) { %> class="alert alert-success" id="box-color" <% 
-          } else { %> class= "alert alert-light" id="box-color" <% } %> >
-          <a href="/dashboard/offer/<%= offer._id%>">
-              <%= offer.location %> <br>
-             Offered budget: <%= offer.budget %>
-          </a>
-        </div>
-      </div>
-    <% }) %>
+      <div class="card" style="margin-top:1rem; margin-bottom: 1rem" >
+         <div class="card-body">
+           <h5 class="card-title"><%= offer.location %></h5>
+           <p class="card-text">Offered budget: <%= offer.budget %></p>
+           <% if (offer.Status === 1) { %> 
+             <div class="alert alert-success" role="alert">
+               Oferta cerrada !!!
+             </div><% 
+           } 
+           else { %> 
+             <div class="alert alert-primary" role="alert">
+               Oferta abierta!!!
+             </div>
+             <% } %>
+       <a href="/dashboard/offer/<%= offer._id%>" class="btn btn-dark">Info</a>
+     </div>
   </div>
-</div>
-<h4 class="text-center"><a class="btn btn-primary" href="/dashboard/create">Create Offer</a></h4>
+<!-- <div class= "col-12 border border-primary rounded dashboard-results">
+      <div <% if ( offer.Status === 1) { %> class="alert alert-success" id="box-color" <% 
+        } else { %> class= "alert alert-light" id="box-color" <% } %> >
+        <a href="/dashboard/offer/<%= offer._id%>">
+            <%= offer.location %> <br> Offered budget: <%= offer.budget %>
+       </a>      
+    </div>
+   </div> -->
+  <% }) %>
+  <!-- </div> -->
 
-<br>
-<br>
-<div>
+<h4 class="text-center"><a class="btn btn-info" href="/dashboard/create">Create Offer</a></h4>
+
+<div class="row">
   <div class="col-12">
    <h3>Your Bids</h3>
   </div>
   <div class="container">
+      <% bids.forEach((bid) => { %>
+        <div class="card" style="margin-top:1rem; margin-bottom: 1rem" >
+           <div class="card-body">
+             <h5 class="card-title">Value: <%= bid.bidValue %></h5>
+             <p class="card-text">Description: <%= bid.bidDescription %></p>
+             <% if (bid.Status === 1) { %> 
+               <div class="alert alert-success" role="alert">
+                 Bid Aceptada !!!
+               </div><% 
+             } else if (bid.Status === 2){ %> 
+               <div class="alert alert-danger" role="alert">
+                 Bid Denegada
+               </div>
+               <% } else { %>
+                <div class="alert alert-primary" role="alert">
+                    Bid abierta!!!
+                  </div>
+                  <% } %>
+         <a href="/dashboard/bid/<%= bid._id %>" class="btn btn-dark">Info</a>
+       </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+
+
+
+  <!-- <div class="container">
     <% bids.forEach((bid) => { %>
       <div class="col-12 border dashboard-results border border-primary rounded">
         <div <% if ( bid.Status === 1) { %> class="alert alert-success" id="box-color" <% 
@@ -45,12 +86,7 @@
           </div>
       </div>
     <% }) %>
-  </div>
-</div>
+  </div> -->
 
-<br>
-
-<br>
-<a href="/logout">Logout</a>
-
+<!-- <a href="/logout">Logout</a> -->
 

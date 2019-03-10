@@ -1,10 +1,23 @@
-<h2>Bid Info</h2>
-<div class="border border-primary rounded">
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+          <h2>Bid Info</h2>
+          <div class="card" ">
+              <img src="<%= bidOwner.accomodationImage %>" class="img-thumbnail" alt="...">
+              <div class="card-body">
+                <h5 class="card-title"><%= bidOwner.name %></h5>
+                <p class="card-text">Bid value: $<%= bid.bidValue %></p>
+                <p class="card-text">Bid Description: <%= bid.bidDescription %></p>
+                <p class="card-text"><%= bidOwner.accomodationDescription %> </p>
+              </div>
+            </div>
+
+<!-- <div class="border border-primary rounded">
   <h3><%= bidOwner.name %></h3>
   <h5>Bid value: $<%= bid.bidValue %></h5>
   <h5>Bid Description: <%= bid.bidDescription %></h5>
   <p> <%= bidOwner.accomodationDescription %> </p>
-
+ -->
 
 <% if (bid.userID == userID && bid.Status === 0) { %>
   <div>
@@ -39,3 +52,6 @@
   </div>
 <% } %>
 </div>
+</div>
+</div>
+</div> 
