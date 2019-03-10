@@ -121,21 +121,29 @@ router.post('/offer/:id/delete', (req, res, next) => {
 });
 
 // GET NEW BID FORM
-router.get('/offer/:id/bidnew', (req, res, next) => {
-  const { id } = req.params;
-  res.render('protected/bidnew', { id });
+router.get('/offer/:id/bidnew', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    // const userID = req.session.currentUser._id;
+    res.render('protected/bidnew', { id });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // CREATE NEW BID
-router.post('/offer/:id/bidnew', async(req, res, next) => {
+router.post('/offer/:id/bidnew', async (req, res, next) => {
   try {
     const { bidValue, bidDescription } = req.body;
     const userID = req.session.currentUser._id;
+    const user = await Users.findById(userID);
     const { id } = req.params;
     const bidExists = await Bid.findOne({ offerID: id, userID });
     if (bidExists) {
       req.flash('error', 'Your can not bid twice on the same offer');
       res.redirect(`/dashboard/offer/${id}`);
+    } else if (user.accomodationAddress === '' || user.accomodationDescription === '') {
+      req.flash('error', 'You must complete your profile before making a bid');
     } else {
       await Bid.create({ userID, offerID: id, bidValue, bidDescription });
       req.flash('success', 'Your bid was succesfuly created');
