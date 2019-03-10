@@ -23,3 +23,12 @@ warningMessages && warningMessages.forEach((message) => { %>
 <%- message %>
 </div>
 <% }) %>
+
+ <script type="text/javascript">
+  const alert = document.querySelector('.alert');
+
+  if (alert) {
+    setTimeout(function() { alert.style = 'display: none'}, 3000);
+  }
+
+ </script>
