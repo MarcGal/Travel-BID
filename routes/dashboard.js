@@ -54,7 +54,8 @@ router.get('/offer/:id', async (req, res, next) => {
   try {
     const offer = await Offer.findById(id);
     const bids = await Bid.find({ offerID: offer._id});
-    res.render('protected/offer', { offer, bids, userID });
+    const bidOwner = await Users.findById(userID);
+    res.render('protected/offer', { offer, bids, userID, bidOwner });
   } catch (error) {
     res.render('error');
     next(error);
