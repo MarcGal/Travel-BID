@@ -1,15 +1,18 @@
-<h2>Search results</h2>
-<div>
+<div class="container text-center">
+  <h2>Search results</h2>
   <div>
-    <% offers.forEach((offer) => { %>
-      <div class="border border-warning rounded dashboard-results">
-        <div>
-            <a href="./offer/<%= offer._id%>">
-              <%= offer.location %> <br>
-             Offered budget: <%= offer.budget %><br><br>
-            </a>
-          </div>
-      </div>
-    <% }) %>
+    <div>
+      <% offers.forEach((offer) => { %>
+        <div class="border border-primary rounded dashboard-results">
+          <div>
+            <br>
+              <a href="./offer/<%= offer._id%>">
+                <%= offer.location %> <br>
+               Offered budget: <%= offer.budget %><br><br>
+              </a>
+            </div>
+        </div>
+      <% }) %>
+    </div>
   </div>
 </div>
