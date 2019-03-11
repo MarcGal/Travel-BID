@@ -12,20 +12,21 @@
   <div class="container">
     <% offers.forEach((offer) => { %>
       <div class="card" style="margin-top:1rem; margin-bottom: 1rem" >
+      <img src="#" class="img-thumbnail" alt="...">
          <div class="card-body">
            <h5 class="card-title"><%= offer.location %></h5>
            <p class="card-text">Offered budget: <%= offer.budget %></p>
            <% if (offer.Status === 1) { %> 
              <div class="alert alert-success" role="alert">
-               Oferta cerrada !!!
+               Closed Offer!
              </div><% 
            } 
            else { %> 
              <div class="alert alert-primary" role="alert">
-               Oferta abierta!!!
+               Open Offer!
              </div>
              <% } %>
-       <a href="/dashboard/offer/<%= offer._id%>" class="btn btn-dark">Info</a>
+       <a href="/dashboard/offer/<%= offer._id%>" class="btn btn-dark text-center">See more</a>
      </div>
   </div>
 <!-- <div class= "col-12 border border-primary rounded dashboard-results">
@@ -53,15 +54,15 @@
              <p class="card-text">Description: <%= bid.bidDescription %></p>
              <% if (bid.Status === 1) { %> 
                <div class="alert alert-success" role="alert">
-                 Bid Aceptada !!!
+                 Accepted Bid!
                </div><% 
              } else if (bid.Status === 2){ %> 
                <div class="alert alert-danger" role="alert">
-                 Bid Denegada
+                 Rejected Bid!
                </div>
                <% } else { %>
                 <div class="alert alert-primary" role="alert">
-                    Bid abierta!!!
+                    Open Bid!
                   </div>
                   <% } %>
          <a href="/dashboard/bid/<%= bid._id %>" class="btn btn-dark">Info</a>
