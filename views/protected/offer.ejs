@@ -1,34 +1,9 @@
-
-
 <div class="container text-center">
   <h2>Offer info</h2>
-  <!--<div class="row">
-    <div class="col-12">
-    <h2>Offer info</h2>
-    <div class="card">
-        <div class="card-body">
-          <h5 class="card-title"><%= offer.location %></h5>
-          <p class="card-text">From: <%= offer.from %> <br>
-            Until: <%= offer.until %> <br>
-            Offered budget: <%= offer.budget %></p>
-            <% if (offer.userID == userID && offer.Status === 0 ) { %>
-              <div class="container text-center">
-                <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
-                  <input  class="btn btn-primary" type="submit" value="Update">
-                </form>
-                <form class="d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
-                  <input class="btn btn-danger" type="submit" value="delete">
-                </form>
-              </div>
-            <% } %>   
-        </div>
-      </div>
--->
-
     <div class="row">
-    <div class="col-md-4 col-sm-6">
-    <div class="card-container manual-flip">
-       <div class="card">
+      <div class="col-md-4 col-sm-6">
+        <div class="card-container manual-flip">
+          <div class="card">
            <div class="front">
                <div class="cover">
                    <img src="#"/>
@@ -43,100 +18,77 @@
                        <p class="text-center"> Until: <%= offer.until %></p>
                        <p class="text-center">  Offered budget: <%= offer.budget %></p>
                    </div>
-                   <% if (offer.userID == userID && offer.Status === 0 ) { %>
-                   <div class="container text-center">
-                     <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
-                       <input  class="btn btn-primary" type="submit" value="Update">
-                     </form>
-                     <form class="d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
-                       <input class="btn btn-danger" type="submit" value="delete">
-                     </form>
-                   </div>
-                 <% } %>
-                 
-                 <% if (offer.userID != userID) { %>
+                <% if (offer.userID == userID && offer.Status === 0 ) { %>
+                <div class="container text-center">
+                  <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
+                    <input  class="btn btn-primary" type="submit" value="Update">
+                  </form>
+                  <form class="d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
+                    <input class="btn btn-danger" type="submit" value="delete">
+                  </form>
+                </div>
+                <% } %>
+              
+                <% if (offer.userID != userID) { %>
                  <div class="text-center">
-                       <button class="d-inline-block active-cyan-3 active-cyan-4 mb-4 btn-primary rounded" onclick="rotateCard(this)">
-                           See more
-                       </button>
-                   </div>
-                 <% } %>
+                    <button class="d-inline-block active-cyan-3 active-cyan-4 mb-4 btn-primary rounded" onclick="rotateCard(this)">
+                        See more
+                    </button>
+                 </div>
+                <% } %>
+              </div>
+           </div> 
+           <!-- end front panel -->
 
-               </div>
-           </div> <!-- end front panel -->
+          <!-- Start of back panel -->
            <div class="back">
-               <div class="header">
-                   <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
-               </div>
-               <div class="content">
-                   <div class="main">
-                       <h4 class="text-center">Job Description</h4>
-                       <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
+             <div class="content">
+                  <div class="main">
+                    <br>
+                     <h4 class="text-center"><%= offerOwner.name %></h4>
+                     <p class="text-center"><%= offerOwner.age %></p>
+                     <p class="text-center"><%= offerOwner.description %></p>
+                     <div class="stats-container">
+                        <div class="stats">
+                          <h4>235</h4>
+                          <p>
+                            Followers
+                          </p>
+                        </div>
+                        <div class="stats">
+                          <h4>20</h4>
+                          <p>
+                            Reviews
+                          </p>
+                        </div>
+                        <div class="stats">
+                          <h4>5</h4>
+                          <p>
+                            Offers
+                          </p>
+                        </div>
+                    </div>
+                </div>
 
-                       <div class="stats-container">
-                           <div class="stats">
-                               <h4>235</h4>
-                               <p>
-                                   Followers
-                               </p>
-                           </div>
-                           <div class="stats">
-                               <h4>114</h4>
-                               <p>
-                                   Following
-                               </p>
-                           </div>
-                           <div class="stats">
-                               <h4>35</h4>
-                               <p>
-                                   Projects
-                               </p>
-                           </div>
-                       </div>
-
-                   </div>
-               </div>
-               <div class="footer">
-                   <button class="d-inline-block active-cyan-3 active-cyan-4 mb-4 btn-primary rounded" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
-                       back
-                   </button>
-                   <div class="social-links text-center">
-                       <a href="http://deepak646.blogspot.in/" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
-                       <a href="http://deepak646.blogspot.in/" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
-                       <a href="http://deepak646.blogspot.in/" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
-                   </div>
-               </div>
-           </div> <!-- end back panel -->
-       </div> <!-- end card -->
+              <br><br><br>
+              <div class="social-links text-center">
+              <a href="http://deepak646.blogspot.in/" class="facebook col-4"> <img src="/img/facebook.png" width="50" height="40" alt="" srcset=""></a>
+              <a href="http://deepak646.blogspot.in/" class="google col-4" ><img src="/img/twitter.png" width="40" height="40" alt="" srcset=""></a>
+              <a href="http://deepak646.blogspot.in/" class="twitter col-4"> <img src="/img/insta.png" width="40" height="40" alt="" srcset=""></a>
+            </div>
+         </div>
+         <div class="footer">
+           <button class="d-inline-block active-cyan-3 active-cyan-4 mb-4 btn-primary rounded" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
+               back
+           </button>         
+         </div>
+       </div> <!-- end back panel -->
+      </div> <!-- end card -->
    </div> <!-- end card-container -->
-</div> <!-- end col sm 3 -->
+  </div> <!-- end col sm 3 -->
 <!--         <div class="col-sm-1"></div> -->
 </div> 
 
-
-
-
-
-
-  <!-- <div class="card border border-info rounded">
-    <div class="card-body">
-      <%= offer.location %> <br>
-      From: <%= offer.from %> <br>
-      Until: <%= offer.until %> <br>
-      Offered budget: <%= offer.budget %>
-    </div>
-
-  <% if (offer.userID == userID && offer.Status === 0 ) { %>
-    <div class="container">
-      <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
-        <input  class="btn btn-primary" type="submit" value="Update">
-      </form>
-      <form class="d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
-        <input class="btn btn-danger" type="submit" value="delete">
-      </form>
-    </div>
-  <% } %>
-  </div> -->
   <br>
   <h2>Bids</h2>
   <div class="container">
@@ -159,20 +111,8 @@
             </div>
             <a href="/dashboard/bid/<%= bid._id %>" class="btn btn-dark">Info</a>
           </div>
-        <!-- <div class="col-12 dashboard-results border border-warning rounded">
-          <ul>
-            <li class="bidson-offers" <% if ( bid.Status === 1) { %> class="alert alert-success" <% } else if ( bid.Status === 2) { %> class= "alert alert-danger" <% } else { %> class= "alert alert-light" <% } %> >
-              <a href="/dashboard/bid/<%= bid._id %>">
-               Description <%= bid.bidDescription %> <br>
-               Offered bid <%= bid.bidValue %><br><br>
-              </a>
-            </li>
-          </ul>
-        </div> -->
       <% }) %>
-      
     </div>
-    
   </div>
 
   <% if (offer.userID != userID) { %>
@@ -182,14 +122,6 @@
     </form>
   </div>
   <% } %>
-
-  <!-- <a href="/dashboard">Home</a> -->
-    </div>
-  </div>
-</div> 
-
-
-
 
 
 <script type="text/javascript">
