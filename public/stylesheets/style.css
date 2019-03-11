@@ -87,6 +87,14 @@ p {
   border-color: #4e1f41;
 }
 
+.login-color {
+  color: white;
+}
+
+.social-links {
+  margin-top: 2%
+}
+
 h3 {
   margin-top: 10%;
   margin-bottom: 5%;
