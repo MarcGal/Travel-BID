@@ -1,14 +1,13 @@
-<form class="container" id="form" action="/dashboard/offer/<%= id%>/bidnew" method="POST">
+<form class="container text-center" id="form" action="/dashboard/offer/<%= id%>/bidnew" method="POST">
   <div class="form-group">
     <label for="bidValue"></label><br>
-    <input type="number" name="bidValue" placeholder="value">
+    <input type="number" class="form-control-lg border border-primary" name="bidValue" placeholder="Value">
   </div>
   <div class="form-group">
-    <label for="bidDescription"> Description:</label>
-    <input type="text" id="bidDescription" name="bidDescription">
+    <label for="bidDescription"> </label>
+    <input type="text" class="form-control-lg border border-primary" id="bidDescription" name="bidDescription" placeholder="Bid Description">
   </div>
   <button class="btn btn-primary" type="submit">New Bid</button>
- 
+  <br>
+  <a href="/dashboard">Cancel</a>
 </form>
-<br><br>
-<a href="/">Go Back</a>
