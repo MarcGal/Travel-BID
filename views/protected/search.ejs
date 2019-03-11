@@ -1,5 +1,5 @@
 <h2>Search results</h2>
-<div>
+<!--<div>
   <div>
     <% offers.forEach((offer) => { %>
       <div class="border border-warning rounded dashboard-results">
@@ -12,4 +12,18 @@
       </div>
     <% }) %>
   </div>
+</div>-->
+
+<div class="container">
+  <% offers.forEach((offer) => { %>
+    <div class="card" style="">
+      <img class="img-thumbnail" src="#" alt="">
+      <div class="card-body">
+        <p class="card-text"><a href="./offer/<%= offer._id%>">
+        <%= offer.location %> <br>
+       Offered budget: <%= offer.budget %><br><br>
+      </a></p>
+      </div>
+    </div>
+  <% }) %>
 </div>
