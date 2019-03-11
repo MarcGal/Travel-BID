@@ -20,11 +20,11 @@
  -->
 
 <% if (bid.userID == userID && bid.Status === 0) { %>
-  <div>
-    <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/update" method="get">
+  <div class="text-center">
+    <form class="bid-buttons d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/update" method="get">
       <input class="btn btn-primary" type="submit" value="Update">
     </form>
-    <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/delete" method="post">
+    <form class="bid-buttons d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/delete" method="post">
       <input  class="btn btn-danger" type="submit" value="delete">
     </form>
   </div>
