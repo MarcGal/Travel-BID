@@ -1,5 +1,8 @@
-<div class="container">
-  <div class="row">
+
+
+<div class="container text-center">
+  <h2>Offer info</h2>
+  <!--<div class="row">
     <div class="col-12">
     <h2>Offer info</h2>
     <div class="card">
@@ -9,7 +12,7 @@
             Until: <%= offer.until %> <br>
             Offered budget: <%= offer.budget %></p>
             <% if (offer.userID == userID && offer.Status === 0 ) { %>
-              <div class="container">
+              <div class="container text-center">
                 <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
                   <input  class="btn btn-primary" type="submit" value="Update">
                 </form>
@@ -20,6 +23,101 @@
             <% } %>   
         </div>
       </div>
+-->
+
+    <div class="row">
+    <div class="col-md-4 col-sm-6">
+    <div class="card-container manual-flip">
+       <div class="card">
+           <div class="front">
+               <div class="cover">
+                   <img src="#"/>
+               </div>
+               <div class="user">
+                   <img class="img-circle" src="#"/>
+               </div>
+               <div class="content">
+                   <div class="main">
+                       <h3 class="name"><%= offer.location %></h3>
+                       <p class="profession">From: <%= offer.from %></p>
+                       <p class="text-center"> Until: <%= offer.until %></p>
+                       <p class="text-center">  Offered budget: <%= offer.budget %></p>
+                   </div>
+                   <% if (offer.userID == userID && offer.Status === 0 ) { %>
+                   <div class="container text-center">
+                     <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
+                       <input  class="btn btn-primary" type="submit" value="Update">
+                     </form>
+                     <form class="d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
+                       <input class="btn btn-danger" type="submit" value="delete">
+                     </form>
+                   </div>
+                 <% } %>
+                 
+                 <% if (offer.userID != userID) { %>
+                 <div class="text-center">
+                       <button class="d-inline-block active-cyan-3 active-cyan-4 mb-4 btn-primary rounded" onclick="rotateCard(this)">
+                           See more
+                       </button>
+                   </div>
+                 <% } %>
+
+               </div>
+           </div> <!-- end front panel -->
+           <div class="back">
+               <div class="header">
+                   <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+               </div>
+               <div class="content">
+                   <div class="main">
+                       <h4 class="text-center">Job Description</h4>
+                       <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
+
+                       <div class="stats-container">
+                           <div class="stats">
+                               <h4>235</h4>
+                               <p>
+                                   Followers
+                               </p>
+                           </div>
+                           <div class="stats">
+                               <h4>114</h4>
+                               <p>
+                                   Following
+                               </p>
+                           </div>
+                           <div class="stats">
+                               <h4>35</h4>
+                               <p>
+                                   Projects
+                               </p>
+                           </div>
+                       </div>
+
+                   </div>
+               </div>
+               <div class="footer">
+                   <button class="d-inline-block active-cyan-3 active-cyan-4 mb-4 btn-primary rounded" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
+                       back
+                   </button>
+                   <div class="social-links text-center">
+                       <a href="http://deepak646.blogspot.in/" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
+                       <a href="http://deepak646.blogspot.in/" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
+                       <a href="http://deepak646.blogspot.in/" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
+                   </div>
+               </div>
+           </div> <!-- end back panel -->
+       </div> <!-- end card -->
+   </div> <!-- end card-container -->
+</div> <!-- end col sm 3 -->
+<!--         <div class="col-sm-1"></div> -->
+</div> 
+
+
+
+
+
+
   <!-- <div class="card border border-info rounded">
     <div class="card-body">
       <%= offer.location %> <br>
@@ -39,6 +137,7 @@
     </div>
   <% } %>
   </div> -->
+  <br>
   <h2>Bids</h2>
   <div class="container">
     <div class="row">
@@ -71,13 +170,15 @@
           </ul>
         </div> -->
       <% }) %>
+      
     </div>
+    
   </div>
 
   <% if (offer.userID != userID) { %>
   <div>
     <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/bidnew" method="get">
-      <input class="btn btn-lg btn-primary" type="submit" value="Do a Bid !!!">
+      <input class="btn btn-lg btn-primary" type="submit" value="Place a Bid">
     </form>
   </div>
   <% } %>
@@ -86,4 +187,24 @@
     </div>
   </div>
 </div> 
+
+
+
+
+
+<script type="text/javascript">
+
+$().ready(function(){
+  $('[rel="tooltip"]').tooltip();
+});
+
+function rotateCard(btn){
+  var $card = $(btn).closest('.card-container');
+  if($card.hasClass('hover')){
+      $card.removeClass('hover');
+  } else {
+      $card.addClass('hover');
+  }
+}
+ </script>
 
