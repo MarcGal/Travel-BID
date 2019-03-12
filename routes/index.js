@@ -10,6 +10,7 @@ const middlewares = require('../middlewares');
 const saltRounds = 10;
 
 const router = express.Router();
+
 const storage = cloudinaryStorage({
   cloudinary,
   folder: 'BidImage',
@@ -71,10 +72,12 @@ router.post('/signup', parser.single('image'), (req, res, next) => {
     name, age, gender, description,
     accomodationAddress, accomodationDescription,
   } = req.body;
+
   if (email === '' || password === '' || name === '') {
     req.flash('error', 'no empty fields');
     return res.render('auth/signup');
   }
+
   User.findOne({ email })
     .then((user) => {
       if (user) {

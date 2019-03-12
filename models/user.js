@@ -11,7 +11,7 @@ const userSchema = new Schema({
   description: { type: String, default: '' },
   accomodationAddress: { type: String },
   accomodationDescription: { type: String },
-  userImage: { type: String, default: 'link' },
+  userImage: { type: String },
   accomodationImage: { type: String },
 }, { timestamps: true });
 
