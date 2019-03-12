@@ -17,7 +17,6 @@ router.get('/', async (req, res, next) => {
   try {
     const offers = await Offer.find({ userID });
     const bids = await Bid.find({ userID });
-    console.log(offers);
     res.render('protected/dashboard', { offers, bids, userID });
   } catch (error) {
     next(error);
