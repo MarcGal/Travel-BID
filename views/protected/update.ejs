@@ -1,4 +1,4 @@
-<form class="container text-center" id="form" action="/user/update" method="POST">
+<form class="container text-center" id="form" action="/user/update" enctype="multipart/form-data"  method="POST">
   <div class="form-group">
     <label for="name"></label><br>
     <input type="text" class="form-control-lg border border-primary" name="name" placeholder="Your name" value="<%= user.name %>">
@@ -23,8 +23,12 @@
     <label for="accomodationDescription"></label><br>
     <input type="text" class="form-control-lg border border-primary" name="accomodationDescription" placeholder="Describe" value="<%= user.accomodationDescription %>">
   </div>
+  <div class="form-group">
+      <label >Room Photography</label><br>
+      <input type='file' name='image'/>
+  </div>
 
   <button class="btn btn-primary" type="submit"> Update account</button>
   <br>
-  <a href="/user">Go Back</a>
+  <a href="/user">Cancel</a>
 </form>

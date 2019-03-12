@@ -47,6 +47,10 @@ body {
 	position: relative;
 }
 
+.profile-card {
+    height: 100%;
+}
+
 /* hide back of pane during swap */
 .front, .back {
 	-webkit-backface-visibility: hidden;

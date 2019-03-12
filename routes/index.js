@@ -10,6 +10,7 @@ const middlewares = require('../middlewares');
 const saltRounds = 10;
 
 const router = express.Router();
+
 const storage = cloudinaryStorage({
   cloudinary,
   folder: 'BidImage',
@@ -64,17 +65,19 @@ router.get('/signup', (req, res, next) => {
 
 // POST SIGNUP FORM
 router.post('/signup', parser.single('image'), (req, res, next) => {
-  const accomodationImage = req.file.url;
+  const userImage = req.file.url;
   // image.id = req.file.public_id; si queremos borrarla necesitaremos este id
   const {
-    email, password,
-    name, age, gender, description,
-    accomodationAddress, accomodationDescription,
+    name, email, password,
+    // name, age, gender, description,
+    // accomodationAddress, accomodationDescription,
   } = req.body;
+
   if (email === '' || password === '' || name === '') {
     req.flash('error', 'no empty fields');
     return res.render('auth/signup');
   }
+
   User.findOne({ email })
     .then((user) => {
       if (user) {
@@ -83,7 +86,7 @@ router.post('/signup', parser.single('image'), (req, res, next) => {
       } else {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
-        User.create({ email, password: hashedPassword, name, age, gender, description, accomodationImage, accomodationAddress, accomodationDescription })
+        User.create({ name, email, password: hashedPassword, userImage })
           .then((newUser) => {
             req.flash('success', `Welcome ${newUser.name}`);
             res.redirect('/dashboard');

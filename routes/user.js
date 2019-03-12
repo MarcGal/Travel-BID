@@ -1,9 +1,21 @@
 const express = require('express');
+const cloudinary = require('cloudinary');
+const cloudinaryStorage = require('multer-storage-cloudinary');
+const multer = require('multer');
 const middlewares = require('../middlewares');
 const Users = require('../models/user');
 
 
 const router = express.Router();
+
+const storage = cloudinaryStorage({
+  cloudinary,
+  folder: 'BidImage',
+  allowedFormats: ['jpg', 'png'],
+  transformation: [{ width: 500, height: 500, crop: 'limit' }],
+});
+
+const parser = multer({ storage });
 
 router.use(middlewares.protectedRoute);
 
@@ -34,22 +46,25 @@ router.get('/update', (req, res, next) => {
 
 
 // POST UPDATE PROFILE
-router.post('/update', (req, res, next) => {
+router.post('/update', parser.single('image'), (req, res, next) => {
+  const accomodationImage = req.file.url;
   const userID = req.session.currentUser._id;
-  const { 
-    email, name, age, gender, description,
+  const {
+    name, age, gender, description,
     accomodationAddress, accomodationDescription,
   } = req.body;
-
-  // if (email === '' || password === '' || name === '') {
-  //   req.flash('error', 'no empty fields');
-  //   return res.render('auth/signup');
-  // }
-  Users.findByIdAndUpdate(userID, { email, name, age, gender, description,
-    accomodationAddress, accomodationDescription })
+  Users.findByIdAndUpdate(userID, {
+    name,
+    age,
+    gender,
+    description,
+    accomodationAddress,
+    accomodationDescription,
+    accomodationImage,
+  }, { new: true })
     .then((user) => {
       req.flash('success', 'Your profile was succesfully updated!');
-      res.redirect('/dashboard');
+      res.redirect('/user');
     })
     .catch((error) => {
       next(error);

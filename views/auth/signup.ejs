@@ -1,6 +1,10 @@
 <h1 class="container text-center">Create an account</h1>
 <form class="container text-center" id="form" enctype="multipart/form-data" action="/signup" method="POST" style="margin-top:2rem;">
   <div class="form-group">
+    <label for="name"></label><br>
+    <input type="text" class="form-control-lg border border-primary" name="name" placeholder="Your name">
+  </div>
+  <div class="form-group">
     <label for="email"></label><br>
     <input type="text"  class="form-control-lg border border-primary" name="email" placeholder="Your email">
   </div>
@@ -9,18 +13,19 @@
     <input type="password" class="form-control-lg border border-primary" name="password" placeholder="password">
   </div>
   <div class="form-group">
-    <label for="name"></label><br>
-    <input type="text" class="form-control-lg border border-primary" name="name" placeholder="Your name">
+      <label >Profile Picture</label><br>
+      <input type='file' name='image' />
   </div>
-  <div class="form-group">
+
+  <!-- <div class="form-group">
     <label for="age"></label><br>
     <input type="number" class="form-control-lg border border-primary" name="age" placeholder="age">
   </div>
   <div class="form-group">
     <label for="gender"></label><br>
     <input type="text" class="form-control-lg border border-primary" name="gender" placeholder="gender">
-  </div>
-  <div class="form-group">
+  </div> -->
+  <!-- <div class="form-group">
       <label >Room Photography</label><br>
       <input type='file' name='image' />
   </div>
@@ -35,7 +40,7 @@
   <div class="form-group">
     <label for="accomodationDescription"></label><br>
     <input type="text" class="form-control-lg border border-primary" name="accomodationDescription" placeholder="Describe">
-  </div>
+  </div> -->
 
   <button class="btn btn-primary" type="submit">Create account</button>
   <br>
