@@ -48,21 +48,18 @@ router.get('/update', (req, res, next) => {
 // POST UPDATE PROFILE
 router.post('/update', parser.single('image'), (req, res, next) => {
   const accomodationImage = req.file.url;
-  const userImage = req.file.url;
-
   const userID = req.session.currentUser._id;
-  const { 
+  const {
     name, age, gender, description,
     accomodationAddress, accomodationDescription,
   } = req.body;
-  Users.findByIdAndUpdate(userID, { 
+  Users.findByIdAndUpdate(userID, {
     name,
     age,
     gender,
     description,
     accomodationAddress,
     accomodationDescription,
-    userImage,
     accomodationImage,
   }, { new: true })
     .then((user) => {
