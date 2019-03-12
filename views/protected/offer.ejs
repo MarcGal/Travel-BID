@@ -14,8 +14,8 @@
                <div class="content">
                    <div class="main">
                        <h3 class="name"><%= offer.location %></h3>
-                       <p class="profession">From: <%= offer.from %></p>
-                       <p class="text-center"> Until: <%= offer.until %></p>
+                       <p class="profession">From: <%= offer.from.toDateString() %></p>
+                       <p class="text-center"> Until: <%= offer.until.toDateString()  %></p>
                        <p class="text-center">  Offered budget: <%= offer.budget %></p>
                    </div>
                 <% if (offer.userID == userID && offer.Status === 0 ) { %>
