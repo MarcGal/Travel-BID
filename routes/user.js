@@ -37,19 +37,20 @@ router.get('/update', (req, res, next) => {
 router.post('/update', (req, res, next) => {
   const userID = req.session.currentUser._id;
   const { 
-    email, name, age, gender, description,
+    name, age, gender, description,
     accomodationAddress, accomodationDescription,
   } = req.body;
-
-  // if (email === '' || password === '' || name === '') {
-  //   req.flash('error', 'no empty fields');
-  //   return res.render('auth/signup');
-  // }
-  Users.findByIdAndUpdate(userID, { email, name, age, gender, description,
-    accomodationAddress, accomodationDescription })
+  Users.findByIdAndUpdate(userID, { 
+    name,
+    age,
+    gender,
+    description,
+    accomodationAddress,
+    accomodationDescription,
+  }, { new: true })
     .then((user) => {
       req.flash('success', 'Your profile was succesfully updated!');
-      res.redirect('/dashboard');
+      res.redirect('/user');
     })
     .catch((error) => {
       next(error);
