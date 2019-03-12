@@ -1,14 +1,13 @@
-<form class="container" id="form" action="/dashboard/bid/<%= bid._id%>/update" method="POST">
+<form class="container text-center" id="form" action="/dashboard/bid/<%= bid._id%>/update" method="POST">
   <div class="form-group">
     <label for="bidValue"></label><br>
-    <input type="number" name="bidValue" placeholder="value" value="<%= bid.bidValue%>">
+    <input class="form-control-lg border border-primary" type="number" name="bidValue" placeholder="value" value="<%= bid.bidValue%>">
   </div>
   <div class="form-group">
-    <label for="bidDescription"> Description:</label>
-    <input type="text" id="bidDescription" name="bidDescription" value="<%= bid.bidDescription%>">
+    <label for="bidDescription"></label>
+    <input class="form-control-lg border border-primary" type="text" id="bidDescription" name="bidDescription" value="<%= bid.bidDescription%>">
   </div>
   <button class="btn btn-primary" type="submit">Update Bid</button>
- 
+  <br>
+  <a href="/dashboard/bid/<%= bid._id%>">Cancel</a>
 </form>
-
-<a href="/dashboard/bid/<%= bid._id%>">Cancel</a>
