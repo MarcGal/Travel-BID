@@ -10,7 +10,7 @@ const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const cloudinary = require('cloudinary');
-const argv = require('./config/yargs').argv;
+
 
 require('dotenv').config();
 
@@ -33,11 +33,6 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
 
 const app = express();
 
-const lugar = require('./lugar/lugar');
-
-lugar.getLugarLatLong(argv.direccion).then((res) => {
-  console.log(res);
-}).catch(err => console.log(err));
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
