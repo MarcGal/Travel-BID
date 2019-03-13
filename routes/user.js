@@ -2,6 +2,7 @@ const express = require('express');
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const multer = require('multer');
+const axios = require('axios');
 const middlewares = require('../middlewares');
 const Users = require('../models/user');
 
@@ -46,19 +47,26 @@ router.get('/update', (req, res, next) => {
 
 
 // POST UPDATE PROFILE
-router.post('/update', parser.single('image'), (req, res, next) => {
+router.post('/update', parser.single('image'), async (req, res, next) => {
   const accomodationImage = req.file.url;
   const userID = req.session.currentUser._id;
   const {
     name, age, gender, description,
     accomodationAddress, accomodationDescription,
   } = req.body;
+  const encodedUrl = encodeURI(accomodationAddress);
+  const mapboxToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
+
+  const resp = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedUrl}.json?access_token=${mapboxToken}`);
+  console.log(resp);
+  const address = [resp.data.features[1].geometry.coordinates[1], resp.data.features[1].geometry.coordinates[0] ];
+  console.log(address);
   Users.findByIdAndUpdate(userID, {
     name,
     age,
     gender,
     description,
-    accomodationAddress,
+    address: [address[0], address[1]],
     accomodationDescription,
     accomodationImage,
   }, { new: true })
