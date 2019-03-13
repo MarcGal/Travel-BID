@@ -9,7 +9,7 @@ const userSchema = new Schema({
   age: { type: Number, default: '' },
   gender: { type: String, default: '' },
   description: { type: String, default: '' },
-  accomodationAddress: { type: String },
+  address: [Number, Number],
   accomodationDescription: { type: String },
   userImage: { type: String },
   accomodationImage: { type: String },
