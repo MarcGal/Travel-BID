@@ -1,3 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset='utf-8' />
+  <title>Set a point after Geocoder result</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    body { margin:0; padding:0; }
+    #map {  width:100%; }
+  </style>
+  </head>
+<body>
+
+<!--  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.min.js'></script>
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.css' type='text/css' />
+  <style>
+    #geocoder-container > div {
+    min-width:50%;
+    margin-left:25%;
+    }
+  </style>-->
+
+
 <div class="container">
     <div class="row">
       <div class="col-12">
@@ -32,7 +57,9 @@
 </div>
 <br>
 
-<%- include('../partials/maps') %>
+<!--<%- include('../partials/maps') %>-->
+
+<div id='map'></div>
 
 <div>
 <% if (bid.userID == userID && bid.Status === 1) { %>
@@ -58,3 +85,50 @@
 </div>
 </div>
 </div> 
+
+
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v9',
+  center: [<%=bidOwner.address[0]%>, <%=bidOwner.address[1]%> ],
+  zoom: 13
+});
+
+// var geocoder = new MapboxGeocoder({
+//   accessToken: mapboxgl.accessToken
+// });
+
+// map.addControl(geocoder);
+
+// // After the map style has loaded on the page, add a source layer and default
+// // styling for a single point.
+// map.on('load', function() {
+//   map.addSource('single-point', {
+//   "type": "geojson",
+//     "data": {
+//     "type": "FeatureCollection",
+//     "features": []
+//   }
+// });
+
+//   map.addLayer({
+//     "id": "point",
+//     "source": "single-point",
+//     "type": "circle",
+//     "paint": {
+//       "circle-radius": 10,
+//       "circle-color": "#007cbf"
+//     }
+//   });
+
+  // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+  // makes a selection and add a symbol that matches the result.
+//   geocoder.on('result', function(ev) {
+//     map.getSource('single-point').setData(ev.result.geometry);
+//     });
+// });
+
+</script>
