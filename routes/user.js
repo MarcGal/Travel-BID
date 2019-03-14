@@ -54,19 +54,20 @@ router.post('/update', parser.single('image'), async (req, res, next) => {
     name, age, gender, description,
     accomodationAddress, accomodationDescription,
   } = req.body;
-  const encodedUrl = encodeURI(accomodationAddress);
+  // const encodedUrl = encodeURI(accomodationAddress);
+  // console.log(encodedUrl);
   const mapboxToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
 
-  const resp = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedUrl}.json?access_token=${mapboxToken}`);
+  const resp = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${accomodationAddress}.json?access_token=${mapboxToken}`);
   console.log(resp);
-  const address = [resp.data.features[1].geometry.coordinates[1], resp.data.features[1].geometry.coordinates[0] ];
+  const address = [resp.data.features[1].geometry.coordinates[1], resp.data.features[1].geometry.coordinates[0]];
   console.log(address);
   Users.findByIdAndUpdate(userID, {
     name,
     age,
     gender,
     description,
-    address: [address[0], address[1]],
+    address,
     accomodationDescription,
     accomodationImage,
   }, { new: true })

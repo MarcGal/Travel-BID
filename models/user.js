@@ -10,12 +10,25 @@ const userSchema = new Schema({
   gender: { type: String, default: '' },
   description: { type: String, default: '' },
   address: [Number, Number],
+  location: {
+    type: {
+      type: String,
+    },
+    coordinates: [Number],
+  },
   accomodationDescription: { type: String },
   userImage: { type: String },
   accomodationImage: { type: String },
 }, { timestamps: true });
 
+userSchema.index({ location: '2dsphere' });
 
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
+
+
+// location: {
+//   type: 'Point',
+//   coordinates: [lng, lat],
+// }
