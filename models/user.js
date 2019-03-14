@@ -9,7 +9,6 @@ const userSchema = new Schema({
   age: { type: Number, default: '' },
   gender: { type: String, default: '' },
   description: { type: String, default: '' },
-  address: [Number, Number],
   location: {
     type: {
       type: String,
@@ -21,7 +20,7 @@ const userSchema = new Schema({
   accomodationImage: { type: String },
 }, { timestamps: true });
 
-userSchema.index({ location: '2dsphere' });
+// userSchema.index({ location: '2dsphere' });
 
 const User = mongoose.model('User', userSchema);
 
