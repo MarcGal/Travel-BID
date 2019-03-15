@@ -93,7 +93,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sN
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/streets-v9',
-  center: [<%=bidOwner.address[1]%>,<%=bidOwner.address[0]%> ],
+  center: [<%=room.location.coordinates[0]%>, <%=room.location.coordinates[1]%>],
   zoom: 17
 });
 
