@@ -15,9 +15,7 @@ const userSchema = new Schema({
   //   },
   //   coordinates: [Number],
   // },
-  accomodationDescription: { type: String },
   userImage: { type: String },
-  accomodationImage: { type: String },
 }, { timestamps: true });
 
 // userSchema.index({ location: '2dsphere' });
