@@ -20,14 +20,8 @@ const userSchema = new Schema({
   accomodationImage: { type: String },
 }, { timestamps: true });
 
-// userSchema.index({ location: '2dsphere' });
+userSchema.index({ location: '2dsphere' });
 
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
-
-
-// location: {
-//   type: 'Point',
-//   coordinates: [lng, lat],
-// }

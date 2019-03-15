@@ -91,6 +91,7 @@ router.post('/signup', parser.single('image'), (req, res, next) => {
             req.flash('success', `Welcome ${newUser.name}`);
             res.redirect('/dashboard');
           }).catch((error) => {
+            console.log(error);
             next(error);
           });
       }
