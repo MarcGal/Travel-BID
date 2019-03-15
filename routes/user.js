@@ -48,30 +48,26 @@ router.get('/update', (req, res, next) => {
 
 
 // POST UPDATE PROFILE
-router.post('/update', parser.single('image'), async (req, res, next) => {
-  const accomodationImage = req.file.url;
+router.post('/update', (req, res, next) => {
+  // const accomodationImage = req.file.url;
   const userID = req.session.currentUser._id;
-  const coordinates = [req.body.location, req.body.location2]
+  // const coordinates = [req.body.location, req.body.location2]
   const {
     name, age, gender, description,
-    accomodationAddress, accomodationDescription,
   } = req.body;
   // const encodedUrl = encodeURI(accomodationAddress);
   // console.log(encodedUrl);
-  const mapboxToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
+  // const mapboxToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
 
-  const resp = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${accomodationAddress}.json?access_token=${mapboxToken}`);
+  // const resp = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${accomodationAddress}.json?access_token=${mapboxToken}`);
   // console.log(resp);
-  const address = [resp.data.features[1].geometry.coordinates[1], resp.data.features[1].geometry.coordinates[0]];
+  // const address = [resp.data.features[1].geometry.coordinates[1], resp.data.features[1].geometry.coordinates[0]];
   // console.log(address);
   Users.findByIdAndUpdate(userID, {
     name,
     age,
     gender,
     description,
-    coordinates,
-    accomodationDescription,
-    accomodationImage,
   }, { new: true })
     .then((user) => {
       req.flash('success', 'Your profile was succesfully updated!');
