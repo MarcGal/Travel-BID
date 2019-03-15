@@ -28,7 +28,7 @@
       <div class="col-12">
           <h2>Bid Info</h2>
           <div class="card" ">
-              <img src="<%= bid.accomodationImage %>" class="img-thumbnail" alt="...">
+              <img src="<%= room.accomodationImage %>" class="img-thumbnail" alt="...">
               <div class="card-body">
                 <h5 class="card-title"><%= bidOwner.name %></h5>
                 <p class="card-text">Bid value: $<%= bid.bidValue %></p>
@@ -93,7 +93,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sN
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/streets-v9',
-  center: [<%=bidOwner.address[1]%>,<%=bidOwner.address[0]%> ],
+  center: [<%=room.location.coordinates[0]%>, <%=room.location.coordinates[1]%>],
   zoom: 17
 });
 

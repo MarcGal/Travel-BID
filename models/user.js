@@ -9,15 +9,13 @@ const userSchema = new Schema({
   age: { type: Number, default: '' },
   gender: { type: String, default: '' },
   description: { type: String, default: '' },
-  location: {
-    type: {
-      type: String,
-    },
-    coordinates: [Number],
-  },
-  accomodationDescription: { type: String },
+  // location: {
+  //   type: {
+  //     type: String,
+  //   },
+  //   coordinates: [Number],
+  // },
   userImage: { type: String },
-  accomodationImage: { type: String },
 }, { timestamps: true });
 
 userSchema.index({ location: '2dsphere' });

@@ -4,6 +4,7 @@ const middlewares = require('../middlewares');
 const Offer = require('../models/offer');
 const Bid = require('../models/bid');
 const Users = require('../models/user');
+const Rooms = require('../models/room');
 
 const saltRounds = 10;
 
@@ -150,13 +151,16 @@ router.post('/offer/:id/bidnew', async(req, res, next) => {
 
 // GET BID DETAIL
 router.get('/bid/:id', async (req, res, next) => {
+  console.log('estamos en bid detail');
   const { id } = req.params;
   const userID = res.locals.currentUser._id;
   try {
     const bid = await Bid.findById(id);
     const bidOwner = await Users.findById(bid.userID);
     const offer = await Offer.findById(bid.offerID);
-    res.render('protected/bid', { bid, userID, bidOwner, offer });
+    const room = await Rooms.findOne({ userID: bidOwner.id });
+    console.log(room);
+    res.render('protected/bid', { bid, userID, bidOwner, offer, room });
   } catch (error) {
     res.render('error');
     next(error);

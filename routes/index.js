@@ -2,8 +2,8 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const cloudinaryStorage = require('multer-storage-cloudinary');
-const User = require('../models/user');
 const cloudinary = require('cloudinary');
+const User = require('../models/user');
 const middlewares = require('../middlewares');
 
 

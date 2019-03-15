@@ -1,5 +1,4 @@
 
-
  <html>
    <head>
    <meta charset='utf-8' />
@@ -18,109 +17,110 @@
    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.css' type='text/css' />
    <style>
      #geocoder-container > div {
-     min-width:50%;
+     min-width:100%;
      margin-left:25%;
      }
    </style>
 
 
-<form class="container text-center" id="form" action="/user/update" enctype="multipart/form-data"  method="POST">
+<form class="container text-center" id="form" action="/user/update" method="POST">
   <div class="form-group">
     <label for="name"></label><br>
-    <input type="text" class="form-control-lg border border-primary" name="name" placeholder="Your name" value="<%= user.name %>">
+    <input type="text" class="form-control-lg border border-primary" name="name" placeholder="Your name">
   </div>
   <div class="form-group">
     <label for="age"></label><br>
-    <input type="number" class="form-control-lg border border-primary" name="age" placeholder="age" value="<%= user.age %>">
+    <input type="number" class="form-control-lg border border-primary" name="age" placeholder="age">
   </div>
   <div class="form-group">
     <label for="gender"></label><br>
-    <input type="text" class="form-control-lg border border-primary" name="gender" placeholder="gender" value="<%= user.gender %>">
+    <input type="text" class="form-control-lg border border-primary" name="gender" placeholder="gender">
   </div>
   <div class="form-group">
     <label for="description"></label><br>
-    <input type="text" class="form-control-lg border border-primary" name="description" placeholder="description" value="<%= user.description %>">
+    <input type="text" class="form-control-lg border border-primary" name="description" placeholder="description">
   </div>
-  <div class="form-group"> 
-    <input type="hidden" class="form-control-lg border border-primary" name="location" id="location" >
-  </div>
-  <div class="form-group"> 
-  <input type="hidden" class="form-control-lg border border-primary" name="location2" id="location2" >
-</div>
-
-  <div id='map'></div>
-
-  <script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
-    center: [0, 0],
-    zoom: 17
-  });
-  
-  var geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken
-  });
-  
-  geocoder.on('result', (response) => {
-    console.log(response);
-    const location = document.getElementById("location");
-    location.value = response.result.geometry.coordinates[0];
-    const location2 = document.getElementById("location2");
-    location2.value = response.result.geometry.coordinates[1];
-    // pillar la geo lat lng 
-    // añadir a input oculto 
-    // 
-  })
-  
-  map.addControl(geocoder);
-  
-  // After the map style has loaded on the page, add a source layer and default
-  // styling for a single point.
-  map.on('load', function() {
-    map.addSource('single-point', {
-    "type": "geojson",
-      "data": {
-      "type": "FeatureCollection",
-      "features": []
-    }
-  });
-  
-    map.addLayer({
-      "id": "point",
-      "source": "single-point",
-      "type": "circle",
-      "paint": {
-        "circle-radius": 10,
-        "circle-color": "#007cbf"
-      }
-    });
-  
-    // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
-    // makes a selection and add a symbol that matches the result.
-    geocoder.on('result', function(ev) {
-      map.getSource('single-point').setData(ev.result.geometry);
-      });
-      
-  });
-
-  
-  </script>
-
-  <div class="form-group">
-    <label for="accomodationDescription"></label><br>
-    <input type="text" class="form-control-lg border border-primary" name="accomodationDescription" placeholder="Describe" value="<%= user.accomodationDescription %>">
-  </div>
-  <div class="form-group">
-      <label >Room Photography</label><br>
-      <input type='file' name='image'/>
-  </div>
-
   <button class="btn btn-primary" type="submit"> Update account</button>
   <br>
   <a href="/user">Cancel</a>
 </form>
 
 
+
+<form class="container text-center" id="form" action="/user/update/room" enctype="multipart/form-data"  method="POST">
+  <div class="form-group">
+    <label for="accomodationDescription"></label><br>
+    <input type="text" class="form-control-lg border border-primary" name="accomodationDescription" placeholder="accomodationDescription" value="">
+  </div>
+  <div class="form-group"> 
+    <input type="hidden" class="form-control-lg border border-primary" name="location" id="location" >
+  </div>
+  <div class="form-group"> 
+    <input type="hidden" class="form-control-lg border border-primary" name="location2" id="location2" >
+  </div>
+  <div id='map'></div>
+  <div class="form-group">
+    <label >Room Picture</label><br>
+    <input type='file' name='image' />
+  </div>
+  <button class="btn btn-primary" type="submit"> Create Room</button>
+</form>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v9',
+center: [0, 0],
+zoom: 17
+});
+
+var geocoder = new MapboxGeocoder({
+accessToken: mapboxgl.accessToken
+});
+
+geocoder.on('result', (response) => {
+console.log(response);
+const location = document.getElementById("location");
+location.value = response.result.geometry.coordinates[0];
+const location2 = document.getElementById("location2");
+location2.value = response.result.geometry.coordinates[1];
+// pillar la geo lat lng 
+// añadir a input oculto 
+// 
+})
+
+map.addControl(geocoder);
+
+// After the map style has loaded on the page, add a source layer and default
+// styling for a single point.
+map.on('load', function() {
+map.addSource('single-point', {
+"type": "geojson",
+  "data": {
+  "type": "FeatureCollection",
+  "features": []
+}
+});
+
+map.addLayer({
+  "id": "point",
+  "source": "single-point",
+  "type": "circle",
+  "paint": {
+    "circle-radius": 10,
+    "circle-color": "#007cbf"
+  }
+});
+
+// Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+// makes a selection and add a symbol that matches the result.
+geocoder.on('result', function(ev) {
+  map.getSource('single-point').setData(ev.result.geometry);
+  });
+  
+});
+
+
+</script>
 
