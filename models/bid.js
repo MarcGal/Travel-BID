@@ -14,6 +14,10 @@ const bidSchema = new Schema({
     type: ObjectId,
     ref: 'Offer',
   },
+  roomID: {
+    type: ObjectId,
+    ref: 'Room',
+  },
   bidValue: {
     type: Number,
   },
