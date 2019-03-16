@@ -45,15 +45,51 @@
                 <p class="card-text">Bid value: $<%= bid.bidValue %></p>
                 <p class="card-text">Bid Description: <%= bid.bidDescription %></p>
                 <p class="card-text"><%= bidOwner.accomodationDescription %> </p>
-              </div>
+                <div  >
+                    <label >Amenities</label><br>
+                    <% if(room.tv){%>
+                    <img src="/img/television.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.wifi){%>
+                    <img src="/img/wifi.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.air){%>
+                    <img src="/img/acondicionador-de-aire.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.garage){%>
+                    <img src="/img/garaje.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.air){%>
+                    <img src="/img/ascensor.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.termo){%>
+                    <img src="/img/termometro.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.washer){%>
+                    <img src="/img/lavadora.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.pool){%>
+                    <img src="/img/piscina.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.privatebathroom){%>
+                    <img src="/img/ducha.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.wheelchair){%>
+                    <img src="/img/silla-de-ruedas.svg" class="icono" alt="">
+                    <%}%>
+                    <label >Are there any house rules?</label><br>
+                    <% if(room.smoke){%>
+                    <img src="/img/cigarrete.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.pet){%>
+                    <img src="/img/mascotas.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.couples){%>
+                    <img src="/img/pareja.svg" class="icono" alt="">
+                    <%}%>
+                    <div id='map' style="margin-bottom: 10%"></div>
+                  </div>
             </div>
-
-<!-- <div class="border border-primary rounded">
-  <h3><%= bidOwner.name %></h3>
-  <h5>Bid value: $<%= bid.bidValue %></h5>
-  <h5>Bid Description: <%= bid.bidDescription %></h5>
-  <p> <%= bidOwner.accomodationDescription %> </p>
- -->
 
 <% if (bid.userID == userID && bid.Status === 0) { %>
   <div class="text-center">
@@ -70,7 +106,7 @@
 
 <!--<%- include('../partials/maps') %>-->
 
-<div id='map' style="margin-bottom: 10%"></div>
+
 
 <div>
 <% if (bid.userID == userID && bid.Status === 1) { %>
@@ -155,21 +191,6 @@ new mapboxgl.Marker(el)
 
 map.addControl(new MapboxMarkers(geojson)); 
 
-// var geocoder = new MapboxGeocoder({
-//   accessToken: mapboxgl.accessToken
-// });
-
-// geocoder.on('result', (response) => {
-//   console.log('response', response);
-//   // pillar la geo lat lng 
-//   // añadir a input oculto 
-//   // 
-// })
-
-// map.addControl(geocoder);
-
-// After the map style has loaded on the page, add a source layer and default
-// styling for a single point.
 map.on('load', function() {
   map.addSource('single-point', {
   "type": "geojson",
@@ -187,15 +208,7 @@ map.on('load', function() {
       "circle-radius": 10,
       "circle-color": "#007cbf"
     }
-  });
-
-  // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
-  // makes a selection and add a symbol that matches the result.
-  // geocoder.on('result', function(ev) {
-  //   map.getSource('single-point').setData(ev.result.geometry);
-  //   });
-
-    
+  });  
 });
 
 </script>
