@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const axios = require('axios');
 const middlewares = require('../middlewares');
 const Offer = require('../models/offer');
@@ -7,7 +6,6 @@ const Bid = require('../models/bid');
 const Users = require('../models/user');
 const Rooms = require('../models/room');
 
-const saltRounds = 10;
 
 const router = express.Router();
 
