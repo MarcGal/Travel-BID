@@ -1,23 +1,95 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+  <meta charset='utf-8' />
+  <title>Set a point after Geocoder result</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://rawgit.com/mapbox/mapbox-gl-markers/master/dist/mapbox-gl-markers.js'></script>
+  <link href='https://rawgit.com/mapbox/mapbox-gl-markers/master/dist/mapbox-gl-markers.css' rel='stylesheet' />
+  <style>
+    body { margin:0; padding:0; }
+    #map {  width:100%; }
+  </style>
+  </head>
+<body>
+
+ <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.min.js'></script>
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.css' type='text/css' />
+  <style>
+    #geocoder-container > div {
+    min-width:50%;
+    margin-left:25%;
+    }
+
+    .marker {
+      background-image: url('mapbox-icon.png');
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+
+
 <div class="container">
     <div class="row">
       <div class="col-12">
           <h2>Bid Info</h2>
           <div class="card" ">
-              <img src="<%= bid.accomodationImage %>" class="img-thumbnail" alt="...">
+              <img src="<%= room.accomodationImage %>" class="img-thumbnail" alt="...">
               <div class="card-body">
                 <h5 class="card-title"><%= bidOwner.name %></h5>
                 <p class="card-text">Bid value: $<%= bid.bidValue %></p>
                 <p class="card-text">Bid Description: <%= bid.bidDescription %></p>
                 <p class="card-text"><%= bidOwner.accomodationDescription %> </p>
-              </div>
+                <div  >
+                    <label >Amenities</label><br>
+                    <% if(room.tv){%>
+                    <img src="/img/television.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.wifi){%>
+                    <img src="/img/wifi.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.air){%>
+                    <img src="/img/acondicionador-de-aire.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.garage){%>
+                    <img src="/img/garaje.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.air){%>
+                    <img src="/img/ascensor.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.termo){%>
+                    <img src="/img/termometro.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.washer){%>
+                    <img src="/img/lavadora.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.pool){%>
+                    <img src="/img/piscina.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.privatebathroom){%>
+                    <img src="/img/ducha.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.wheelchair){%>
+                    <img src="/img/silla-de-ruedas.svg" class="icono" alt="">
+                    <%}%>
+                    <label >Are there any house rules?</label><br>
+                    <% if(room.smoke){%>
+                    <img src="/img/cigarrete.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.pet){%>
+                    <img src="/img/mascotas.svg" class="icono" alt="">
+                    <%}%>
+                    <% if(room.couples){%>
+                    <img src="/img/pareja.svg" class="icono" alt="">
+                    <%}%>
+                    <div id='map' style="margin-bottom: 10%"></div>
+                  </div>
             </div>
-
-<!-- <div class="border border-primary rounded">
-  <h3><%= bidOwner.name %></h3>
-  <h5>Bid value: $<%= bid.bidValue %></h5>
-  <h5>Bid Description: <%= bid.bidDescription %></h5>
-  <p> <%= bidOwner.accomodationDescription %> </p>
- -->
 
 <% if (bid.userID == userID && bid.Status === 0) { %>
   <div class="text-center">
@@ -32,7 +104,9 @@
 </div>
 <br>
 
-<%- include('../partials/maps') %>
+<!--<%- include('../partials/maps') %>-->
+
+
 
 <div>
 <% if (bid.userID == userID && bid.Status === 1) { %>
@@ -58,3 +132,83 @@
 </div>
 </div>
 </div> 
+
+
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v9',
+  center: [<%=room.location.coordinates%>],
+  zoom: 17
+});
+
+var geojson = {
+  type: 'FeatureCollection',
+  features: [{
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [<%=room.location.coordinates%>]
+    },
+    properties: {
+      title: 'Mapbox',
+      description: 'Washington, D.C.'
+    }
+  },
+  {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [-61.2158203125, -15.97189158092897]
+    },
+    properties: {
+      title: 'Mapbox',
+      description: 'San Francisco, California'
+    }
+  }]
+};
+
+// add markers to map
+geojson.features.forEach(function(marker) {
+// create a DOM element for the marker
+var el = document.createElement('div');
+el.className = 'marker';
+el.style.backgroundImage = 'url(https://placekitten.com)';
+el.style.width = 20+'px';
+el.style.height = 20+'px';
+ 
+el.addEventListener('click', function() {
+window.alert(marker.properties.message);
+});
+ 
+// add marker to map
+new mapboxgl.Marker(el)
+.setLngLat(marker.geometry.coordinates)
+.addTo(map);
+});
+
+map.addControl(new MapboxMarkers(geojson)); 
+
+map.on('load', function() {
+  map.addSource('single-point', {
+  "type": "geojson",
+    "data": {
+    "type": "FeatureCollection",
+    "features": []
+  }
+});
+
+  map.addLayer({
+    "id": "point",
+    "source": "single-point",
+    "type": "circle",
+    "paint": {
+      "circle-radius": 10,
+      "circle-color": "#007cbf"
+    }
+  });  
+});
+
+</script>

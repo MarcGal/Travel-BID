@@ -1,11 +1,11 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const axios = require('axios');
 const middlewares = require('../middlewares');
 const Offer = require('../models/offer');
 const Bid = require('../models/bid');
 const Users = require('../models/user');
+const Rooms = require('../models/room');
 
-const saltRounds = 10;
 
 const router = express.Router();
 
@@ -30,15 +30,22 @@ router.get('/create', (req, res, next) => {
 
 // POST create offer
 router.post('/create', async (req, res, next) => {
+  console.log('we are in offer create');
+  const { from, until, location, budget } = req.body;
+  const unsplashKey = 'eaa9afcbc380f265dfce4a2a7fe4956c1b686d50ae369b133539b9a0e3b8fdc1';
+  const userID = req.session.currentUser._id;
   try {
-    const { from, until, location, budget } = req.body;
-    const userID = req.session.currentUser._id;
+    const unsplashResp = await axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashKey}&query=${location}&orientation=squarish`);
+    console.log(unsplashResp);
+    const image = unsplashResp.data.urls.regular;
+    console.log(image);
     if (Date.parse(from) < Date.now()) {
       req.flash('error', 'You can not make a reservation in the past bro');
       res.redirect('./create');
     } else {
       await Offer.create({
         userID,
+        image,
         from,
         until,
         location,
@@ -58,6 +65,9 @@ router.get('/offer/:id', async (req, res, next) => {
     const offer = await Offer.findById(id);
     const offerOwner = await Users.findById(offer.userID);
     const bids = await Bid.find({ offerID: offer._id});
+    // const rooms = await bids.forEach((bid) => {
+    //   Rooms.find({ userID: bid.userID });
+    // });
     res.render('protected/offer', { offer, bids, userID, offerOwner });
   } catch (error) {
     res.render('error');
@@ -68,7 +78,8 @@ router.get('/offer/:id', async (req, res, next) => {
 // GET SEARCH INPUT
 router.get('/search', (req, res, next) => {
   const { search } = req.query;
-  Offer.find({ location: search, Status: 0 })
+ 
+  Offer.find({ location: { $regex: new RegExp(search, 'i') }, Status: 0 })
     .then((offers) => {
       res.render('protected/search', { offers });
     })
@@ -91,14 +102,14 @@ router.get('/offer/:id/update', (req, res, next) => {
 
 // POST UPDATE OFFER
 router.post('/offer/:id/update', (req, res, next) => {
-  const { from, until, location, budget } = req.body;
+  const { from, until, budget } = req.body;
   const { id } = req.params;
   const userID = req.session.currentUser._id;
   Offer.findByIdAndUpdate(id, {
     userID,
     from,
     until,
-    location,
+    // location,
     budget,
   }, { new: true })
     .then((offer) => {
@@ -128,18 +139,26 @@ router.get('/offer/:id/bidnew', (req, res, next) => {
 });
 
 // CREATE NEW BID
-router.post('/offer/:id/bidnew', async(req, res, next) => {
+router.post('/offer/:id/bidnew', async (req, res, next) => {
   try {
     const { bidValue, bidDescription } = req.body;
     const userID = req.session.currentUser._id;
     const bidOwner = await Users.findById(userID);
+    const room = await Rooms.findOne({ userID: bidOwner.id });
     const { id } = req.params;
     const bidExists = await Bid.findOne({ offerID: id, userID });
     if (bidExists) {
       req.flash('error', 'Your can not bid twice on the same offer');
       res.redirect(`/dashboard/offer/${id}`);
     } else {
-      await Bid.create({ userID, offerID: id, bidValue, bidDescription, accomodationImage: bidOwner.accomodationImage  });
+      await Bid.create({
+        userID,
+        offerID: id,
+        roomID: room._id,
+        accomodationImage: room.accomodationImage,
+        bidValue,
+        bidDescription,
+      });
       req.flash('success', 'Your bid was succesfuly created');
       res.redirect(`/dashboard/offer/${id}`);
     }
@@ -150,13 +169,16 @@ router.post('/offer/:id/bidnew', async(req, res, next) => {
 
 // GET BID DETAIL
 router.get('/bid/:id', async (req, res, next) => {
+  console.log('estamos en bid detail');
   const { id } = req.params;
   const userID = res.locals.currentUser._id;
   try {
     const bid = await Bid.findById(id);
     const bidOwner = await Users.findById(bid.userID);
     const offer = await Offer.findById(bid.offerID);
-    res.render('protected/bid', { bid, userID, bidOwner, offer });
+    const room = await Rooms.findOne({ userID: bidOwner.id });
+    console.log(room);
+    res.render('protected/bid', { bid, userID, bidOwner, offer, room });
   } catch (error) {
     res.render('error');
     next(error);
