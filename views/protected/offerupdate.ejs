@@ -1,16 +1,16 @@
 <form class="container text-center" id="form" action="/dashboard/offer/<%= offer._id%>/update" method="POST">
   <div class="form-group">
     <label for="from">From:</label>
-    <input type="date" class="form-control-lg border border-primary" id="from" name="from" value="<%= offer.from %>">
+    <input type="date" class="form-control-lg border border-primary" id="from" name="from" value="<%= offer.from.toDateString() %>">
   </div>
   <div class="form-group">
     <label for="until"> Until:</label>
-    <input type="date" class="form-control-lg border border-primary" id="until" name="until" value="<%= offer.until%>">
+    <input type="date" class="form-control-lg border border-primary" id="until" name="until"  value="<%= offer.until.toDateString() %>">
   </div>
-  <div class="form-group">
+  <!--<div class="form-group">
     <label for="location"> Location:</label>
     <input type="text" class="form-control-lg border border-primary" id="location" name="location" value="<%= offer.location %>">
-  </div>
+  </div>-->
   <div class="form-group">
     <label for="budget">Budget:</label>
     <input type="text" class="form-control-lg border border-primary" name="budget" placeholder="budget" value="<%= offer.budget %>">

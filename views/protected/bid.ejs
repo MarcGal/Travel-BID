@@ -6,6 +6,8 @@
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://rawgit.com/mapbox/mapbox-gl-markers/master/dist/mapbox-gl-markers.js'></script>
+  <link href='https://rawgit.com/mapbox/mapbox-gl-markers/master/dist/mapbox-gl-markers.css' rel='stylesheet' />
   <style>
     body { margin:0; padding:0; }
     #map {  width:100%; }
@@ -19,6 +21,15 @@
     #geocoder-container > div {
     min-width:50%;
     margin-left:25%;
+    }
+
+    .marker {
+      background-image: url('mapbox-icon.png');
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
     }
   </style>
 
@@ -59,7 +70,7 @@
 
 <!--<%- include('../partials/maps') %>-->
 
-<div id='map'></div>
+<div id='map' style="margin-bottom: 10%"></div>
 
 <div>
 <% if (bid.userID == userID && bid.Status === 1) { %>
@@ -93,22 +104,69 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sN
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/streets-v9',
-  center: [<%=room.location.coordinates[0]%>, <%=room.location.coordinates[1]%>],
+  center: [<%=room.location.coordinates%>],
   zoom: 17
 });
 
-var geocoder = new MapboxGeocoder({
-  accessToken: mapboxgl.accessToken
+var geojson = {
+  type: 'FeatureCollection',
+  features: [{
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [<%=room.location.coordinates%>]
+    },
+    properties: {
+      title: 'Mapbox',
+      description: 'Washington, D.C.'
+    }
+  },
+  {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [-61.2158203125, -15.97189158092897]
+    },
+    properties: {
+      title: 'Mapbox',
+      description: 'San Francisco, California'
+    }
+  }]
+};
+
+// add markers to map
+geojson.features.forEach(function(marker) {
+// create a DOM element for the marker
+var el = document.createElement('div');
+el.className = 'marker';
+el.style.backgroundImage = 'url(https://placekitten.com)';
+el.style.width = 20+'px';
+el.style.height = 20+'px';
+ 
+el.addEventListener('click', function() {
+window.alert(marker.properties.message);
+});
+ 
+// add marker to map
+new mapboxgl.Marker(el)
+.setLngLat(marker.geometry.coordinates)
+.addTo(map);
 });
 
-geocoder.on('result', (response) => {
-  console.log('response', response);
-  // pillar la geo lat lng 
-  // añadir a input oculto 
-  // 
-})
+map.addControl(new MapboxMarkers(geojson)); 
 
-map.addControl(geocoder);
+// var geocoder = new MapboxGeocoder({
+//   accessToken: mapboxgl.accessToken
+// });
+
+// geocoder.on('result', (response) => {
+//   console.log('response', response);
+//   // pillar la geo lat lng 
+//   // añadir a input oculto 
+//   // 
+// })
+
+// map.addControl(geocoder);
 
 // After the map style has loaded on the page, add a source layer and default
 // styling for a single point.
@@ -133,9 +191,10 @@ map.on('load', function() {
 
   // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
   // makes a selection and add a symbol that matches the result.
-  geocoder.on('result', function(ev) {
-    map.getSource('single-point').setData(ev.result.geometry);
-    });
+  // geocoder.on('result', function(ev) {
+  //   map.getSource('single-point').setData(ev.result.geometry);
+  //   });
+
     
 });
 

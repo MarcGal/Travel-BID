@@ -1,12 +1,11 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const axios = require('axios');
 const middlewares = require('../middlewares');
 const Offer = require('../models/offer');
 const Bid = require('../models/bid');
 const Users = require('../models/user');
 const Rooms = require('../models/room');
 
-const saltRounds = 10;
 
 const router = express.Router();
 
@@ -31,15 +30,22 @@ router.get('/create', (req, res, next) => {
 
 // POST create offer
 router.post('/create', async (req, res, next) => {
+  console.log('we are in offer create');
+  const { from, until, location, budget } = req.body;
+  const unsplashKey = 'eaa9afcbc380f265dfce4a2a7fe4956c1b686d50ae369b133539b9a0e3b8fdc1';
+  const userID = req.session.currentUser._id;
   try {
-    const { from, until, location, budget } = req.body;
-    const userID = req.session.currentUser._id;
+    const unsplashResp = await axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashKey}&query=${location}&orientation=squarish`);
+    console.log(unsplashResp);
+    const image = unsplashResp.data.urls.regular;
+    console.log(image);
     if (Date.parse(from) < Date.now()) {
       req.flash('error', 'You can not make a reservation in the past bro');
       res.redirect('./create');
     } else {
       await Offer.create({
         userID,
+        image,
         from,
         until,
         location,
@@ -92,14 +98,14 @@ router.get('/offer/:id/update', (req, res, next) => {
 
 // POST UPDATE OFFER
 router.post('/offer/:id/update', (req, res, next) => {
-  const { from, until, location, budget } = req.body;
+  const { from, until, budget } = req.body;
   const { id } = req.params;
   const userID = req.session.currentUser._id;
   Offer.findByIdAndUpdate(id, {
     userID,
     from,
     until,
-    location,
+    // location,
     budget,
   }, { new: true })
     .then((offer) => {

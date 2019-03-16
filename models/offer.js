@@ -11,6 +11,7 @@ const offerSchema = new Schema({
     type: ObjectId,
     ref: 'User',
   },
+  image: { type: String },
   from: { type: Date },
   until: { type: Date },
   location: { type: String, uppercase: true },
