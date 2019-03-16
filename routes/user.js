@@ -82,22 +82,28 @@ router.post('/update/room', parser.single('image'), (req, res, next) => {
   const accomodationImage = req.file.url;
   const userID = req.session.currentUser._id;
   const coordinates = [req.body.location, req.body.location2];
-  console.log(coordinates);
-  const { accomodationDescription } = req.body;
-  // const encodedUrl = encodeURI(accomodationAddress);
-  // console.log(encodedUrl);
-  // const mapboxToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
-
-  // const resp = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${accomodationAddress}.json?access_token=${mapboxToken}`);
-  // console.log(resp);
-  // const address = [resp.data.features[1].geometry.coordinates[1], resp.data.features[1].geometry.coordinates[0]];
-  // console.log(address);
+  const {accomodationDescription, privateRoom, sharedRoom, entireProperty, tv, wifi, air, garage, termo, washer, pool, privateBathroom, wheelchair, smoke, pet, couples } = req.body;
   Rooms.create({
     userID,
     location: {
       type: 'Point',
       coordinates,
     },
+    privateRoom,
+    sharedRoom,
+    entireProperty,
+    tv,
+    wifi,
+    air,
+    garage,
+    termo,
+    washer,
+    pool,
+    privateBathroom,
+    wheelchair,
+    smoke,
+    pet,
+    couples,
     accomodationDescription,
     accomodationImage,
   }).then((room) => {
