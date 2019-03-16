@@ -65,6 +65,9 @@ router.get('/offer/:id', async (req, res, next) => {
     const offer = await Offer.findById(id);
     const offerOwner = await Users.findById(offer.userID);
     const bids = await Bid.find({ offerID: offer._id});
+    // const rooms = await bids.forEach((bid) => {
+    //   Rooms.find({ userID: bid.userID });
+    // });
     res.render('protected/offer', { offer, bids, userID, offerOwner });
   } catch (error) {
     res.render('error');
@@ -136,18 +139,26 @@ router.get('/offer/:id/bidnew', (req, res, next) => {
 });
 
 // CREATE NEW BID
-router.post('/offer/:id/bidnew', async(req, res, next) => {
+router.post('/offer/:id/bidnew', async (req, res, next) => {
   try {
     const { bidValue, bidDescription } = req.body;
     const userID = req.session.currentUser._id;
     const bidOwner = await Users.findById(userID);
+    const room = await Rooms.findOne({ userID: bidOwner.id });
     const { id } = req.params;
     const bidExists = await Bid.findOne({ offerID: id, userID });
     if (bidExists) {
       req.flash('error', 'Your can not bid twice on the same offer');
       res.redirect(`/dashboard/offer/${id}`);
     } else {
-      await Bid.create({ userID, offerID: id, bidValue, bidDescription, accomodationImage: bidOwner.accomodationImage  });
+      await Bid.create({
+        userID,
+        offerID: id,
+        roomID: room._id,
+        accomodationImage: room.accomodationImage,
+        bidValue,
+        bidDescription,
+      });
       req.flash('success', 'Your bid was succesfuly created');
       res.redirect(`/dashboard/offer/${id}`);
     }
