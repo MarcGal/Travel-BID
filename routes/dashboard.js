@@ -256,4 +256,26 @@ router.post('/bid/:id/update', (req, res, next) => {
     });
 });
 
+
+// RENDER MAP
+
+router.get('/offer/:id/map', async (req, res, next) => {
+  const { id } = req.params;
+  const userID = res.locals.currentUser._id;
+  try {
+    const offer = await Offer.findById(id);
+    const bids = await Bid.find({ offerID: offer._id});
+    const roomsArray = [];
+    await bids.forEach(async (bid) => {
+      const room = await Rooms.findById(bid.roomID);
+      await roomsArray.push(room);
+      res.render('protected/map', { offer, bids, userID, roomsArray });
+    });
+  } catch (error) {
+    res.render('error');
+    next(error);
+  }
+});
+
+
 module.exports = router;
