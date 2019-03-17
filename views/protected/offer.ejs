@@ -91,6 +91,7 @@
 
   <br>
   <h2>Bids</h2>
+  <h4><a href="/dashboard/offer/<%= offer._id %>/map" class="btn btn-dark">View in map</a></h4>
   <div class="container">
     <div class="row">
       <% bids.forEach((bid) => { %>
@@ -126,9 +127,9 @@
 
 <script type="text/javascript">
 
-$().ready(function(){
-  $('[rel="tooltip"]').tooltip();
-});
+// $().ready(function(){
+//   $('[rel="tooltip"]').tooltip();
+// });
 
 function rotateCard(btn){
   var $card = $(btn).closest('.card-container');
@@ -139,4 +140,5 @@ function rotateCard(btn){
   }
 }
  </script>
+
 
