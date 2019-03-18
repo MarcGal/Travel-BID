@@ -30,15 +30,12 @@ router.get('/create', (req, res, next) => {
 
 // POST create offer
 router.post('/create', async (req, res, next) => {
-  console.log('we are in offer create');
   const { from, until, location, budget } = req.body;
   const unsplashKey = 'eaa9afcbc380f265dfce4a2a7fe4956c1b686d50ae369b133539b9a0e3b8fdc1';
   const userID = req.session.currentUser._id;
   try {
     const unsplashResp = await axios.get(`https://api.unsplash.com/photos/random?client_id=${unsplashKey}&query=${location}&orientation=squarish`);
-    console.log(unsplashResp);
     const image = unsplashResp.data.urls.regular;
-    console.log(image);
     if (Date.parse(from) < Date.now()) {
       req.flash('error', 'You can not make a reservation in the past bro');
       res.redirect('./create');
@@ -78,10 +75,9 @@ router.get('/offer/:id', async (req, res, next) => {
 // GET SEARCH INPUT
 router.get('/search', (req, res, next) => {
   const { search } = req.query;
- 
   Offer.find({ location: { $regex: new RegExp(search, 'i') }, Status: 0 })
     .then((offers) => {
-      res.render('protected/search', { offers });
+      res.render('protected/search', { offers, search });
     })
     .catch((error) => {
       next(error);
@@ -254,6 +250,23 @@ router.post('/bid/:id/update', (req, res, next) => {
     .catch((error) => {
       next(error);
     });
+});
+
+
+// RENDER MAP
+
+router.get('/offer/:id/map', async (req, res, next) => {
+  const { id } = req.params;
+  const userID = res.locals.currentUser._id;
+  try {
+    const offer = await Offer.findById(id);
+    const bids = await Bid.find({ offerID: offer._id})
+      .populate('roomID');
+    res.render('protected/map', { offer, bids, userID });
+  } catch (error) {
+    res.render('error');
+    next(error);
+  }
 });
 
 module.exports = router;

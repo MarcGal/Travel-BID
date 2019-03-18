@@ -1,0 +1,104 @@
+
+<html>
+  <head>
+  <meta charset='utf-8' />
+  <title>Set a point after Geocoder result</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://rawgit.com/mapbox/mapbox-gl-markers/master/dist/mapbox-gl-markers.js'></script>
+  <link href='https://rawgit.com/mapbox/mapbox-gl-markers/master/dist/mapbox-gl-markers.css' rel='stylesheet' />
+  <style>
+    body { margin:0; padding:0; }
+    #map {  width:100%; height: 100%}
+  </style>
+  </head>
+<body>
+
+ <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.min.js'></script>
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.css' type='text/css' />
+  <style>
+    #geocoder-container > div {
+    min-width:50%;
+    margin-left:25%;
+    }
+
+    .marker {
+      background-image: url('mapbox-icon.png');
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .mapboxgl-popup-close-button {
+  display: none;
+}
+
+.mapboxgl-popup-content {
+  font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+  padding: 0;
+  width: 180px;
+}
+
+.mapboxgl-popup-content-wrapper {
+  padding: 1%;
+}
+
+.mapboxgl-popup-content {
+  background: white;
+  color: #333A40;
+  margin: 0;
+  display: block;
+  padding: 10px;
+  border-radius: 3px 3px 0 0;
+  font-weight: 700;
+  margin-top: -15px;
+}
+
+.mapboxgl-popup-content h5 {
+  margin: 0;
+  display: block;
+  padding: 10px;
+  font-weight: 400;
+}
+
+.mapboxgl-popup-content div {
+  padding: 10px;
+}
+
+.mapboxgl-container .leaflet-marker-icon {
+  cursor: pointer;
+}
+
+.mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+  margin-top: 15px;
+}
+
+.mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+  border-bottom-color: #91c949;
+}
+  </style>
+
+  <div id='map' style="margin-bottom: 10%"></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v9',
+  center: [2.1734, 41.3851],
+  zoom: 12
+});
+<%bids.forEach((bid) => { %>
+  var popUps = document.getElementsByClassName('mapboxgl-popup');
+  var popup = new mapboxgl.Popup()
+  .setHTML('<h5>$<%=bid.bidValue%></5><br><p><%=bid.bidDescription%></p><br><a href="/dashboard/bid/<%= bid._id %>" class="btn btn-dark">See more</a>')
+  new mapboxgl.Marker({name: 'a',anchor: 'center', color:'blue'})
+  .setLngLat([<%=bid.roomID.location.coordinates%>])
+  .setPopup(popup)
+  .addTo(map);
+<% }) %>
+
+</script>

@@ -1,12 +1,14 @@
-<div class="container">
-<h2>Search results</h2>
+<div class="container text-center">
+<h2>Search results for<br> <%= search.toUpperCase()%> </h2>
   <% offers.forEach((offer) => { %>
-    <div class="card" style="">
+    <div class="card shadow-sm border border-info search-result" style="">
      <!-- <img class="img-thumbnail" src="#" alt="">-->
-      <div class="card-body">
+      <div class="card-body text-center search-result">
         <p class="card-text"><a href="./offer/<%= offer._id%>">
-        <%= offer.location %> <br>
-       Offered budget: <%= offer.budget %><br><br>
+       <h4>Offered budget: $<%= offer.budget %></h4>
+       <h5>From: <%= offer.from.toDateString() %></h5>
+       <h5>Until: <%= offer.until.toDateString() %></h5>
+       <h5> <%= (offer.until - offer.from)/8.64e+7 %> days</h5>
       </a></p>
       </div>
     </div>
