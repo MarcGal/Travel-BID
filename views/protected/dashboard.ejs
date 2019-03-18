@@ -1,18 +1,18 @@
 <div class="container">
-  <div class="" style="margin-top:1rem;">
-      <form class="form-inline my-2 my-lg-0" action="/dashboard/search" method="get">
+  <div class="d-flex justify-content-center" style="margin-top:1rem;">
+      <form class="form-inline my-2 my-lg-0 " action="/dashboard/search" method="get">
         <input class="form-control mr-sm-2" type="text" name="search" id="" placeholder="Search Offers">
-        <input class=" btn btn-outline-dark my-2 my-sm-0" type="submit" value="Search" id="button-search">
+        <input class=" btn btn-outline-dark my-2 my-sm-0 mx-auto" type="submit" value="Search" id="button-search">
       </form>  
-    </div>  
+  </div>  
 <div class="row ">
   <div class="col-12">
     <h3>Your Offers</h3>
   </div>
   <div class="container">
     <% offers.forEach((offer) => { %>
-      <div class="card" style="margin-top:1rem; margin-bottom: 1rem" >
-      <img src="<%= offer.image %>" class="img-thumbnail" alt="...">
+      <div class="card shadow-sm border border-info" style="margin-top:1rem; margin-bottom: 1rem" >
+     <!-- <img src="<%= offer.image %>" class="img-thumbnail" alt="...">-->
          <div class="card-body">
            <h5 class="card-title"><%= offer.location %></h5>
            <p class="card-text">Offered budget: <%= offer.budget %></p>
@@ -48,7 +48,7 @@
   </div>
   <div class="container">
       <% bids.forEach((bid) => { %>
-        <div class="card" style="margin-top:1rem; margin-bottom: 1rem" >
+        <div class="card border border-success" style="margin-top:1rem; margin-bottom: 1rem" >
            <div class="card-body">
              <h5 class="card-title">Value: <%= bid.bidValue %></h5>
              <p class="card-text">Description: <%= bid.bidDescription %></p>
