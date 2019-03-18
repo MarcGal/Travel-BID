@@ -260,13 +260,9 @@ router.get('/offer/:id/map', async (req, res, next) => {
   const userID = res.locals.currentUser._id;
   try {
     const offer = await Offer.findById(id);
-    const bids = await Bid.find({ offerID: offer._id});
-    const roomsArray = [];
-    for (const bid of bids) {
-      const room = await Rooms.findById(bid.roomID);
-      roomsArray.push(room);
-    };
-    res.render('protected/map', { offer, bids, userID, roomsArray });
+    const bids = await Bid.find({ offerID: offer._id})
+      .populate('roomID');
+    res.render('protected/map', { offer, bids, userID });
   } catch (error) {
     res.render('error');
     next(error);
