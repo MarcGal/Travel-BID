@@ -22,19 +22,19 @@
   <div class="form-group">
     <h2>Update your profile</h2>
     <label for="name"></label><br>
-    <input type="text" class="form-control-lg border border-primary" name="name" placeholder="Your name">
+    <input type="text" class="form-control-lg border border-primary" name="name" value="<%= user.name %>" placeholder="<%= user.name %>">
   </div>
   <div class="form-group">
     <label for="age"></label><br>
-    <input type="number" class="form-control-lg border border-primary" name="age" placeholder="age">
+    <input type="number" class="form-control-lg border border-primary" name="age" value="<%= user.age %>" placeholder="<%= user.age %>">
   </div>
   <div class="form-group">
     <label for="gender"></label><br>
-    <input type="text" class="form-control-lg border border-primary" name="gender" placeholder="gender">
+    <input type="text" class="form-control-lg border border-primary" name="gender" value="<%= user.gender %>" placeholder="<%= user.gender %>">
   </div>
   <div class="form-group">
     <label for="description"></label><br>
-    <input type="text" class="form-control-lg border border-primary" name="description" placeholder="description">
+    <input type="text" class="form-control-lg border border-primary" name="description" value="<%= user.description %>" placeholder="<%= user.description %>">
   </div>
   <button class="btn btn-primary" type="submit"> Update account</button>
   <br>
