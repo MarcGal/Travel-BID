@@ -43,7 +43,6 @@ var map = new mapboxgl.Map({
   center: [2.1734, 41.3851],
   zoom: 10
 });
-<%console.log(roomsArray)%>
 <%roomsArray.forEach((room) => { %>
   var popup = new mapboxgl.Popup()
   .setText("<%=room.accomodationDescription%>")
@@ -53,6 +52,7 @@ var map = new mapboxgl.Map({
   .setPopup(popup)
   .addTo(map);
 <% }) %>
+
 
 // var geojson = {
 //   type: 'FeatureCollection',

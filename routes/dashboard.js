@@ -262,17 +262,15 @@ router.get('/offer/:id/map', async (req, res, next) => {
     const offer = await Offer.findById(id);
     const bids = await Bid.find({ offerID: offer._id});
     const roomsArray = [];
-    await bids.forEach(async (bid) => {
+    for (const bid of bids) {
       const room = await Rooms.findById(bid.roomID);
-      await roomsArray.push(room);
-      res.render('protected/map', { offer, bids, userID, roomsArray });
-    });
+      roomsArray.push(room);
+    };
+    res.render('protected/map', { offer, bids, userID, roomsArray });
   } catch (error) {
     res.render('error');
     next(error);
   }
 });
-
-
 
 module.exports = router;
