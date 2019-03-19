@@ -62,9 +62,6 @@ router.get('/offer/:id', async (req, res, next) => {
     const offer = await Offer.findById(id);
     const offerOwner = await Users.findById(offer.userID);
     const bids = await Bid.find({ offerID: offer._id});
-    // const rooms = await bids.forEach((bid) => {
-    //   Rooms.find({ userID: bid.userID });
-    // });
     res.render('protected/offer', { offer, bids, userID, offerOwner });
   } catch (error) {
     res.render('error');
@@ -165,7 +162,6 @@ router.post('/offer/:id/bidnew', async (req, res, next) => {
 
 // GET BID DETAIL
 router.get('/bid/:id', async (req, res, next) => {
-  console.log('estamos en bid detail');
   const { id } = req.params;
   const userID = res.locals.currentUser._id;
   try {
@@ -173,7 +169,6 @@ router.get('/bid/:id', async (req, res, next) => {
     const bidOwner = await Users.findById(bid.userID);
     const offer = await Offer.findById(bid.offerID);
     const room = await Rooms.findOne({ userID: bidOwner.id });
-    console.log(room);
     res.render('protected/bid', { bid, userID, bidOwner, offer, room });
   } catch (error) {
     res.render('error');
