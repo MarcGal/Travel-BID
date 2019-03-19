@@ -18,23 +18,23 @@
                        <p class="text-center"> Until: <%= offer.until.toDateString()  %></p>
                        <p class="text-center">  Offered budget: <%= offer.budget %></p>
                    </div>
-                <% if (offer.userID == userID && offer.Status === 0 ) { %>
-                <div class="container text-center">
-                  <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
-                    <input  class="btn btn-primary" type="submit" value="Update">
-                  </form>
-                  <form class="d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
-                    <input class="btn btn-danger" type="submit" value="delete">
-                  </form>
-                </div>
-                <% } %>
-              
-                <% if (offer.userID != userID) { %>
-                 <div class="text-center">
-                    <button class="d-inline-block active-cyan-3 active-cyan-4 mb-4 btn-primary rounded" onclick="rotateCard(this)">
-                        See more
-                    </button>
+                 <% if (offer.userID == userID && offer.Status === 0 ) { %>
+                 <div class="container text-center">
+                   <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/update" method="get">
+                     <input  class="btn btn-primary" type="submit" value="Update">
+                   </form>
+                   <form class="d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/delete" method="post">
+                     <input class="btn btn-danger" type="submit" value="delete">
+                   </form>
                  </div>
+                 <% } %>
+              
+                 <% if (offer.userID != userID) { %>
+                  <div class="text-center">
+                     <button class="d-inline-block active-cyan-3 active-cyan-4 mb-4 btn-primary rounded" onclick="rotateCard(this)">
+                         See more
+                     </button>
+                  </div>
                 <% } %>
               </div>
            </div> 
@@ -117,19 +117,15 @@
   </div>
 
   <% if (offer.userID != userID) { %>
-  <div>
-    <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/bidnew" method="get">
-      <input class="btn btn-lg btn-primary" type="submit" value="Place a Bid">
-    </form>
-  </div>
+    <div>
+      <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/offer/<%= offer._id %>/bidnew" method="get">
+        <input class="btn btn-lg btn-primary" type="submit" value="Place a Bid">
+      </form>
+    </div>
   <% } %>
 
 
 <script type="text/javascript">
-
-// $().ready(function(){
-//   $('[rel="tooltip"]').tooltip();
-// });
 
 function rotateCard(btn){
   var $card = $(btn).closest('.card-container');
