@@ -66,11 +66,8 @@ router.get('/signup', (req, res, next) => {
 // POST SIGNUP FORM
 router.post('/signup', parser.single('image'), (req, res, next) => {
   const userImage = req.file.url;
-  // image.id = req.file.public_id; si queremos borrarla necesitaremos este id
   const {
     name, email, password,
-    // name, age, gender, description,
-    // accomodationAddress, accomodationDescription,
   } = req.body;
 
   if (email === '' || password === '' || name === '') {
@@ -104,7 +101,6 @@ router.post('/signup', parser.single('image'), (req, res, next) => {
 // LOGOUT USER
 router.get('/logout', (req, res, next) => {
   req.session.destroy((err) => {
-    // cannot access session here
     res.redirect('/');
   });
 });
