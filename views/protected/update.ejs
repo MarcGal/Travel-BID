@@ -90,15 +90,15 @@
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2FsIiwiYSI6ImNqdDRqbGJ2MzA0Mmc0NG55Y29sNnR1djUifQ.7_iCD0Qq6rri-WgOaFmCAg';
 var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v9',
-center: [0, 0],
-zoom: 17
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v9',
+  center: [0, 0],
+  zoom: 17
 });
 
 
 var geocoder = new MapboxGeocoder({
-accessToken: mapboxgl.accessToken
+  accessToken: mapboxgl.accessToken
 });
 
 geocoder.on('result', (response) => {
@@ -116,12 +116,12 @@ map.addControl(geocoder);
 // After the map style has loaded on the page, add a source layer and default
 // styling for a single point.
 map.on('load', function() {
-map.addSource('single-point', {
-  "type": "geojson",
-    "data": {
-    "type": "FeatureCollection",
-    "features": []
-  }
+  map.addSource('single-point', {
+    "type": "geojson",
+      "data": {
+      "type": "FeatureCollection",
+      "features": []
+    }
 });
 
 map.addLayer({
