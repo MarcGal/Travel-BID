@@ -38,7 +38,6 @@
   </div>
   <button class="btn btn-primary" type="submit"> Update account</button>
   <br>
-
 </form>
 
 
@@ -103,14 +102,13 @@ accessToken: mapboxgl.accessToken
 });
 
 geocoder.on('result', (response) => {
-console.log(response);
-const location = document.getElementById("location");
-location.value = response.result.geometry.coordinates[0];
-const location2 = document.getElementById("location2");
-location2.value = response.result.geometry.coordinates[1];
+  console.log(response);
+  const location = document.getElementById("location");
+  location.value = response.result.geometry.coordinates[0];
+  const location2 = document.getElementById("location2");
+  location2.value = response.result.geometry.coordinates[1];
 // pillar la geo lat lng 
 // añadir a input oculto 
-// 
 })
 
 map.addControl(geocoder);
@@ -119,11 +117,11 @@ map.addControl(geocoder);
 // styling for a single point.
 map.on('load', function() {
 map.addSource('single-point', {
-"type": "geojson",
-  "data": {
-  "type": "FeatureCollection",
-  "features": []
-}
+  "type": "geojson",
+    "data": {
+    "type": "FeatureCollection",
+    "features": []
+  }
 });
 
 map.addLayer({
