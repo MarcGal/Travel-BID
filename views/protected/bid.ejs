@@ -48,25 +48,25 @@
                 <div  >
                     <label >Amenities</label><br>
                     <% if(room.tv){%>
-                    <img src="/img/television.svg" class="icono" alt=""><br>
+                    <img src="/img/television.svg" class="icono" alt="">
                     <%}%>
                     <% if(room.wifi){%>
-                    <img src="/img/wifi.svg" class="icono" alt=""><br>
+                    <img src="/img/wifi.svg" class="icono" alt="">
                     <%}%>
                     <% if(room.air){%>
                     <img src="/img/acondicionador-de-aire.svg" class="icono" alt=""><br>
                     <%}%>
                     <% if(room.garage){%>
-                    <img src="/img/garaje.svg" class="icono" alt=""><br>
+                    <img src="/img/garaje.svg" class="icono" alt="">
                     <%}%>
                     <% if(room.air){%>
-                    <img src="/img/ascensor.svg" class="icono" alt=""><br>
+                    <img src="/img/ascensor.svg" class="icono" alt="">
                     <%}%>
                     <% if(room.termo){%>
-                    <img src="/img/termometro.svg" class="icono" alt=""><br>
+                    <img src="/img/termometro.svg" class="icono" alt="">
                     <%}%>
                     <% if(room.washer){%>
-                    <img src="/img/lavadora.svg" class="icono" alt=""><br>
+                    <img src="/img/lavadora.svg" class="icono" alt="">
                     <%}%>
                     <% if(room.pool){%>
                     <img src="/img/piscina.svg" class="icono" alt=""><br>
@@ -77,15 +77,15 @@
                     <% if(room.wheelchair){%>
                     <img src="/img/silla-de-ruedas.svg" class="icono" alt=""><br>
                     <%}%>
-                    <label >Are there any house rules?</label><br>
+                    <br><label >House Rules</label><br>
                     <% if(room.smoke){%>
-                    <img src="/img/cigarrete.svg" class="icono" alt=""><br>
+                    <img src="/img/cigarrete.svg" class="icono" alt="">
                     <%}%>
                     <% if(room.pet){%>
-                    <img src="/img/mascotas.svg" class="icono" alt=""><br>
+                    <img src="/img/mascotas.svg" class="icono" alt="">
                     <%}%>
                     <% if(room.couples){%>
-                    <img src="/img/pareja.svg" class="icono" alt=""><br>
+                    <img src="/img/pareja.svg" class="icono" alt="">
                     <%}%>
                     <div id='map' style="margin-bottom: 10%"></div>
                   </div>
@@ -114,30 +114,37 @@
 <% if (bid.userID == userID && bid.Status === 2) { %>
  <h4>Sorry, your bid was rejected</h4>
 <% } %>
+<% if (offer.userID == userID  && bid.Status === 1) { %>
+
+  <div>
+    <h4>Pay the Bid !</h4>
+    <form action="/dashboard/accepted" method="POST">
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_TYooMQauvdEDq54NiTphI7jx"
+          data-amount= <%= bid.bidValue*100%>
+          data-name="TravelBid.com"
+          data-description="Thanks for choose TravelBid !!!"
+          data-image="/img/mundo.svg"
+          data-locale="auto"
+          data-zip-code="true">
+
+        </script>
+<script>
+document.getElementsByClassName('stripe-button-el')[0].style.display = "none"
+</script>
+    <input class="btn btn-success btn-lg" type="submit" value="PAY">
+
+ <% } %>
 
 <% if (offer.userID == userID && bid.Status === 0) { %>
   <div>
-      <form action="/dashboard/accepted" method="POST">
-          <script
-            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="pk_test_TYooMQauvdEDq54NiTphI7jx"
-            data-amount= <%= bid.bidValue*100%>
-            data-name="TravelBid.com"
-            data-description="Thanks for choose TravelBid !!!"
-            data-image="/img/mundo.svg"
-            data-locale="auto"
-            data-zip-code="true">
-
-          </script>
-<script>
- document.getElementsByClassName('stripe-button-el')[0].style.display = "none"
-</script>
+    <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/accept" method="get">
       <input class="btn btn-primary" type="submit" value="Accept">
+    </form>
     <form class=" d-inline-block active-cyan-3 active-cyan-4 mb-4" action="/dashboard/bid/<%= bid._id %>/decline" method="get">
       <input class="btn btn-danger" type="submit" value="Decline">
-    </form>         
-        </form>
-
+    </form>
   </div>
 <% } %>
 

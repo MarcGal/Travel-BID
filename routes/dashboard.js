@@ -195,7 +195,7 @@ router.post('/bid/:id/delete', async (req, res, next) => {
   }
 });
 // GET BID ACCEPT
-router.post('/bid/:id/accept', async (req, res, next) => {
+router.get('/bid/:id/accept', async (req, res, next) => {
   const { id } = req.params;
   try {
     const bid = await Bid.findById(id);
