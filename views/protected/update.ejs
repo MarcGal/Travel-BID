@@ -40,7 +40,12 @@
   <br>
 
 </form>
+<script>
+ function tv () {console.log("hola") 
+//  document.getElementById("tv-label").style("background-color:red")
+}
 
+</script>
 
 
 <form class="container text-center" id="form" action="/user/update/room" enctype="multipart/form-data"  method="POST">
@@ -67,22 +72,61 @@
   </div>
   <div>
       <label >Choose the amenities</label><br>
-      <img src="/img/television.svg" class="icono" alt=""><input type="checkbox" name="tv" id="">
-      <img src="/img/wifi.svg" class="icono" alt=""><input type="checkbox" name="wifi" id="">
-      <img src="/img/acondicionador-de-aire.svg" class="icono" alt=""><input type="checkbox" name="air" id="">
-      <img src="/img/garaje.svg" class="icono" alt=""><input type="checkbox" name="garage" id="">
-      <img src="/img/ascensor.svg" class="icono" alt=""><input type="checkbox" name="ascensor" id="">
-      <img src="/img/termometro.svg" class="icono" alt=""><input type="checkbox" name="termo" id="">
-      <img src="/img/lavadora.svg" class="icono" alt=""><input type="checkbox" name="washer" id="">
-      <img src="/img/piscina.svg" class="icono" alt=""><input type="checkbox" name="pool" id="">
-      <img src="/img/ducha.svg" class="icono" alt=""><input type="checkbox" name="privatebathroom" id="">
-      <img src="/img/silla-de-ruedas.svg" class="icono" alt=""><input type="checkbox" name="wheelchair" id="">
+      <label for="tv" >
+      <img src="/img/television.svg" class="icono" alt="" id="tv-label">
+    </label>
+    <input type="checkbox" name="tv" id="tv" onclick="document.getElementById('tv-label').style.backgroundColor='#2E80BC'" >
+      <label for="wifi">
+    <img src="/img/wifi.svg" class="icono" alt="" id="wifi-label">
+      </label>
+    <input type="checkbox" name="wifi" id="wifi" onclick="document.getElementById('wifi-label').style.backgroundColor='#2E80BC'">
+      <label for="air">
+         <img src="/img/acondicionador-de-aire.svg" class="icono" alt="" id="air-label">
+       </label>
+      <input type="checkbox" name="air" id="air" onclick="document.getElementById('air-label').style.backgroundColor='#2E80BC'">
+       <label for="garage">
+      <img src="/img/garaje.svg" class="icono" alt="" id="garage-label">
+      </label>
+      <input type="checkbox" name="garage" id="garage" onclick="document.getElementById('garage-label').style.backgroundColor='#2E80BC'">
+      <label for="ascensor">
+      <img src="/img/ascensor.svg" class="icono" alt="" id="ascensor-label">
+       </label>
+        <input type="checkbox" name="ascensor" id="ascensor" onclick="document.getElementById('ascensor-label').style.backgroundColor='#2E80BC'">
+      <label for="termo">
+        <img src="/img/termometro.svg" class="icono" alt="" id="termo-label">
+      </label>
+      <input type="checkbox" name="termo" id="termo" onclick="document.getElementById('termo-label').style.backgroundColor='#2E80BC'">
+      <label for="washer">
+      <img src="/img/lavadora.svg" class="icono" alt="" id="washer-label">
+    </label>
+    <input type="checkbox" name="washer" id="washer"onclick="document.getElementById('washer-label').style.backgroundColor='#2E80BC'">
+      <label for="piscina">
+    <img src="/img/piscina.svg" class="icono" alt="" id="piscina-label">
+    </label>
+    <input type="checkbox" name="pool" id="piscina" onclick="document.getElementById('piscina-label').style.backgroundColor='#2E80BC'">
+      <label for="ducha">  
+    <img src="/img/ducha.svg" class="icono" alt="" id="ducha-label">
+    </label>
+    <input type="checkbox" name="privatebathroom" id="ducha"onclick="document.getElementById('ducha-label').style.backgroundColor='#2E80BC'">
+    <label for="silla"> 
+    <img src="/img/silla-de-ruedas.svg" class="icono" alt="" id="silla-label">
+    </label> 
+     <input type="checkbox" name="wheelchair" id="silla"onclick="document.getElementById('silla-label').style.backgroundColor='#2E80BC'">
   </div>
   <div>
       <label >Are there any house rules?</label><br>
-      <img src="/img/cigarrete.svg" class="icono" alt=""><input type="checkbox" name="smoke" id="">
-      <img src="/img/mascotas.svg" class="icono" alt=""><input type="checkbox" name="pet" id="">
-      <img src="/img/pareja.svg" class="icono" alt=""><input type="checkbox" name="couples" id="">
+      <label for="smoke">
+      <img src="/img/cigarrete.svg" class="icono" alt="" id="smoke-label">
+      </label>
+      <input type="checkbox" name="smoke" id="smoke" onclick="document.getElementById('smoke-label').style.backgroundColor='#2E80BC'">
+      <label for="pet">
+      <img src="/img/mascotas.svg" class="icono" alt="" id="pet-label">
+      </label>
+      <input type="checkbox" name="pet" id="pet"onclick="document.getElementById('pet-label').style.backgroundColor='#2E80BC'">
+      <label for="couple">
+      <img src="/img/pareja.svg" class="icono" alt="" id="couple-label">
+      </label>
+      <input type="checkbox" name="couples" id="couple"onclick="document.getElementById('couple-label').style.backgroundColor='#2E80BC'">
   </div>
   <button class="btn btn-primary" type="submit"> Create Room</button>
   <a class="btn btn-danger" href="/user">Cancel</a>
