@@ -195,7 +195,7 @@ router.post('/bid/:id/delete', async (req, res, next) => {
   }
 });
 // GET BID ACCEPT
-router.get('/bid/:id/accept', async (req, res, next) => {
+router.post('/bid/:id/accept', async (req, res, next) => {
   const { id } = req.params;
   try {
     const bid = await Bid.findById(id);
@@ -252,7 +252,6 @@ router.post('/bid/:id/update', (req, res, next) => {
     });
 });
 
-
 // RENDER MAP
 
 router.get('/offer/:id/map', async (req, res, next) => {
@@ -268,5 +267,11 @@ router.get('/offer/:id/map', async (req, res, next) => {
     next(error);
   }
 });
+
+// Stripe route
+router.post('/accepted', (req, res, next)=> {
+  res.redirect('/dashboard');
+});
+
 
 module.exports = router;
