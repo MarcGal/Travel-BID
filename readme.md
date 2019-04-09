@@ -23,15 +23,12 @@ Anna is 35 years old and she works at an NGO as a project manager. She is not a 
 - **Bid create** - As a user I want to be able to bid on the offers I find interesting 
 - **Accept Bids** - As a user I must have the power to accept bids others have made on my offers.
 - **Reject Bids** - As a user I should be able to reject bids made on my offers.
-- **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
-- **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
-
------
-Backlog
 - **Offer detail** - As a user I want to see the details of the offers I have created, including the bids that other users have made on it.
 - **Bid detail** - As a user I want to see the details of my own bids. Also the details of other bids that are competing with mine. 
 - **Update My Bids&Offers** - As a user I must be able to edit and update all my created offers and bids
 - **Delete My Bids&Offers** - As a user I must be able to delete the offers and bids I have created.
+- **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
+- **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
 
 ## Backlog
 List of other features outside of the MVPs scope
@@ -40,7 +37,7 @@ List of other features outside of the MVPs scope
 - see my profile
 - Update profile
 - Upload my profile picture
-- see other users profile?
+- see other users profile
 
 
 #### Geo Location:
@@ -50,8 +47,29 @@ List of other features outside of the MVPs scope
 #### Social Login
 - Facebook
 
+#### Private Messages
+- User can send and receive private messages
+
+#### Confirmation email
+- Users receive confirmation emails when signing up, and when their offers and bids are accepted or rejected
+
+#### Push Notifications
+- Users receive live notifications when:
+  - Receiving private messages
+  - When a new offer is placed in their city
+  - When one of their offers or bids is accepted or rejected
+  - When a new bid is made on one of their offers
+
+
+#### Favorites
+- Users can save their favorite offers and bids
+
+
 #### Ratings
-- Rate users
+- Users can rate other users
+
+#### Responsive Design
+- Make app responsive for deskop
 
 ## ROUTES
 
@@ -60,19 +78,50 @@ URL
 Method
 Description
 
-| Description     | Method                  | Test Text     |
-| :---            |    :----:               |          :---:|
-| ‘/’             | GET           | Renders homepage with service info and login & signup buttons |
-| /login          | GET / POST    | Renders login form |
-| /signup         | GET / POST    | Renders signup form |
-| /dashboard      | GET | Renders user start page, showing open offers and bids. |
-| /dashboard/q | GET | Renders list of offers matching query string |
-| /offer/:ID | GET | Renders info for a specific offer and the bids made on it. |
-| /offer/new | GET/POST | Renders create form and posts to DB. |
-| /offer/:ID/update | GET/POST | Renders update form and posts update. |
-| /offer/:ID/bid/new | GET/POST | Renders create form and posts to DB |
-| /bid/:ID | GET | Renders bid infoAccept / reject button || Update button || Only info|
-| /bid/:ID/update | GET/POST | Renders update form and updates DB |
+### Index Router
+| Description        | Method                  | Test Text     |
+| :---               |    :----:               |          :---:|
+| api'/’             | GET           | Renders homepage with service info and login & signup buttons |
+| api/login          | POST    | Authenticates |
+| api/signup         | POST    | Authenticates |
+
+### Dashboard Router
+| Description        | Method                  | Test Text     |
+| :---               |    :----:               |          :---:|
+| api/dashboard      | GET | Renders user start page, showing open offers and bids. |
+| api/dashboard/q    | GET | Renders list of offers matching query string |
+
+
+### Offer Router
+| Description           | Method                  | Test Text     |
+| :---                  |    :----:               |          :---:|
+| api/offer/:ID         | GET  | Renders info for a specific offer and the bids made on it. |
+| api/offer         | POST | Renders create form and posts to DB. |
+| api/offer/:ID  | PUT  | Renders update form and posts update. |
+| api/offer/:ID  | DELETE  | Renders update form and posts update. |
+
+
+### Bid Router
+| Description        | Method                  | Test Text     |
+| :---               |    :----:               |          :---:|
+| api/bid/:ID        | GET    | Renders bid info / Accept / reject button || Update button || Only info|
+| api/bid        | POST   | creates new BID (Required: Offer ID)
+| api/bid/:ID | PUT    | Renders update form and updates DB |
+| api/bid/:ID | DELETE | Renders update form and updates DB |
+
+### User Router
+| Description           | Method                  | Test Text     |
+| :---                  |    :----:               |          :---:|
+| api/user/:ID          | GET   | Renders info for a specific offer and the bids made on it. |
+| api/user/:ID          | PUT   | Renders update form and posts update. |
+
+
+### Room Router
+| Description         | Method                  | Test Text     |
+| :---                |    :----:               |          :---:|
+| api/room/:ID        | GET  | Room info |
+| api/room            | POST | Renders create form and posts to DB. |
+| api/room/:ID        | PUT  | Renders update form and posts update. |
 
 
 
@@ -84,88 +133,97 @@ Description
 ```javascript
 {
   email: { type: String, required: true, unique: true },
-
   password: { type: String, required: true },
-
-  name: { type: String, required: true },
-
+  name: { type: String, default: '', required: true },
   age: { type: Number, default: '' },
-
   gender: { type: String, default: '' },
-
   description: { type: String, default: '' },
-
-  accomodationAddress: { type: String },
-
-  accomodationDescription: { type: String },
-
-  userImage: { type: String, default: 'link' },
-
-  accomodationImage: { type: String, default: 'link' },
-
+  userImage: { type: String },
 }, { timestamps: true });
 ```
-
-
-
 
 
 #### Bid Model
 ```javascript
 {
   userID: {
-
     type: ObjectId,
-
     ref: 'User',
   },
-
   offerID: {
-
-    type: String,
-    
+    type: ObjectId,
     ref: 'Offer',
-
   },
-
+  roomID: {
+    type: ObjectId,
+    ref: 'Room',
+  },
   bidValue: {
-
     type: Number,
-
   },
-
   bidDescription: {
-
     type: String,
-
   },
-
+  Status: {
+    type: Number,
+    default: 0,
+  },
+  accomodationImage: {
+    type: String,
+  },
 }, { timestamps: true });
 ```
-
-
+#### Room Model
+```javascript
+{
+  userID: {
+    type: ObjectId,
+    ref: 'User',
+  }, 
+  location: {
+    type: {
+      type: String,
+    },
+    coordinates: [Number],
+  },
+  privateRoom: { type: String },
+  sharedRoom: { type: String },
+  entireProperty: { type: String },
+  tv: { type: String },
+  wifi: { type: String },
+  air: { type: String },
+  garage: { type: String },
+  termo: { type: String },
+  whaser: { type: String },
+  pool: { type: String },
+  privateBathroom: { type: String },
+  wheelchair: { type: String },
+  smoke: { type: String },
+  pet: { type: String },
+  couples: { type: String },
+  accomodationDescription: { type: String },
+  accomodationImage: { type: String },
+  facilities: [String],
+}, { timestamps: true });
+```
 
 
 #### Offer Model
 ```javascript
 {
   userID: {
-
     type: ObjectId,
-    
     ref: 'User',
   },
-
-  from: { type: String },
-
-  until: { type: String },
-
-  location: { type: String },
-
+  image: { type: String },
+  from: { type: Date },
+  until: { type: Date },
+  location: { type: String, uppercase: true },
   budget: { type: Number },
-
-  bids: { type: Array },
-
+  Status: {
+    type: Number,
+    default: 0,
+  },
 }, { timestamps: true });
 ```
 

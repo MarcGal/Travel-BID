@@ -10,7 +10,7 @@ const roomSchema = new Schema({
   userID: {
     type: ObjectId,
     ref: 'User',
-  },
+  }, 
   location: {
     type: {
       type: String,
@@ -32,7 +32,6 @@ const roomSchema = new Schema({
   smoke: { type: String },
   pet: { type: String },
   couples: { type: String },
-
   accomodationDescription: { type: String },
   accomodationImage: { type: String },
   facilities: [String],
