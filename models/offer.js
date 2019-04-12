@@ -20,7 +20,12 @@ const offerSchema = new Schema({
     type: Number,
     default: 0,
   },
-}, { timestamps: true });
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  },
+});
 
 
 const Offer = mongoose.model('Offer', offerSchema);

@@ -10,7 +10,7 @@ const roomSchema = new Schema({
   userID: {
     type: ObjectId,
     ref: 'User',
-  }, 
+  },
   location: {
     type: {
       type: String,
@@ -35,7 +35,12 @@ const roomSchema = new Schema({
   accomodationDescription: { type: String },
   accomodationImage: { type: String },
   facilities: [String],
-}, { timestamps: true });
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  },
+});
 
 roomSchema.index({ location: '2dsphere' });
 

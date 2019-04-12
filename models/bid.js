@@ -31,7 +31,12 @@ const bidSchema = new Schema({
   accomodationImage: {
     type: String,
   },
-}, { timestamps: true });
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  },
+});
 
 const Bid = mongoose.model('Bid', bidSchema);
 

@@ -12,8 +12,6 @@ const userSchema = new Schema({
   userImage: { type: String },
 }, { timestamps: true });
 
-userSchema.index({ location: '2dsphere' });
-
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
